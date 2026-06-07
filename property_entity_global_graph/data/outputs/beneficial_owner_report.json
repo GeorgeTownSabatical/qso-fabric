@@ -1,0 +1,21 @@
+[
+  {
+    "beneficial_owner": "JACOB T MESSER",
+    "asset": "405-112-17",
+    "chain_depth": 1,
+    "path": [
+      "JACOB T MESSER",
+      "405-112-17"
+    ]
+  },
+  {
+    "beneficial_owner": "JACOB MESSER",
+    "asset": "405-112-18",
+    "chain_depth": 2,
+    "path": [
+      "JACOB MESSER",
+      "MESNER HOLDINGS LLC",
+      "405-112-18"
+    ]
+  }
+]

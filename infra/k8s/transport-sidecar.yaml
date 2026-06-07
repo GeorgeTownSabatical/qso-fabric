@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qso-transport-sidecar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: qso-transport-sidecar
+  template:
+    metadata:
+      labels:
+        app: qso-transport-sidecar
+    spec:
+      containers:
+        - name: qso-node
+          image: qso-fabric:latest
+          args: ["--serve-http", "--host", "0.0.0.0", "--port", "8000"]
+          env:
+            - name: QSO_TRANSPORT_STATE_PATH
+              value: /var/lib/qso/state/transport_state.json
+            - name: QSO_NETWORK_AUDIT_PATH
+              value: /var/lib/qso/state/network_audit.jsonl
+            - name: QSO_TRANSPORT_POLICY_VERSION
+              value: v1
+            - name: QSO_TOR_SOCKS_HOST
+              value: 127.0.0.1
+            - name: QSO_TOR_SOCKS_PORT
+              value: "9050"
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: qso-data
+              mountPath: /var/lib/qso
+        - name: tor
+          image: dperson/torproxy
+          ports:
+            - containerPort: 9050
+      volumes:
+        - name: qso-data
+          emptyDir: {}

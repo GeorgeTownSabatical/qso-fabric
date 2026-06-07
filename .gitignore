@@ -1,0 +1,23 @@
+# Local virtual environments and caches
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+.DS_Store
+.env
+
+# Local Codex state and secrets
+.codex/state/
+.codex/tasks/
+.codex/state/secrets/
+.codex/state/*.key
+.codex/state/*.pem
+.codex/state/*.env
+.codex/state/certs/
+
+# Local runtime artifacts
+logs/
+*.log
+*.tmp

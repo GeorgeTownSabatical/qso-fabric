@@ -1,0 +1,12 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='760' viewBox='0 0 1200 760'>
+<rect x='0' y='0' width='1200' height='760' fill='#0b0b12'/>
+<text x='70' y='36' fill='#e7e7e7' font-size='20' font-family='Menlo, Monaco, monospace'>Shadow Throne Demo Preview | profile=cinematic_low_light | frame_hash=cbe3ec8b15a7ad00f1762569150d1d2af568b8a934f631334e66f5defdc6da15 | seeded_nodes=3</text>
+<rect x='70' y='70' width='1060' height='620' fill='none' stroke='#e7e7e7' stroke-opacity='0.35' stroke-width='1'/>
+<circle cx='70.00' cy='70.00' r='8.45' fill='#d23b3b' fill-opacity='0.82' stroke='#e7e7e7' stroke-opacity='0.35' stroke-width='1' />
+<text x='80.00' y='60.00' fill='#e7e7e7' font-size='13' font-family='Menlo, Monaco, monospace'>queen_avatar (x=0.00, y=1.40, z=0.00)</text>
+<circle cx='70.00' cy='690.00' r='17.09' fill='#d23b3b' fill-opacity='0.82' stroke='#e7e7e7' stroke-opacity='0.35' stroke-width='1' />
+<text x='80.00' y='680.00' fill='#e7e7e7' font-size='13' font-family='Menlo, Monaco, monospace'>sentinel_shadow (x=0.00, y=2.20, z=-3.20)</text>
+<circle cx='70.00' cy='70.00' r='18.00' fill='#d23b3b' fill-opacity='0.82' stroke='#e7e7e7' stroke-opacity='0.35' stroke-width='1' />
+<text x='80.00' y='60.00' fill='#e7e7e7' font-size='13' font-family='Menlo, Monaco, monospace'>throne_room (x=0.00, y=24.00, z=0.00)</text>
+<text x='70' y='738' fill='#e7e7e7' font-size='13' font-family='Menlo, Monaco, monospace' opacity='0.85'>Projection: world_bounds center plotted on X/Z plane; circle size encodes bounds radius.</text>
+</svg>

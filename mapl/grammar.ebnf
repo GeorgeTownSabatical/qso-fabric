@@ -1,0 +1,8 @@
+command = context , task , modules , output ;
+context = "@" , identifier ;
+task = ">" , identifier ;
+modules = "+" , identifier , { "," , identifier } ;
+output = "->" , identifier , { "," , identifier } ;
+identifier = letter , { letter | digit | "_" } ;
+letter = "A".."Z" | "a".."z" ;
+digit = "0".."9" ;

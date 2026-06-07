@@ -1,0 +1,49 @@
+{
+  "ingestion_ok": true,
+  "reasoning_ok": true,
+  "hypothesis_ok": true,
+  "steps": {
+    "ingestion": {
+      "cmd": [
+        "python3",
+        "run_global_graph.py"
+      ],
+      "cwd": "/Users/ALISTAIRE/qso-fabric/property_entity_global_graph",
+      "returncode": 0,
+      "stdout": "{\n  \"graph_json\": \"/Users/ALISTAIRE/qso-fabric/property_entity_global_graph/data/outputs/global_graph.json\",\n  \"node_count\": 18,\n  \"edge_count\": 22,\n  \"beneficial_owner_findings\": 2,\n  \"shell_shared_address_clusters\": 1,\n  \"surname_clusters\": 3,\n  \"velocity_flags\": 2,\n  \"control_networks\": 4,\n  \"obfuscation_entities_flagged\": 0,\n  \"probabilistic_links\": 1\n}\n",
+      "stderr": ""
+    },
+    "reasoning": {
+      "cmd": [
+        "python3",
+        "pipeline/reasoning_pipeline.py",
+        "--graph-json",
+        "/Users/ALISTAIRE/qso-fabric/property_entity_global_graph/data/outputs/global_graph.json",
+        "--output-dir",
+        "/Users/ALISTAIRE/qso-fabric/graph_reasoning_engine/data/outputs"
+      ],
+      "cwd": "/Users/ALISTAIRE/qso-fabric/graph_reasoning_engine",
+      "returncode": 0,
+      "stdout": "{\n  \"node_count\": 18,\n  \"edge_count\": 22,\n  \"feature_nodes\": 18,\n  \"embedding_nodes\": 18,\n  \"clusters\": 4,\n  \"rapid_transfer_parcels\": 1,\n  \"ownership_cycles\": 0,\n  \"beneficial_owner_candidates\": 5,\n  \"influence_hubs\": 18,\n  \"predicted_links\": 30\n}\n",
+      "stderr": ""
+    },
+    "hypothesis": {
+      "cmd": [
+        "python3",
+        "pipeline/autonomous_cycle.py",
+        "--graph-json",
+        "/Users/ALISTAIRE/qso-fabric/property_entity_global_graph/data/outputs/global_graph.json",
+        "--reasoning-dir",
+        "/Users/ALISTAIRE/qso-fabric/graph_reasoning_engine/data/outputs",
+        "--output-dir",
+        "/Users/ALISTAIRE/qso-fabric/autonomous_investigation_ai/data/outputs",
+        "--max-cycles",
+        "1"
+      ],
+      "cwd": "/Users/ALISTAIRE/qso-fabric/autonomous_investigation_ai",
+      "returncode": 0,
+      "stdout": "{\n  \"cycle\": 1,\n  \"generated_hypotheses\": 4,\n  \"confirmed\": 1,\n  \"rejected\": 0,\n  \"needs_more_data\": 0,\n  \"active_hypotheses\": 3,\n  \"results\": [\n    {\n      \"hypothesis_id\": \"H-b06734d1be\",\n      \"type\": \"transfer_velocity\",\n      \"description\": \"Rapid transfer pattern detected across 1 parcel(s); possible coordinated ownership maneuvering.\",\n      \"confidence\": 0.8,\n      \"status\": \"confirmed\",\n      \"supporting_evidence\": [\n        \"Rapid transfer parcel anomaly persisted\"\n      ],\n      \"contradicting_evidence\": [],\n      \"created_at\": \"2026-03-12T13:03:43.665285+00:00\",\n      \"evidence_score\": {\n        \"score\": 1.0,\n        \"support\": 1,\n        \"contradict\": 0,\n        \"neutral\": 0\n      }\n    },\n    {\n      \"hypothesis_id\": \"H-13149dbb10\",\n      \"type\": \"control_network\",\n      \"description\": \"Entity 405-112-17 appears as influence hub; potential hidden control network.\",\n      \"confidence\": 0.75,\n      \"status\": \"open\",\n      \"supporting_evidence\": [\n        \"405-112-17 linked to 2 parcels\"\n      ],\n      \"contradicting_evidence\": [],\n      \"created_at\": \"2026-03-12T13:03:43.665522+00:00\",\n      \"evidence_score\": {\n        \"score\": 1.0,\n        \"support\": 1,\n        \"contradict\": 0,\n        \"neutral\": 0\n      }\n    },\n    {\n      \"hypothesis_id\": \"H-bfbb762ff2\",\n      \"type\": \"ownership_cluster\",\n      \"description\": \"Detected 4 dense cluster(s) that may indicate shared beneficial ownership.\",\n      \"confidence\": 0.7,\n      \"status\": \"open\",\n      \"supporting_evidence\": [\n        \"1 shared-address clusters found\"\n      ],\n      \"contradicting_evidence\": [],\n      \"created_at\": \"2026-03-12T13:03:43.665559+00:00\",\n      \"evidence_score\": {\n        \"score\": 1.0,\n        \"support\": 1,\n        \"contradict\": 0,\n        \"neutral\": 0\n      }\n    },\n    {\n      \"hypothesis_id\": \"H-0bb3c652a1\",\n      \"type\": \"undisclosed_relationship\",\n      \"description\": \"High-probability link predictions suggest relationships not yet recorded in source graph.\",\n      \"confidence\": 0.475,\n      \"status\": \"open\",\n      \"supporting_evidence\": [\n        \"High-probability missing links exist\"\n      ],\n      \"contradicting_evidence\": [],\n      \"created_at\": \"2026-03-12T13:03:43.665566+00:00\",\n      \"evidence_score\": {\n        \"score\": 0.5,\n        \"support\": 1,\n        \"contradict\": 0,\n        \"neutral\": 1\n      }\n    }\n  ]\n}\n",
+      "stderr": ""
+    }
+  }
+}

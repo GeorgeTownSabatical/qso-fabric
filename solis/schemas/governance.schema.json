@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "governance.schema.json",
+  "title": "Solis Governance",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "chain_id",
+    "participation_rate",
+    "yes_ratio",
+    "vote_spike",
+    "quorum_threshold",
+    "contention_index"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "proposal_id": { "type": "string", "minLength": 1 },
+    "chain_id": { "type": "string", "minLength": 1 },
+    "participation_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+    "yes_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+    "vote_spike": { "type": "number", "minimum": 0 },
+    "quorum_threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+    "contention_index": { "type": "number", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

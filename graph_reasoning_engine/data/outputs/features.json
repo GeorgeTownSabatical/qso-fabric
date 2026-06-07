@@ -1,0 +1,200 @@
+{
+  "405-112-17": {
+    "node_type": "Parcel",
+    "degree": 8,
+    "in_degree": 5,
+    "out_degree": 3,
+    "connections": 3,
+    "ownership_count": 2,
+    "transfer_frequency": 0,
+    "company_links": 1,
+    "shared_addresses": 4
+  },
+  "JACOB T MESSER": {
+    "node_type": "Person",
+    "degree": 2,
+    "in_degree": 0,
+    "out_degree": 2,
+    "connections": 2,
+    "ownership_count": 1,
+    "transfer_frequency": 0,
+    "company_links": 1,
+    "shared_addresses": 0
+  },
+  "101 HARBOR ST, ORANGE, CA": {
+    "node_type": "Address",
+    "degree": 4,
+    "in_degree": 4,
+    "out_degree": 0,
+    "connections": 0,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "405-112-18": {
+    "node_type": "Parcel",
+    "degree": 5,
+    "in_degree": 3,
+    "out_degree": 2,
+    "connections": 2,
+    "ownership_count": 1,
+    "transfer_frequency": 0,
+    "company_links": 1,
+    "shared_addresses": 4
+  },
+  "MESNER HOLDINGS LLC": {
+    "node_type": "SECEntity",
+    "degree": 6,
+    "in_degree": 4,
+    "out_degree": 2,
+    "connections": 2,
+    "ownership_count": 1,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 4
+  },
+  "2024000012345": {
+    "node_type": "Document",
+    "degree": 1,
+    "in_degree": 0,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "Smith Trust": {
+    "node_type": "Trust",
+    "degree": 1,
+    "in_degree": 0,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 1,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "Jacob Messer": {
+    "node_type": "Person",
+    "degree": 1,
+    "in_degree": 1,
+    "out_degree": 0,
+    "connections": 0,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "2024000012399": {
+    "node_type": "Document",
+    "degree": 1,
+    "in_degree": 0,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "Jacob T Messer": {
+    "node_type": "Person",
+    "degree": 1,
+    "in_degree": 0,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 1,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "Mesner Holdings LLC": {
+    "node_type": "LLC",
+    "degree": 2,
+    "in_degree": 1,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 1,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "2024000012550": {
+    "node_type": "Document",
+    "degree": 1,
+    "in_degree": 0,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "Messar Ventures LLC": {
+    "node_type": "LLC",
+    "degree": 1,
+    "in_degree": 1,
+    "out_degree": 0,
+    "connections": 0,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "JACOB MESSER": {
+    "node_type": "Person",
+    "degree": 2,
+    "in_degree": 0,
+    "out_degree": 2,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "J T MESSER": {
+    "node_type": "Person",
+    "degree": 1,
+    "in_degree": 0,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "MESSAR VENTURES LLC": {
+    "node_type": "LLC",
+    "degree": 4,
+    "in_degree": 1,
+    "out_degree": 3,
+    "connections": 3,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 4
+  },
+  "30-2024-01234567-CU-OR-CJC": {
+    "node_type": "CourtCase",
+    "degree": 2,
+    "in_degree": 2,
+    "out_degree": 0,
+    "connections": 0,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  },
+  "SMITH TRUST": {
+    "node_type": "Trust",
+    "degree": 1,
+    "in_degree": 0,
+    "out_degree": 1,
+    "connections": 1,
+    "ownership_count": 0,
+    "transfer_frequency": 0,
+    "company_links": 0,
+    "shared_addresses": 0
+  }
+}

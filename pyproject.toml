@@ -1,0 +1,102 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qso-fabric"
+version = "0.1.0"
+description = "QSO distributed runtime with MCP tools, QFF snapshots, and GDML primitives"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.6",
+  "pynacl>=1.5",
+  "websockets>=12",
+  "liboqs-python>=0.14",
+]
+
+[project.scripts]
+qso-nlm-search = "tools.qso_nlm_search:main"
+qso-nlm-ingest = "tools.qso_nlm_ingest:main"
+qso-edu-apc-bootstrap = "tools.qso_edu_apc_bootstrap:main"
+solis-task-manifest = "tools.solis_task_manifest:main"
+solis-replay-hashes = "tools.solis_replay_hashes:main"
+solis-orchestrator = "tools.solis_orchestrator:main"
+solis-property-fraud = "tools.solis_property_fraud:main"
+solis-orange-county-apn-db = "tools.solis_orange_county_apn_db:main"
+solis-orange-county-scope = "tools.solis_orange_county_scope:main"
+solis-orange-county-kaggle-export = "tools.solis_orange_county_kaggle_export:main"
+codexctl = "tools.codexctl:main"
+codexctl-transport = "tools.codexctl_transport:main"
+qso-edu-mcp-stdio = "tools.qso_edu_mcp_stdio:main"
+qso-plus-bridge-http = "tools.qso_plus_bridge_http:main"
+qso-chat = "tools.qso_chat:main"
+qso-chat-ws = "tools.qso_chat_ws:main"
+qso-chat-smoke = "tools.smoke_chat_stack:main"
+qso-verify-hardened-wss = "tools.verify_hardened_wss:main"
+qso-prepare-submission = "tools.prepare_submission_bundle:main"
+qso-dev = "tools.dev_automation:main"
+qso-xr-dev-cli = "tools.qso_xr_dev_cli:main"
+qso-xr-program = "tools.qso_xr_program:main"
+qso-xr-autopilot = "tools.qso_xr_autopilot:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.6",
+  "mypy>=1.10",
+]
+kaggle = [
+  "polars>=1.0",
+  "pyarrow>=18.0",
+]
+
+[tool.setuptools.packages.find]
+include = [
+  "api*",
+  "services*",
+  "qff*",
+  "gdml*",
+  "sdk*",
+  "qso_runtime*",
+  "identity_layer*",
+  "state_layer*",
+  "timeline_layer*",
+  "entanglement_graph*",
+  "snapshot_engine*",
+  "mcp_server*",
+  "mcp_qso_edu*",
+  "sandbox_mcp*",
+  "tools*",
+  "qso_visualization*",
+  "qso_vr_visualization*",
+  "qso_vr_world*",
+  "qso_vr_interaction*",
+  "qso_vr_tensor_manip*",
+  "qso_vr_entangle*",
+  "qso_vr_hud*",
+  "qso_xr*",
+  "qso_global_meta*",
+  "core*",
+  "federation*",
+  "snapshot*",
+  "meta*",
+  "storage*",
+  "observability*",
+  "solis*",
+]
+exclude = ["infra*", "tests*", "config*", "cmd*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+  "zk_command_path: real circom/snarkjs command-path smoke coverage (opt-in)",
+  "nightly_replay: long-run deterministic replay coverage (nightly lane)",
+  "live_alpaca: live Alpaca execution adapter integration coverage",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_configs = true
+pretty = true

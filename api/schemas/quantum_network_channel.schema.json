@@ -1,0 +1,13 @@
+{
+  "$id": "qso://quantum.network.channel",
+  "type": "object",
+  "properties": {
+    "uri": { "type": "string", "pattern": "^qso://quantum.network.channel/.+$" },
+    "entanglement_generation_rate": { "type": "number" },
+    "fidelity": { "type": "number" },
+    "decoherence_profile": { "type": "object" },
+    "routing_latency_ms": { "type": "number" },
+    "purification_strategy": { "type": "string" }
+  },
+  "required": ["uri"]
+}

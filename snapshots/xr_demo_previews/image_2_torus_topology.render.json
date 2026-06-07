@@ -1,0 +1,117 @@
+{
+  "frame": 2,
+  "frame_hash": "7c8a9ff8558cf7373fff29c8f264767d27c6a651aed6216b82a4adc4e1fd69f9",
+  "integrity": {
+    "issues": [],
+    "ok": true
+  },
+  "matrix_order": "row_major",
+  "projection": "scene.render_v1",
+  "stats": {
+    "culled": 0,
+    "total_nodes": 3,
+    "visible": 3
+  },
+  "visible": [
+    {
+      "layer_mask": 2,
+      "material": null,
+      "mesh": null,
+      "node_id": "annotation_panel",
+      "uri": "qso://xr.world.preview/image_2_torus_topology/node/annotation_panel",
+      "world_bounds": {
+        "center": [
+          -5.2,
+          3.0,
+          0.0
+        ],
+        "radius": 3.342813
+      },
+      "world_matrix": [
+        2.4,
+        0.0,
+        0.0,
+        -5.2,
+        0.0,
+        1.4,
+        0.0,
+        3.0,
+        0.0,
+        0.0,
+        0.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "layer_mask": 2,
+      "material": "qso://mat.math.purple_loop",
+      "mesh": "qso://mesh.math.loop_bundle",
+      "node_id": "cohomology_loops",
+      "uri": "qso://xr.world.preview/image_2_torus_topology/node/cohomology_loops",
+      "world_bounds": {
+        "center": [
+          0.0,
+          0.1,
+          0.0
+        ],
+        "radius": 16.004149
+      },
+      "world_matrix": [
+        4.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        4.2,
+        0.0,
+        0.1,
+        0.0,
+        0.0,
+        4.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "layer_mask": 1,
+      "material": "qso://mat.math.translucent_substrate",
+      "mesh": "qso://mesh.math.torus",
+      "node_id": "torus_core",
+      "uri": "qso://xr.world.preview/image_2_torus_topology/node/torus_core",
+      "world_bounds": {
+        "center": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "radius": 13.856406
+      },
+      "world_matrix": [
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "world_uri": "qso://xr.world.preview/image_2_torus_topology"
+}

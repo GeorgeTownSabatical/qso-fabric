@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QSO XR Local Demo Viewer</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --panel: #181c26;
+      --panel-2: #11151e;
+      --text: #e7eaf1;
+      --muted: #a6afc0;
+      --accent: #4f8cff;
+      --border: #2a3140;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: radial-gradient(circle at 20% 0%, #1a2233 0%, var(--bg) 46%);
+      color: var(--text);
+    }
+    header { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+    h1 { margin: 0 0 8px 0; font-size: 22px; }
+    .sub { color: var(--muted); font-size: 13px; }
+    .sub a { color: var(--accent); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 16px;
+      padding: 16px;
+    }
+    .card {
+      background: linear-gradient(160deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.24);
+    }
+    .title { font-size: 17px; margin: 0 0 10px 0; }
+    .meta { font-size: 12px; color: var(--muted); margin-bottom: 10px; line-height: 1.55; }
+    .preview {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      background: #0c0f16;
+    }
+    .links a { color: var(--accent); text-decoration: none; margin-right: 10px; font-size: 12px; }
+    .links a:hover { text-decoration: underline; }
+    .needs { margin: 10px 0 8px 0; padding-left: 16px; font-size: 12px; color: var(--muted); }
+    .hash { font-size: 11px; color: #8dd3ff; word-break: break-all; margin: 8px 0; }
+    .controls {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 10px;
+      background: rgba(17,22,31,0.6);
+      font-size: 12px;
+    }
+    .controls .row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0;
+    }
+    .controls label { color: #c9d3e5; }
+    .controls input[type="range"] { width: 160px; }
+    .controls button {
+      border: 1px solid var(--border);
+      background: #202738;
+      color: #dce7ff;
+      border-radius: 6px;
+      padding: 4px 9px;
+      cursor: pointer;
+    }
+    canvas {
+      width: 100%;
+      height: 260px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #0d1119;
+      cursor: grab;
+    }
+    canvas:active { cursor: grabbing; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 11px; }
+    th, td { border-bottom: 1px solid #273043; padding: 6px; text-align: left; }
+    th { color: #9db4d8; }
+    .footer { padding: 0 16px 16px 16px; color: var(--muted); font-size: 12px; }
+    .tag { display:inline-block; padding:2px 8px; border:1px solid var(--border); border-radius: 999px; font-size: 11px; color: #c0d6ff; margin-right: 6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>QSO XR Local Demo Viewer</h1>
+    <div class="sub">Interactive diagnostic viewer for the two canonical demos. Drag in plot to pan, use controls for camera yaw/pitch/zoom and layer masking. Also open the <a href="./webxr_viewer.html">WebGL/WebXR renderer</a>.</div>
+  </header>
+
+  <main class="grid" id="grid"></main>
+  <div class="footer">Projection uses rotated world centers with perspective depth. Layer toggles apply bitmask filtering against each node's layer_mask.</div>
+
+<script>
+const DEMOS = [{"id": "image_1_shadow_throne", "needs": ["atmospheric low-key lighting", "single focal silhouette clarity", "depth layering for sentinel figure", "slow camera drift with minimal UI"], "png": "image_1_shadow_throne.preview.png", "render": "image_1_shadow_throne.png.render.json", "render_payload": {"frame": 2, "frame_hash": "aeb6c39fecd1f128cccc1059b8ba1f141fcf433b2496a9b18a8c818123f7787f", "integrity": {"issues": [], "ok": true}, "matrix_order": "row_major", "projection": "scene.render_v1", "stats": {"culled": 0, "total_nodes": 3, "visible": 3}, "visible": [{"layer_mask": 1, "material": "qso://mat.avatar.midnight_steel", "mesh": "qso://mesh.avatar.regal_queen", "node_id": "queen_avatar", "uri": "qso://xr.world.preview.png/image_1_shadow_throne/node/queen_avatar", "world_bounds": {"center": [0.0, 1.4, 0.0], "radius": 1.224745}, "world_matrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.4, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 1, "material": "qso://mat.entity.void_black", "mesh": "qso://mesh.entity.shadow_sentinel", "node_id": "sentinel_shadow", "uri": "qso://xr.world.preview.png/image_1_shadow_throne/node/sentinel_shadow", "world_bounds": {"center": [0.0, 2.2, -3.2], "radius": 5.542563}, "world_matrix": [3.2, 0.0, 0.0, 0.0, 0.0, 3.2, 0.0, 2.2, 0.0, 0.0, 3.2, -3.2, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 1, "material": "qso://mat.cinematic.obsidian", "mesh": null, "node_id": "throne_room", "uri": "qso://xr.world.preview.png/image_1_shadow_throne/node/throne_room", "world_bounds": {"center": [0.0, 24.0, 0.0], "radius": 112.569978}, "world_matrix": [12.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 0.0, 0.0, 0.0, 12.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], "world_uri": "qso://xr.world.preview.png/image_1_shadow_throne"}, "source_image": "Image #1", "svg": "image_1_shadow_throne.preview.svg", "theme": "cinematic_low_light", "title": "Shadow Throne Demo"}, {"id": "image_2_torus_topology", "needs": ["annotation and label readability", "geometry-first clarity", "semantic color channel separation", "fixed camera framing"], "png": "image_2_torus_topology.preview.png", "render": "image_2_torus_topology.png.render.json", "render_payload": {"frame": 2, "frame_hash": "7cd3f1aeeaa3568ce16b600a64e5bc240697707a494d5147bf2e9c1d055803bb", "integrity": {"issues": [], "ok": true}, "matrix_order": "row_major", "projection": "scene.render_v1", "stats": {"culled": 0, "total_nodes": 3, "visible": 3}, "visible": [{"layer_mask": 2, "material": null, "mesh": null, "node_id": "annotation_panel", "uri": "qso://xr.world.preview.png/image_2_torus_topology/node/annotation_panel", "world_bounds": {"center": [-5.2, 3.0, 0.0], "radius": 3.342813}, "world_matrix": [2.4, 0.0, 0.0, -5.2, 0.0, 1.4, 0.0, 3.0, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 2, "material": "qso://mat.math.purple_loop", "mesh": "qso://mesh.math.loop_bundle", "node_id": "cohomology_loops", "uri": "qso://xr.world.preview.png/image_2_torus_topology/node/cohomology_loops", "world_bounds": {"center": [0.0, 0.1, 0.0], "radius": 16.004149}, "world_matrix": [4.2, 0.0, 0.0, 0.0, 0.0, 4.2, 0.0, 0.1, 0.0, 0.0, 4.2, 0.0, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 1, "material": "qso://mat.math.translucent_substrate", "mesh": "qso://mesh.math.torus", "node_id": "torus_core", "uri": "qso://xr.world.preview.png/image_2_torus_topology/node/torus_core", "world_bounds": {"center": [0.0, 0.0, 0.0], "radius": 13.856406}, "world_matrix": [4.0, 0.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], "world_uri": "qso://xr.world.preview.png/image_2_torus_topology"}, "source_image": "Image #2", "svg": "image_2_torus_topology.preview.svg", "theme": "analytic_educational", "title": "Torus Topology Demo"}];
+
+function rotateXYZ(p, yawDeg, pitchDeg) {
+  const yaw = yawDeg * Math.PI / 180;
+  const pitch = pitchDeg * Math.PI / 180;
+  const cy = Math.cos(yaw), sy = Math.sin(yaw);
+  const cp = Math.cos(pitch), sp = Math.sin(pitch);
+  const x1 = cy * p.x - sy * p.z;
+  const z1 = sy * p.x + cy * p.z;
+  const y2 = cp * p.y - sp * z1;
+  const z2 = sp * p.y + cp * z1;
+  return { x: x1, y: y2, z: z2 };
+}
+
+function drawPlot(canvas, rows, theme, camera, filterMask) {
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.width = canvas.clientWidth * dpr;
+  const h = canvas.height = canvas.clientHeight * dpr;
+  const pad = 30 * dpr;
+
+  ctx.fillStyle = theme === 'cinematic_low_light' ? '#0b0d14' : '#f7f9ff';
+  ctx.fillRect(0, 0, w, h);
+  if (!rows.length) return [];
+
+  const filtered = rows.filter(r => ((r.layer_mask || 0) & filterMask) !== 0);
+  if (!filtered.length) {
+    ctx.fillStyle = theme === 'cinematic_low_light' ? '#f0f2f6' : '#111827';
+    ctx.font = `${12*dpr}px Menlo, Monaco, monospace`;
+    ctx.fillText('No nodes visible with current layer mask.', pad, pad + 15 * dpr);
+    return [];
+  }
+
+  const transformed = filtered.map(row => {
+    const c = row.world_bounds.center;
+    const p = rotateXYZ({x: c[0], y: c[1], z: c[2]}, camera.yaw, camera.pitch);
+    return { row, p };
+  });
+
+  const xs = transformed.map(v => v.p.x);
+  const ys = transformed.map(v => v.p.y);
+  const zs = transformed.map(v => v.p.z);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const spanX = Math.max(1e-6, maxX - minX);
+  const spanY = Math.max(1e-6, maxY - minY);
+  const zMin = Math.min(...zs), zMax = Math.max(...zs);
+  const zSpan = Math.max(1e-6, zMax - zMin);
+
+  const baseW = (w - 2 * pad);
+  const baseH = (h - 2 * pad);
+  ctx.strokeStyle = theme === 'cinematic_low_light' ? '#2a3244' : '#ccd7ef';
+  ctx.strokeRect(pad, pad, baseW, baseH);
+
+  const outRows = [];
+  transformed.forEach(item => {
+    const zNorm = (item.p.z - zMin) / zSpan;
+    const depth = 0.65 + (1.0 - zNorm) * 0.7;
+    const x = pad + ((item.p.x - minX) / spanX) * baseW * camera.zoom * depth + camera.panX * dpr;
+    const y = h - pad - ((item.p.y - minY) / spanY) * baseH * camera.zoom * depth + camera.panY * dpr;
+    const radius = item.row.world_bounds.radius || 1;
+    const r = Math.max(4*dpr, Math.min(20*dpr, (4 + radius * 3.2) * depth));
+
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = theme === 'cinematic_low_light'
+      ? `rgba(211,74,74,${Math.min(0.98, 0.55 + depth*0.25)})`
+      : `rgba(41,87,216,${Math.min(0.98, 0.50 + depth*0.28)})`;
+    ctx.fill();
+    ctx.strokeStyle = theme === 'cinematic_low_light' ? '#f0f2f640' : '#11182750';
+    ctx.stroke();
+
+    ctx.fillStyle = theme === 'cinematic_low_light' ? '#f0f2f6' : '#111827';
+    ctx.font = `${10*dpr}px Menlo, Monaco, monospace`;
+    ctx.fillText(item.row.node_id, x + 8*dpr, y - 8*dpr);
+
+    outRows.push(item.row);
+  });
+  return outRows;
+}
+
+function tableRowsHTML(rows) {
+  return rows.map(r => `<tr><td>${r.node_id}</td><td>${r.world_bounds.center.map(v => Number(v).toFixed(3)).join(', ')}</td><td>${Number(r.world_bounds.radius).toFixed(3)}</td><td>${r.layer_mask}</td></tr>`).join('');
+}
+
+function buildCard(demo) {
+  const render = demo.render_payload;
+  const rows = render.visible || [];
+  const uid = demo.id.replace(/[^a-z0-9_\-]/gi, '_');
+
+  const card = document.createElement('section');
+  card.className = 'card';
+  card.innerHTML = `
+    <h2 class="title">${demo.title}</h2>
+    <div class="meta">
+      <span class="tag">${demo.source_image}</span>
+      <span class="tag">${demo.theme}</span><br/>
+      visible_nodes=${render.stats?.visible ?? 0} | total_nodes=${render.stats?.total_nodes ?? 0}
+    </div>
+    <img class="preview" src="${demo.png}" alt="${demo.title} PNG preview" />
+    <div class="links">
+      <a href="${demo.png}" target="_blank">open PNG</a>
+      <a href="${demo.svg}" target="_blank">open SVG</a>
+      <a href="${demo.render}" target="_blank">open render JSON</a>
+    </div>
+    <div class="hash">frame_hash=${render.frame_hash || ''}</div>
+    <ul class="needs">${demo.needs.map(n => `<li>${n}</li>`).join('')}</ul>
+    <div class="controls">
+      <div class="row">
+        <label><input type="checkbox" data-layer="1" checked /> layer 1</label>
+        <label><input type="checkbox" data-layer="2" checked /> layer 2</label>
+        <label><input type="checkbox" data-layer="4" checked /> layer 4</label>
+        <button data-action="reset">reset camera</button>
+      </div>
+      <div class="row">
+        <label>yaw <input type="range" min="-180" max="180" value="35" step="1" data-range="yaw" /></label>
+        <label>pitch <input type="range" min="-80" max="80" value="15" step="1" data-range="pitch" /></label>
+        <label>zoom <input type="range" min="0.4" max="2.6" value="1" step="0.05" data-range="zoom" /></label>
+      </div>
+      <div class="row" id="stats-${uid}"></div>
+    </div>
+    <canvas></canvas>
+    <table>
+      <thead><tr><th>node_id</th><th>center (x,y,z)</th><th>radius</th><th>layer</th></tr></thead>
+      <tbody id="table-${uid}"></tbody>
+    </table>
+  `;
+
+  const canvas = card.querySelector('canvas');
+  const statsEl = card.querySelector(`#stats-${uid}`);
+  const tableEl = card.querySelector(`#table-${uid}`);
+  const checks = Array.from(card.querySelectorAll('input[type=checkbox][data-layer]'));
+  const ranges = Array.from(card.querySelectorAll('input[type=range][data-range]'));
+  const resetBtn = card.querySelector('button[data-action=reset]');
+
+  const camera = { yaw: 35, pitch: 15, zoom: 1, panX: 0, panY: 0 };
+  let dragging = false;
+  let lastX = 0;
+  let lastY = 0;
+
+  function currentMask() {
+    return checks.reduce((acc, el) => acc | (el.checked ? Number(el.dataset.layer) : 0), 0);
+  }
+
+  function renderFrame() {
+    const mask = currentMask();
+    const visible = drawPlot(canvas, rows, demo.theme, camera, mask);
+    statsEl.textContent = `mask=${mask} | shown=${visible.length} | yaw=${camera.yaw.toFixed(0)} | pitch=${camera.pitch.toFixed(0)} | zoom=${camera.zoom.toFixed(2)} | pan=(${camera.panX.toFixed(1)}, ${camera.panY.toFixed(1)})`;
+    tableEl.innerHTML = tableRowsHTML(visible);
+  }
+
+  checks.forEach(el => el.addEventListener('change', renderFrame));
+  ranges.forEach(el => el.addEventListener('input', () => {
+    const key = el.dataset.range;
+    camera[key] = Number(el.value);
+    renderFrame();
+  }));
+  resetBtn.addEventListener('click', () => {
+    camera.yaw = 35; camera.pitch = 15; camera.zoom = 1; camera.panX = 0; camera.panY = 0;
+    ranges.forEach(el => {
+      if (el.dataset.range === 'yaw') el.value = '35';
+      if (el.dataset.range === 'pitch') el.value = '15';
+      if (el.dataset.range === 'zoom') el.value = '1';
+    });
+    renderFrame();
+  });
+
+  canvas.addEventListener('mousedown', (ev) => {
+    dragging = true;
+    lastX = ev.clientX;
+    lastY = ev.clientY;
+  });
+  window.addEventListener('mouseup', () => dragging = false);
+  canvas.addEventListener('mousemove', (ev) => {
+    if (!dragging) return;
+    const dx = ev.clientX - lastX;
+    const dy = ev.clientY - lastY;
+    lastX = ev.clientX;
+    lastY = ev.clientY;
+    camera.panX += dx;
+    camera.panY += dy;
+    renderFrame();
+  });
+  canvas.addEventListener('wheel', (ev) => {
+    ev.preventDefault();
+    const delta = ev.deltaY > 0 ? -0.06 : 0.06;
+    camera.zoom = Math.min(2.6, Math.max(0.4, camera.zoom + delta));
+    const zoomRange = ranges.find(r => r.dataset.range === 'zoom');
+    if (zoomRange) zoomRange.value = String(camera.zoom);
+    renderFrame();
+  }, { passive: false });
+
+  window.addEventListener('resize', renderFrame);
+  renderFrame();
+  return card;
+}
+
+const grid = document.getElementById('grid');
+DEMOS.forEach(d => grid.appendChild(buildCard(d)));
+</script>
+</body>
+</html>

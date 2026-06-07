@@ -1,0 +1,19 @@
+{
+  "$id": "qso://quantum.state",
+  "type": "object",
+  "properties": {
+    "uri": { "type": "string", "pattern": "^qso://quantum.state/.+$" },
+    "object_kind": { "type": "string" },
+    "backend": { "type": "string" },
+    "qubit_count": { "type": "integer", "minimum": 1 },
+    "circuit_spec": { "type": "object" },
+    "fabric_payload": { "type": "object" },
+    "coherence_threshold": { "type": "number" },
+    "measurement_schema": { "type": "object" },
+    "logical_entanglement_graph": { "type": "array" },
+    "classical_shadow": { "type": "object" },
+    "execution_proof": { "type": "object" },
+    "verification_hash": { "type": "string" }
+  },
+  "required": ["uri", "backend"]
+}

@@ -1,0 +1,81 @@
+{
+  "generated_hypotheses": 4,
+  "confirmed": 1,
+  "rejected": 0,
+  "needs_more_data": 0,
+  "active_hypotheses": 3,
+  "results": [
+    {
+      "hypothesis_id": "H-b06734d1be",
+      "type": "transfer_velocity",
+      "description": "Rapid transfer pattern detected across 1 parcel(s); possible coordinated ownership maneuvering.",
+      "confidence": 0.8,
+      "status": "confirmed",
+      "supporting_evidence": [
+        "Rapid transfer parcel anomaly persisted"
+      ],
+      "contradicting_evidence": [],
+      "created_at": "2026-03-12T13:04:14.559351+00:00",
+      "evidence_score": {
+        "score": 1.0,
+        "support": 1,
+        "contradict": 0,
+        "neutral": 0
+      }
+    },
+    {
+      "hypothesis_id": "H-13149dbb10",
+      "type": "control_network",
+      "description": "Entity 405-112-17 appears as influence hub; potential hidden control network.",
+      "confidence": 0.75,
+      "status": "open",
+      "supporting_evidence": [
+        "405-112-17 linked to 2 parcels"
+      ],
+      "contradicting_evidence": [],
+      "created_at": "2026-03-12T13:04:14.559384+00:00",
+      "evidence_score": {
+        "score": 1.0,
+        "support": 1,
+        "contradict": 0,
+        "neutral": 0
+      }
+    },
+    {
+      "hypothesis_id": "H-bfbb762ff2",
+      "type": "ownership_cluster",
+      "description": "Detected 4 dense cluster(s) that may indicate shared beneficial ownership.",
+      "confidence": 0.7,
+      "status": "open",
+      "supporting_evidence": [
+        "1 shared-address clusters found"
+      ],
+      "contradicting_evidence": [],
+      "created_at": "2026-03-12T13:04:14.559399+00:00",
+      "evidence_score": {
+        "score": 1.0,
+        "support": 1,
+        "contradict": 0,
+        "neutral": 0
+      }
+    },
+    {
+      "hypothesis_id": "H-0bb3c652a1",
+      "type": "undisclosed_relationship",
+      "description": "High-probability link predictions suggest relationships not yet recorded in source graph.",
+      "confidence": 0.475,
+      "status": "open",
+      "supporting_evidence": [
+        "High-probability missing links exist"
+      ],
+      "contradicting_evidence": [],
+      "created_at": "2026-03-12T13:04:14.559412+00:00",
+      "evidence_score": {
+        "score": 0.5,
+        "support": 1,
+        "contradict": 0,
+        "neutral": 1
+      }
+    }
+  ]
+}

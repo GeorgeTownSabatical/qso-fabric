@@ -1,0 +1,9 @@
+{
+  "status": "ok",
+  "root_uri": "qso://knowledge.nlm.digital_collections",
+  "documents_ingested": 40,
+  "total_matches_reported": 2000,
+  "pages_fetched": 2,
+  "query_term": "cholera",
+  "snapshot_out": "snapshots/nlm_knowledge_demo.qff"
+}

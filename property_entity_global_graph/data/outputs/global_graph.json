@@ -1,0 +1,231 @@
+{
+  "nodes": [
+    {
+      "id": "405-112-17",
+      "apn": "405-112-17",
+      "type": "Parcel"
+    },
+    {
+      "id": "JACOB T MESSER",
+      "name": "JACOB T MESSER",
+      "type": "Person"
+    },
+    {
+      "id": "101 HARBOR ST, ORANGE, CA",
+      "address": "101 HARBOR ST, ORANGE, CA",
+      "type": "Address"
+    },
+    {
+      "id": "405-112-18",
+      "apn": "405-112-18",
+      "type": "Parcel"
+    },
+    {
+      "id": "MESNER HOLDINGS LLC",
+      "name": "MESNER HOLDINGS LLC",
+      "type": "SECEntity",
+      "formation_date": "2018-04-01"
+    },
+    {
+      "id": "2024000012345",
+      "instrument_type": "Grant Deed",
+      "date": "2024-02-12",
+      "type": "Document"
+    },
+    {
+      "id": "Smith Trust",
+      "name": "SMITH TRUST",
+      "type": "Trust"
+    },
+    {
+      "id": "Jacob Messer",
+      "name": "JACOB MESSER",
+      "type": "Person"
+    },
+    {
+      "id": "2024000012399",
+      "instrument_type": "Quitclaim Deed",
+      "date": "2024-06-02",
+      "type": "Document"
+    },
+    {
+      "id": "Jacob T Messer",
+      "name": "JACOB T MESSER",
+      "type": "Person"
+    },
+    {
+      "id": "Mesner Holdings LLC",
+      "name": "MESNER HOLDINGS LLC",
+      "type": "LLC"
+    },
+    {
+      "id": "2024000012550",
+      "instrument_type": "Grant Deed",
+      "date": "2024-08-21",
+      "type": "Document"
+    },
+    {
+      "id": "Messar Ventures LLC",
+      "name": "MESSAR VENTURES LLC",
+      "type": "LLC"
+    },
+    {
+      "id": "JACOB MESSER",
+      "name": "JACOB MESSER",
+      "type": "Person"
+    },
+    {
+      "id": "J T MESSER",
+      "name": "J T MESSER",
+      "type": "Person"
+    },
+    {
+      "id": "MESSAR VENTURES LLC",
+      "name": "MESSAR VENTURES LLC",
+      "formation_date": "2021-07-20",
+      "type": "LLC"
+    },
+    {
+      "id": "30-2024-01234567-CU-OR-CJC",
+      "case_type": "Real Property",
+      "filed_date": "2024-10-10",
+      "type": "CourtCase"
+    },
+    {
+      "id": "SMITH TRUST",
+      "name": "SMITH TRUST",
+      "type": "Trust"
+    }
+  ],
+  "edges": [
+    {
+      "source": "405-112-17",
+      "target": "101 HARBOR ST, ORANGE, CA",
+      "type": "REGISTERED_AT"
+    },
+    {
+      "source": "405-112-17",
+      "target": "Jacob Messer",
+      "type": "OWNED_BY",
+      "date": "2024-02-12",
+      "document": "2024000012345"
+    },
+    {
+      "source": "405-112-17",
+      "target": "Mesner Holdings LLC",
+      "type": "OWNED_BY",
+      "date": "2024-06-02",
+      "document": "2024000012399"
+    },
+    {
+      "source": "JACOB T MESSER",
+      "target": "405-112-17",
+      "type": "OWNS",
+      "from_ts": "2024-01-10"
+    },
+    {
+      "source": "JACOB T MESSER",
+      "target": "MESSAR VENTURES LLC",
+      "type": "DIRECTOR_OF"
+    },
+    {
+      "source": "405-112-18",
+      "target": "101 HARBOR ST, ORANGE, CA",
+      "type": "REGISTERED_AT"
+    },
+    {
+      "source": "405-112-18",
+      "target": "Messar Ventures LLC",
+      "type": "OWNED_BY",
+      "date": "2024-08-21",
+      "document": "2024000012550"
+    },
+    {
+      "source": "MESNER HOLDINGS LLC",
+      "target": "405-112-18",
+      "type": "OWNS",
+      "from_ts": "2024-01-11"
+    },
+    {
+      "source": "MESNER HOLDINGS LLC",
+      "target": "101 HARBOR ST, ORANGE, CA",
+      "type": "REGISTERED_AT"
+    },
+    {
+      "source": "2024000012345",
+      "target": "405-112-17",
+      "type": "RECORDED_IN",
+      "date": "2024-02-12"
+    },
+    {
+      "source": "Smith Trust",
+      "target": "405-112-17",
+      "type": "TRANSFERRED",
+      "date": "2024-02-12",
+      "document": "2024000012345"
+    },
+    {
+      "source": "2024000012399",
+      "target": "405-112-17",
+      "type": "RECORDED_IN",
+      "date": "2024-06-02"
+    },
+    {
+      "source": "Jacob T Messer",
+      "target": "405-112-17",
+      "type": "TRANSFERRED",
+      "date": "2024-06-02",
+      "document": "2024000012399"
+    },
+    {
+      "source": "Mesner Holdings LLC",
+      "target": "405-112-18",
+      "type": "TRANSFERRED",
+      "date": "2024-08-21",
+      "document": "2024000012550"
+    },
+    {
+      "source": "2024000012550",
+      "target": "405-112-18",
+      "type": "RECORDED_IN",
+      "date": "2024-08-21"
+    },
+    {
+      "source": "JACOB MESSER",
+      "target": "MESNER HOLDINGS LLC",
+      "type": "DIRECTOR_OF"
+    },
+    {
+      "source": "JACOB MESSER",
+      "target": "MESNER HOLDINGS LLC",
+      "type": "OFFICER_OF"
+    },
+    {
+      "source": "J T MESSER",
+      "target": "MESNER HOLDINGS LLC",
+      "type": "DIRECTOR_OF"
+    },
+    {
+      "source": "MESSAR VENTURES LLC",
+      "target": "101 HARBOR ST, ORANGE, CA",
+      "type": "REGISTERED_AT"
+    },
+    {
+      "source": "MESSAR VENTURES LLC",
+      "target": "MESNER HOLDINGS LLC",
+      "type": "SUBSIDIARY_OF"
+    },
+    {
+      "source": "MESSAR VENTURES LLC",
+      "target": "30-2024-01234567-CU-OR-CJC",
+      "type": "INVOLVED_IN",
+      "role": "plaintiff"
+    },
+    {
+      "source": "SMITH TRUST",
+      "target": "30-2024-01234567-CU-OR-CJC",
+      "type": "INVOLVED_IN",
+      "role": "defendant"
+    }
+  ]
+}

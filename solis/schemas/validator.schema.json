@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "validator.schema.json",
+  "title": "Solis Validator",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "validator_id",
+    "chain_id",
+    "stake",
+    "slash_count",
+    "uptime_ratio",
+    "reward_rate",
+    "trust_score"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "validator_id": { "type": "string", "minLength": 1 },
+    "chain_id": { "type": "string", "minLength": 1 },
+    "stake": { "type": "number", "minimum": 0 },
+    "slash_count": { "type": "integer", "minimum": 0 },
+    "uptime_ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+    "reward_rate": { "type": "number", "minimum": 0 },
+    "trust_score": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": false
+}

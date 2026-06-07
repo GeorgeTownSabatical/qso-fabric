@@ -1,0 +1,10 @@
+sources:
+  assessor:
+    name: OC Assessor GIS
+    mode: mock
+  recorder:
+    name: OC RecorderWorks
+    mode: mock
+  gis:
+    name: OC GIS
+    mode: mock

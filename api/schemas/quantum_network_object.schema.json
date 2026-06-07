@@ -1,0 +1,74 @@
+{
+  "$id": "qso://quantum.network.object",
+  "title": "Quantum Network Object",
+  "description": "Deterministic, auditable quantum job or fabric-analysis object for QSO fabric.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string", "default": "1.0" },
+    "uri": { "type": "string", "pattern": "^qso://quantum\\.(state|node|entanglement|network\\.channel|logical_layer|patch|overlap|fabric)/.+$" },
+    "object_kind": {
+      "type": "string",
+      "enum": ["circuit_job", "fabric"],
+      "default": "circuit_job"
+    },
+    "session_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "policy_version": { "type": "string" },
+    "backend": {
+      "type": "string",
+      "enum": ["simulator", "ion_trap", "superconducting", "photonic", "neutral_atom", "remote_grpc", "qiskit", "cirq", "itensor", "fabric_gluing"]
+    },
+    "backend_constraints": {
+      "type": "object",
+      "properties": {
+        "qubit_min": { "type": "integer", "minimum": 1 },
+        "architecture": {
+          "type": "string",
+          "enum": ["superconducting", "ion_trap", "photonic", "neutral_atom", "hybrid"]
+        },
+        "connectivity": {
+          "type": "string",
+          "enum": ["all_to_all", "heavy_hex", "linear", "grid", "custom"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "qubit_count": { "type": "integer", "minimum": 1 },
+    "circuit_spec": { "type": "object" },
+    "circuit_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "logical_entanglement_graph": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "kind": { "type": "string" }
+        },
+        "required": ["source", "target"],
+        "additionalProperties": true
+      }
+    },
+    "fabric_payload": { "type": "object" },
+    "coherence_threshold": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "measurement_schema": { "type": "object" },
+    "classical_shadow": { "type": "object" },
+    "error_model": { "type": "object" },
+    "surface_code_layout": { "type": "object" },
+    "execution_proof": { "type": "object" },
+    "verification_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "state_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "required": [
+    "schema_version",
+    "uri",
+    "session_id",
+    "created_at",
+    "updated_at",
+    "policy_version",
+    "backend",
+    "verification_hash"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contract.schema.json",
+  "title": "Solis Contract",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "contract_id",
+    "chain_id",
+    "tx_volume",
+    "congestion_index",
+    "fee_pressure",
+    "settlement_latency_ms",
+    "failure_rate"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "contract_id": { "type": "string", "minLength": 1 },
+    "chain_id": { "type": "string", "minLength": 1 },
+    "tx_volume": { "type": "number", "minimum": 0 },
+    "congestion_index": { "type": "number", "minimum": 0 },
+    "fee_pressure": { "type": "number", "minimum": 0 },
+    "settlement_latency_ms": { "type": "number", "minimum": 0 },
+    "failure_rate": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": false
+}

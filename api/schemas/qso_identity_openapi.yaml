@@ -1,0 +1,248 @@
+openapi: 3.1.0
+info:
+  title: QSO Sovereign Identity API
+  version: 1.0.0
+  description: Deterministic, event-sourced, zero-trust identity and federation API.
+servers:
+  - url: http://localhost:8000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    SignedRequest:
+      type: object
+      required: [actor, policy_version, signature]
+      properties:
+        actor:
+          type: string
+          description: Actor URI
+        policy_version:
+          type: string
+        signature:
+          type: string
+    IdentityCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/SignedRequest'
+        - type: object
+          required: [identity_id, immutable_core]
+          properties:
+            identity_id:
+              type: string
+            immutable_core:
+              type: object
+              additionalProperties: true
+    IdentityMutateRequest:
+      allOf:
+        - $ref: '#/components/schemas/SignedRequest'
+        - type: object
+          required: [identity_id, delta]
+          properties:
+            identity_id:
+              type: string
+            delta:
+              type: object
+              additionalProperties: true
+    IdentityRevokeRequest:
+      allOf:
+        - $ref: '#/components/schemas/SignedRequest'
+        - type: object
+          required: [identity_id, reason]
+          properties:
+            identity_id:
+              type: string
+            reason:
+              type: string
+    IdentityReinstateRequest:
+      allOf:
+        - $ref: '#/components/schemas/SignedRequest'
+        - type: object
+          required: [identity_id]
+          properties:
+            identity_id:
+              type: string
+    EventResponse:
+      type: object
+      required: [event_id, state_hash]
+      properties:
+        event_id:
+          type: string
+        state_hash:
+          type: string
+        object_uri:
+          type: string
+    PolicyProposeRequest:
+      allOf:
+        - $ref: '#/components/schemas/SignedRequest'
+        - type: object
+          required: [policy_uri, version, policy_body]
+          properties:
+            policy_uri:
+              type: string
+            version:
+              type: string
+            policy_body:
+              type: object
+              additionalProperties: true
+    PolicyActivateRequest:
+      allOf:
+        - $ref: '#/components/schemas/SignedRequest'
+        - type: object
+          required: [policy_uri, version, activation_index]
+          properties:
+            policy_uri:
+              type: string
+            version:
+              type: string
+            activation_index:
+              type: integer
+    FederationHandshakeRequest:
+      type: object
+      required: [runtime_version, policy_set_hash, trust_roots, latest_block]
+      properties:
+        runtime_version:
+          type: string
+        policy_set_hash:
+          type: string
+        trust_roots:
+          type: array
+          items:
+            type: string
+        latest_block:
+          type: integer
+    ArchiveImportResponse:
+      type: object
+      required: [accepted]
+      properties:
+        accepted:
+          type: boolean
+        reason:
+          type: string
+paths:
+  /v1/identity/create:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityCreateRequest'
+      responses:
+        '200':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+  /v1/identity/mutate:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityMutateRequest'
+      responses:
+        '200':
+          description: Mutated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+  /v1/identity/revoke:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityRevokeRequest'
+      responses:
+        '200':
+          description: Revoked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+  /v1/identity/reinstate:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityReinstateRequest'
+      responses:
+        '200':
+          description: Reinstated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventResponse'
+  /v1/policy/propose:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyProposeRequest'
+      responses:
+        '200':
+          description: Proposed
+  /v1/policy/activate:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyActivateRequest'
+      responses:
+        '200':
+          description: Activated
+  /v1/federation/handshake:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FederationHandshakeRequest'
+      responses:
+        '200':
+          description: Handshake Result
+  /v1/archive/export:
+    post:
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Exported bundle
+  /v1/archive/import:
+    post:
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Import validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveImportResponse'

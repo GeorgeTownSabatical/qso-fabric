@@ -1,0 +1,12 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='760' viewBox='0 0 1200 760'>
+<rect x='0' y='0' width='1200' height='760' fill='#ffffff'/>
+<text x='70' y='36' fill='#111111' font-size='20' font-family='Menlo, Monaco, monospace'>Torus Topology Demo Preview | profile=analytic_educational | frame_hash=7c8a9ff8558cf7373fff29c8f264767d27c6a651aed6216b82a4adc4e1fd69f9 | seeded_nodes=3</text>
+<rect x='70' y='70' width='1060' height='620' fill='none' stroke='#111111' stroke-opacity='0.35' stroke-width='1'/>
+<circle cx='70.00' cy='690.00' r='12.69' fill='#2d5be3' fill-opacity='0.82' stroke='#111111' stroke-opacity='0.35' stroke-width='1' />
+<text x='80.00' y='680.00' fill='#111111' font-size='13' font-family='Menlo, Monaco, monospace'>annotation_panel (x=-5.20, y=3.00, z=0.00)</text>
+<circle cx='1130.00' cy='690.00' r='18.00' fill='#2d5be3' fill-opacity='0.82' stroke='#111111' stroke-opacity='0.35' stroke-width='1' />
+<text x='1140.00' y='680.00' fill='#111111' font-size='13' font-family='Menlo, Monaco, monospace'>cohomology_loops (x=0.00, y=0.10, z=0.00)</text>
+<circle cx='1130.00' cy='690.00' r='18.00' fill='#2d5be3' fill-opacity='0.82' stroke='#111111' stroke-opacity='0.35' stroke-width='1' />
+<text x='1140.00' y='680.00' fill='#111111' font-size='13' font-family='Menlo, Monaco, monospace'>torus_core (x=0.00, y=0.00, z=0.00)</text>
+<text x='70' y='738' fill='#111111' font-size='13' font-family='Menlo, Monaco, monospace' opacity='0.85'>Projection: world_bounds center plotted on X/Z plane; circle size encodes bounds radius.</text>
+</svg>

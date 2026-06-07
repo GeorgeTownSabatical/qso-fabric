@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "star.schema.json",
+  "title": "Solis Star",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "star_id",
+    "chain_id",
+    "mass",
+    "luminosity",
+    "core_temp",
+    "magnetic_field",
+    "entropy_index",
+    "fusion_rate"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "star_id": { "type": "string", "minLength": 1 },
+    "chain_id": { "type": "string", "minLength": 1 },
+    "mass": { "type": "number" },
+    "luminosity": { "type": "number" },
+    "core_temp": { "type": "number" },
+    "magnetic_field": { "type": "number" },
+    "entropy_index": { "type": "number" },
+    "fusion_rate": { "type": "number" },
+    "collapse_probability": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <graph edgedefault="undirected">
+    <node id="party:GARCIA, MARIA" />
+    <node id="apn:405-112-17" />
+    <node id="party:SMITH, DANIEL" />
+    <node id="notary:R LOPEZ" />
+    <node id="party:SMITH FAMILY TRUST" />
+    <node id="party:OC HOLDINGS LLC" />
+    <node id="party:NGUYEN, ANH" />
+    <node id="apn:405-112-18" />
+    <node id="party:KIM, JI" />
+    <node id="notary:T CHEN" />
+    <node id="party:PACIFIC BANK" />
+    <node id="party:LEE, MIN" />
+    <node id="apn:405-112-19" />
+    <node id="party:HERNANDEZ, ANA" />
+    <node id="notary:P REYES" />
+    <node id="party:MARTINEZ, LUIS" />
+    <node id="party:LEE FAMILY TRUST" />
+    <edge source="party:GARCIA, MARIA" target="apn:405-112-17" />
+    <edge source="apn:405-112-17" target="party:SMITH, DANIEL" />
+    <edge source="apn:405-112-17" target="notary:R LOPEZ" />
+    <edge source="apn:405-112-17" target="party:SMITH FAMILY TRUST" />
+    <edge source="apn:405-112-17" target="party:OC HOLDINGS LLC" />
+    <edge source="party:NGUYEN, ANH" target="apn:405-112-18" />
+    <edge source="apn:405-112-18" target="party:KIM, JI" />
+    <edge source="apn:405-112-18" target="notary:T CHEN" />
+    <edge source="apn:405-112-18" target="party:PACIFIC BANK" />
+    <edge source="party:LEE, MIN" target="apn:405-112-19" />
+    <edge source="apn:405-112-19" target="party:HERNANDEZ, ANA" />
+    <edge source="apn:405-112-19" target="notary:P REYES" />
+    <edge source="apn:405-112-19" target="party:MARTINEZ, LUIS" />
+    <edge source="apn:405-112-19" target="party:LEE FAMILY TRUST" />
+  </graph>
+</graphml>

@@ -1,0 +1,5 @@
+{
+  "signature_algorithm": "hmac-sha256",
+  "encryption": "optional",
+  "policy_version": "v1"
+}

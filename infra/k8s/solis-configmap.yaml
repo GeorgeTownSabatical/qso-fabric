@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: solis-config
+  labels:
+    app: solis
+data:
+  SOLIS_ENV: production
+  SOLIS_ANCHOR_INTERVAL: "10000"

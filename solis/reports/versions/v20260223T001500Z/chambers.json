@@ -1,0 +1,824 @@
+{
+  "by_arc": {
+    "Arc I": {
+      "complete": 6,
+      "partial": 0,
+      "planned": 0,
+      "total": 6
+    },
+    "Arc II": {
+      "complete": 6,
+      "partial": 0,
+      "planned": 0,
+      "total": 6
+    },
+    "Arc III": {
+      "complete": 6,
+      "partial": 0,
+      "planned": 0,
+      "total": 6
+    },
+    "Arc IV": {
+      "complete": 6,
+      "partial": 0,
+      "planned": 0,
+      "total": 6
+    },
+    "Arc V": {
+      "complete": 6,
+      "partial": 0,
+      "planned": 0,
+      "total": 6
+    },
+    "Arc VI": {
+      "complete": 6,
+      "partial": 0,
+      "planned": 0,
+      "total": 6
+    }
+  },
+  "chambers": [
+    {
+      "arc": "Arc I",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/physics/fixed_math.py",
+          "solis/shared/canonical_json.py"
+        ],
+        "found_tests": [
+          "test_fixed_math_determinism.py"
+        ],
+        "required_files": [
+          "solis/physics/fixed_math.py",
+          "solis/shared/canonical_json.py"
+        ],
+        "required_tests": [
+          "test_fixed_math_determinism.py"
+        ]
+      },
+      "id": 1,
+      "status": "complete",
+      "title": "Deterministic Core Formalization"
+    },
+    {
+      "arc": "Arc I",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/physics/invariants.py"
+        ],
+        "found_tests": [
+          "test_physics_invariants.py"
+        ],
+        "required_files": [
+          "solis/physics/invariants.py"
+        ],
+        "required_tests": [
+          "test_physics_invariants.py"
+        ]
+      },
+      "id": 2,
+      "status": "complete",
+      "title": "Global Invariant Definition"
+    },
+    {
+      "arc": "Arc I",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/physics/collapse_engine.py",
+          "solis/projectors/instability_engine.py"
+        ],
+        "found_tests": [
+          "test_physics_engines.py",
+          "test_instability_thresholds.py"
+        ],
+        "required_files": [
+          "solis/physics/collapse_engine.py",
+          "solis/projectors/instability_engine.py"
+        ],
+        "required_tests": [
+          "test_physics_engines.py",
+          "test_instability_thresholds.py"
+        ]
+      },
+      "id": 3,
+      "status": "complete",
+      "title": "Risk & Collapse Engine"
+    },
+    {
+      "arc": "Arc I",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/physics/sheaf_model.py",
+          "solis/physics/stability_solver.py"
+        ],
+        "found_tests": [
+          "test_contagion_stability_solver.py"
+        ],
+        "required_files": [
+          "solis/physics/sheaf_model.py",
+          "solis/physics/stability_solver.py"
+        ],
+        "required_tests": [
+          "test_contagion_stability_solver.py"
+        ]
+      },
+      "id": 4,
+      "status": "complete",
+      "title": "Transsheaf Modeling Layer"
+    },
+    {
+      "arc": "Arc I",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/entanglement/stellar_relationships.py",
+          "solis/services/solis_constellation_service.py"
+        ],
+        "found_tests": [
+          "test_constellation_propagation.py"
+        ],
+        "required_files": [
+          "solis/entanglement/stellar_relationships.py",
+          "solis/services/solis_constellation_service.py"
+        ],
+        "required_tests": [
+          "test_constellation_propagation.py"
+        ]
+      },
+      "id": 5,
+      "status": "complete",
+      "title": "Entanglement Graph Hardening"
+    },
+    {
+      "arc": "Arc I",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/merkle/merkle_tree.py",
+          "solis/merkle/merkle_anchor.py",
+          "solis/merkle/proof_verifier.py"
+        ],
+        "found_tests": [
+          "test_replay_determinism.py"
+        ],
+        "required_files": [
+          "solis/merkle/merkle_tree.py",
+          "solis/merkle/merkle_anchor.py",
+          "solis/merkle/proof_verifier.py"
+        ],
+        "required_tests": [
+          "test_replay_determinism.py"
+        ]
+      },
+      "id": 6,
+      "status": "complete",
+      "title": "Merkle Integrity Spine"
+    },
+    {
+      "arc": "Arc II",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/identity/iris_hash.py"
+        ],
+        "found_tests": [
+          "test_identity_trust_layer.py"
+        ],
+        "required_files": [
+          "solis/identity/iris_hash.py"
+        ],
+        "required_tests": [
+          "test_identity_trust_layer.py"
+        ]
+      },
+      "id": 7,
+      "status": "complete",
+      "title": "Iris Biometric Abstraction"
+    },
+    {
+      "arc": "Arc II",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/identity/pq_keys.py"
+        ],
+        "found_tests": [
+          "test_identity_trust_layer.py"
+        ],
+        "required_files": [
+          "solis/identity/pq_keys.py"
+        ],
+        "required_tests": [
+          "test_identity_trust_layer.py"
+        ]
+      },
+      "id": 8,
+      "status": "complete",
+      "title": "Post-Quantum Key Infrastructure"
+    },
+    {
+      "arc": "Arc II",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/identity/recovery_model.py"
+        ],
+        "found_tests": [
+          "test_identity_trust_layer.py"
+        ],
+        "required_files": [
+          "solis/identity/recovery_model.py"
+        ],
+        "required_tests": [
+          "test_identity_trust_layer.py"
+        ]
+      },
+      "id": 9,
+      "status": "complete",
+      "title": "Deterministic Recovery Model"
+    },
+    {
+      "arc": "Arc II",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/identity/zk/proof_adapter.py",
+          "solis/identity/zk/verifier.py",
+          "solis/zk/command_adapter.py"
+        ],
+        "found_tests": [
+          "test_identity_trust_layer.py",
+          "test_zk_command_integration.py"
+        ],
+        "required_files": [
+          "solis/identity/zk/proof_adapter.py",
+          "solis/identity/zk/verifier.py",
+          "solis/zk/command_adapter.py"
+        ],
+        "required_tests": [
+          "test_identity_trust_layer.py",
+          "test_zk_command_integration.py"
+        ]
+      },
+      "id": 10,
+      "status": "complete",
+      "title": "ZK Risk Proof Layer"
+    },
+    {
+      "arc": "Arc II",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/anchor/eth_anchor.py",
+          "solis/anchor/spherechain_anchor.py",
+          "solis/anchor/anchor_contract.sol"
+        ],
+        "found_tests": [
+          "test_anchor_adapters.py"
+        ],
+        "required_files": [
+          "solis/anchor/eth_anchor.py",
+          "solis/anchor/spherechain_anchor.py",
+          "solis/anchor/anchor_contract.sol"
+        ],
+        "required_tests": [
+          "test_anchor_adapters.py"
+        ]
+      },
+      "id": 11,
+      "status": "complete",
+      "title": "Public Anchor Strategy"
+    },
+    {
+      "arc": "Arc II",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/sandbox/replay_engine.py",
+          "solis/integration/gates.py"
+        ],
+        "found_tests": [
+          "test_replay_determinism.py",
+          "test_multinode_replay_matrix.py"
+        ],
+        "required_files": [
+          "solis/agent/sandbox/replay_engine.py",
+          "solis/integration/gates.py"
+        ],
+        "required_tests": [
+          "test_replay_determinism.py",
+          "test_multinode_replay_matrix.py"
+        ]
+      },
+      "id": 12,
+      "status": "complete",
+      "title": "Full Replay Auditor"
+    },
+    {
+      "arc": "Arc III",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/dsl/grammar.lark",
+          "solis/agent/dsl/parser.py"
+        ],
+        "found_tests": [
+          "test_agent_dsl_runtime.py"
+        ],
+        "required_files": [
+          "solis/agent/dsl/grammar.lark",
+          "solis/agent/dsl/parser.py"
+        ],
+        "required_tests": [
+          "test_agent_dsl_runtime.py"
+        ]
+      },
+      "id": 13,
+      "status": "complete",
+      "title": "DSL Grammar Design"
+    },
+    {
+      "arc": "Arc III",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/dsl/compiler.py",
+          "solis/agent/runtime/execution_graph.py"
+        ],
+        "found_tests": [
+          "test_agent_dsl_runtime.py"
+        ],
+        "required_files": [
+          "solis/agent/dsl/compiler.py",
+          "solis/agent/runtime/execution_graph.py"
+        ],
+        "required_tests": [
+          "test_agent_dsl_runtime.py"
+        ]
+      },
+      "id": 14,
+      "status": "complete",
+      "title": "DSL Compiler -> Execution DAG"
+    },
+    {
+      "arc": "Arc III",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/runtime/policy_guard.py"
+        ],
+        "found_tests": [
+          "test_policy_guard_pre_execution.py",
+          "test_runtime_admission_gates.py"
+        ],
+        "required_files": [
+          "solis/agent/runtime/policy_guard.py"
+        ],
+        "required_tests": [
+          "test_policy_guard_pre_execution.py",
+          "test_runtime_admission_gates.py"
+        ]
+      },
+      "id": 15,
+      "status": "complete",
+      "title": "Policy Guard Engine"
+    },
+    {
+      "arc": "Arc III",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/runtime/instance_state.py",
+          "solis/agent/runtime/capital_router.py"
+        ],
+        "found_tests": [
+          "test_agent_dsl_runtime.py"
+        ],
+        "required_files": [
+          "solis/agent/runtime/instance_state.py",
+          "solis/agent/runtime/capital_router.py"
+        ],
+        "required_tests": [
+          "test_agent_dsl_runtime.py"
+        ]
+      },
+      "id": 16,
+      "status": "complete",
+      "title": "Agent Instance Runtime"
+    },
+    {
+      "arc": "Arc III",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/marketplace/template_registry.py",
+          "solis/agent/marketplace/versioning.py",
+          "solis/agent/marketplace/revenue_model.py"
+        ],
+        "found_tests": [
+          "test_agent_dsl_runtime.py"
+        ],
+        "required_files": [
+          "solis/agent/marketplace/template_registry.py",
+          "solis/agent/marketplace/versioning.py",
+          "solis/agent/marketplace/revenue_model.py"
+        ],
+        "required_tests": [
+          "test_agent_dsl_runtime.py"
+        ]
+      },
+      "id": 17,
+      "status": "complete",
+      "title": "Agent Marketplace Layer"
+    },
+    {
+      "arc": "Arc III",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/sandbox/replay_engine.py",
+          "solis/simulation/stress_report.py"
+        ],
+        "found_tests": [
+          "test_replay_determinism.py"
+        ],
+        "required_files": [
+          "solis/agent/sandbox/replay_engine.py",
+          "solis/simulation/stress_report.py"
+        ],
+        "required_tests": [
+          "test_replay_determinism.py"
+        ]
+      },
+      "id": 18,
+      "status": "complete",
+      "title": "Replay + Backtest Engine"
+    },
+    {
+      "arc": "Arc IV",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/services/solis_star_service.py",
+          "solis/agent/runtime/instance_state.py"
+        ],
+        "found_tests": [
+          "test_agent_dsl_runtime.py"
+        ],
+        "required_files": [
+          "solis/services/solis_star_service.py",
+          "solis/agent/runtime/instance_state.py"
+        ],
+        "required_tests": [
+          "test_agent_dsl_runtime.py"
+        ]
+      },
+      "id": 19,
+      "status": "complete",
+      "title": "Portfolio Agent Factory"
+    },
+    {
+      "arc": "Arc IV",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/runtime/capital_router.py",
+          "solis/services/solis_constellation_service.py"
+        ],
+        "found_tests": [
+          "test_constellation_propagation.py"
+        ],
+        "required_files": [
+          "solis/agent/runtime/capital_router.py",
+          "solis/services/solis_constellation_service.py"
+        ],
+        "required_tests": [
+          "test_constellation_propagation.py"
+        ]
+      },
+      "id": 20,
+      "status": "complete",
+      "title": "Capital Router"
+    },
+    {
+      "arc": "Arc IV",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/physics/entropy_engine.py",
+          "solis/physics/stability_solver.py"
+        ],
+        "found_tests": [
+          "test_contagion_stability_solver.py"
+        ],
+        "required_files": [
+          "solis/physics/entropy_engine.py",
+          "solis/physics/stability_solver.py"
+        ],
+        "required_tests": [
+          "test_contagion_stability_solver.py"
+        ]
+      },
+      "id": 21,
+      "status": "complete",
+      "title": "Systemic Risk Pricing"
+    },
+    {
+      "arc": "Arc IV",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/services/solis_constellation_service.py",
+          "solis/agent/runtime/risk_adapter.py"
+        ],
+        "found_tests": [
+          "test_constellation_propagation.py"
+        ],
+        "required_files": [
+          "solis/services/solis_constellation_service.py",
+          "solis/agent/runtime/risk_adapter.py"
+        ],
+        "required_tests": [
+          "test_constellation_propagation.py"
+        ]
+      },
+      "id": 22,
+      "status": "complete",
+      "title": "Auto-Rebalance Engine"
+    },
+    {
+      "arc": "Arc IV",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/agent/runtime/policy_guard.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/agent/runtime/policy_guard.py"
+        ],
+        "required_tests": []
+      },
+      "id": 23,
+      "status": "complete",
+      "title": "Loan & Credit Primitive"
+    },
+    {
+      "arc": "Arc IV",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/services/solis_constellation_service.py",
+          "solis/physics/contagion_engine.py"
+        ],
+        "found_tests": [
+          "test_contagion_stability_solver.py"
+        ],
+        "required_files": [
+          "solis/services/solis_constellation_service.py",
+          "solis/physics/contagion_engine.py"
+        ],
+        "required_tests": [
+          "test_contagion_stability_solver.py"
+        ]
+      },
+      "id": 24,
+      "status": "complete",
+      "title": "Cross-Agent Influence Monitor"
+    },
+    {
+      "arc": "Arc V",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/renderer/web/stellar_scene.js",
+          "solis/renderer/stellar_socket.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/renderer/web/stellar_scene.js",
+          "solis/renderer/stellar_socket.py"
+        ],
+        "required_tests": []
+      },
+      "id": 25,
+      "status": "complete",
+      "title": "Constellation Visualizer"
+    },
+    {
+      "arc": "Arc V",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/mcp_tools/solis_tools.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/mcp_tools/solis_tools.py"
+        ],
+        "required_tests": []
+      },
+      "id": 26,
+      "status": "complete",
+      "title": "Agent Inspector API"
+    },
+    {
+      "arc": "Arc V",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/services/solis_meta_signal_service.py",
+          "solis/reports/scripts/generate_report.py"
+        ],
+        "found_tests": [
+          "test_gate_decision_events.py"
+        ],
+        "required_files": [
+          "solis/services/solis_meta_signal_service.py",
+          "solis/reports/scripts/generate_report.py"
+        ],
+        "required_tests": [
+          "test_gate_decision_events.py"
+        ]
+      },
+      "id": 27,
+      "status": "complete",
+      "title": "Stability Dashboard"
+    },
+    {
+      "arc": "Arc V",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/mcp_tools/solis_tools.py",
+          "solis/agent/dsl/compiler.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/mcp_tools/solis_tools.py",
+          "solis/agent/dsl/compiler.py"
+        ],
+        "required_tests": []
+      },
+      "id": 28,
+      "status": "complete",
+      "title": "Whale Mode Advanced Controls"
+    },
+    {
+      "arc": "Arc V",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/integration/gates.py",
+          "solis/services/gate_audit.py"
+        ],
+        "found_tests": [
+          "test_integration_gates.py"
+        ],
+        "required_files": [
+          "solis/integration/gates.py",
+          "solis/services/gate_audit.py"
+        ],
+        "required_tests": [
+          "test_integration_gates.py"
+        ]
+      },
+      "id": 29,
+      "status": "complete",
+      "title": "Regulatory Audit Interface"
+    },
+    {
+      "arc": "Arc V",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/gdml/solis_optimizer.py",
+          "solis/gdml/solis_reward_adapter.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/gdml/solis_optimizer.py",
+          "solis/gdml/solis_reward_adapter.py"
+        ],
+        "required_tests": []
+      },
+      "id": 30,
+      "status": "complete",
+      "title": "AI Meta-Learning Console"
+    },
+    {
+      "arc": "Arc VI",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/renderer/web/index.html",
+          "solis/renderer/web/solis_client.js"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/renderer/web/index.html",
+          "solis/renderer/web/solis_client.js"
+        ],
+        "required_tests": []
+      },
+      "id": 31,
+      "status": "complete",
+      "title": "Civilian Mode UX"
+    },
+    {
+      "arc": "Arc VI",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/renderer/web/index.html"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/renderer/web/index.html"
+        ],
+        "required_tests": []
+      },
+      "id": 32,
+      "status": "complete",
+      "title": "Language-Agnostic Interaction"
+    },
+    {
+      "arc": "Arc VI",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/services/solis_star_service.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/services/solis_star_service.py"
+        ],
+        "required_tests": []
+      },
+      "id": 33,
+      "status": "complete",
+      "title": "Payment Rail Integration"
+    },
+    {
+      "arc": "Arc VI",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/gdml/solis_reward_adapter.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/gdml/solis_reward_adapter.py"
+        ],
+        "required_tests": []
+      },
+      "id": 34,
+      "status": "complete",
+      "title": "Energy & Productivity Linkage"
+    },
+    {
+      "arc": "Arc VI",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/schemas/governance.schema.json",
+          "solis/services/solis_constellation_service.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/schemas/governance.schema.json",
+          "solis/services/solis_constellation_service.py"
+        ],
+        "required_tests": []
+      },
+      "id": 35,
+      "status": "complete",
+      "title": "Governance Constellation"
+    },
+    {
+      "arc": "Arc VI",
+      "coverage_percent": 100.0,
+      "evidence": {
+        "found_files": [
+          "solis/constellation/planetary_index.py",
+          "solis/constellation/contagion_graph.py",
+          "solis/constellation/resonance_engine.py"
+        ],
+        "found_tests": [],
+        "required_files": [
+          "solis/constellation/planetary_index.py",
+          "solis/constellation/contagion_graph.py",
+          "solis/constellation/resonance_engine.py"
+        ],
+        "required_tests": []
+      },
+      "id": 36,
+      "status": "complete",
+      "title": "Planetary Stability Index"
+    }
+  ]
+}

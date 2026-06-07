@@ -1,0 +1,85 @@
+{
+  "controllers": [
+    {
+      "controller": "JACOB T MESSER",
+      "confidence": 1.0,
+      "controlled_assets": [
+        {
+          "asset": "405-112-17",
+          "score": 1.0
+        }
+      ],
+      "asset_count": 1,
+      "centrality": {
+        "pagerank": 0.045315487499345164,
+        "betweenness": 0.07169117647058823,
+        "eigenvector": 0.0
+      },
+      "signal": "strong control"
+    },
+    {
+      "controller": "Smith Trust",
+      "confidence": 0.5792,
+      "controlled_assets": [
+        {
+          "asset": "405-112-17",
+          "score": 0.5
+        }
+      ],
+      "asset_count": 1,
+      "centrality": {
+        "pagerank": 0.027600006634543064,
+        "betweenness": 0.0,
+        "eigenvector": 0.0
+      },
+      "signal": "possible control"
+    },
+    {
+      "controller": "Jacob T Messer",
+      "confidence": 0.5792,
+      "controlled_assets": [
+        {
+          "asset": "405-112-17",
+          "score": 0.5
+        }
+      ],
+      "asset_count": 1,
+      "centrality": {
+        "pagerank": 0.027600006634543064,
+        "betweenness": 0.0,
+        "eigenvector": 0.0
+      },
+      "signal": "possible control"
+    },
+    {
+      "controller": "Mesner Holdings LLC",
+      "confidence": 0.5,
+      "controlled_assets": [
+        {
+          "asset": "405-112-18",
+          "score": 0.5
+        }
+      ],
+      "asset_count": 1,
+      "centrality": {
+        "pagerank": 0.045687127855188234,
+        "betweenness": 0.07169117647058823,
+        "eigenvector": 0.0
+      },
+      "signal": "possible control"
+    }
+  ],
+  "cycles": [],
+  "shared_address_clusters": [
+    {
+      "address": "101 HARBOR ST, ORANGE, CA",
+      "entity_count": 4,
+      "entities": [
+        "405-112-17",
+        "405-112-18",
+        "MESNER HOLDINGS LLC",
+        "MESSAR VENTURES LLC"
+      ]
+    }
+  ]
+}

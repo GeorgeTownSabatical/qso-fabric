@@ -1,0 +1,12 @@
+{
+  "$id": "qso://quantum.node",
+  "type": "object",
+  "properties": {
+    "uri": { "type": "string", "pattern": "^qso://quantum.node/.+$" },
+    "node_id": { "type": "string" },
+    "capabilities": { "type": "array", "items": { "type": "string" } },
+    "hardware_signature": { "type": "string" },
+    "policy_version": { "type": "string" }
+  },
+  "required": ["uri", "node_id"]
+}

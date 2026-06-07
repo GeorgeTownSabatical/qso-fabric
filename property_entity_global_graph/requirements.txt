@@ -1,0 +1,8 @@
+networkx
+pandas
+numpy
+neo4j
+rapidfuzz
+Metaphone
+pyvis
+streamlit

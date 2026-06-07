@@ -1,0 +1,130 @@
+[
+  {
+    "entity": "Mesner Holdings LLC",
+    "obfuscation_score": 0.45,
+    "classification": "complex network",
+    "chain_depth_score": 0.2,
+    "structural_similarity": 1.0,
+    "address_concentration": 0.0,
+    "transfer_velocity": 1.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": [
+      "405-112-18"
+    ]
+  },
+  {
+    "entity": "Jacob T Messer",
+    "obfuscation_score": 0.35,
+    "classification": "normal structure",
+    "chain_depth_score": 0.2,
+    "structural_similarity": 0.5,
+    "address_concentration": 0.0,
+    "transfer_velocity": 1.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": [
+      "405-112-17"
+    ]
+  },
+  {
+    "entity": "Smith Trust",
+    "obfuscation_score": 0.35,
+    "classification": "normal structure",
+    "chain_depth_score": 0.2,
+    "structural_similarity": 0.5,
+    "address_concentration": 0.0,
+    "transfer_velocity": 1.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": [
+      "405-112-17"
+    ]
+  },
+  {
+    "entity": "MESSAR VENTURES LLC",
+    "obfuscation_score": 0.33,
+    "classification": "normal structure",
+    "chain_depth_score": 0.2,
+    "structural_similarity": 1.0,
+    "address_concentration": 0.4,
+    "transfer_velocity": 0.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": []
+  },
+  {
+    "entity": "JACOB T MESSER",
+    "obfuscation_score": 0.3167,
+    "classification": "normal structure",
+    "chain_depth_score": 0.2,
+    "structural_similarity": 0.3333,
+    "address_concentration": 0.0,
+    "transfer_velocity": 1.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": [
+      "405-112-17"
+    ]
+  },
+  {
+    "entity": "J T MESSER",
+    "obfuscation_score": 0.25,
+    "classification": "normal structure",
+    "chain_depth_score": 0.2,
+    "structural_similarity": 1.0,
+    "address_concentration": 0.0,
+    "transfer_velocity": 0.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": []
+  },
+  {
+    "entity": "JACOB MESSER",
+    "obfuscation_score": 0.25,
+    "classification": "normal structure",
+    "chain_depth_score": 0.2,
+    "structural_similarity": 1.0,
+    "address_concentration": 0.0,
+    "transfer_velocity": 0.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": []
+  },
+  {
+    "entity": "Jacob Messer",
+    "obfuscation_score": 0.2,
+    "classification": "normal structure",
+    "chain_depth_score": 0.0,
+    "structural_similarity": 0.0,
+    "address_concentration": 0.0,
+    "transfer_velocity": 1.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": []
+  },
+  {
+    "entity": "Messar Ventures LLC",
+    "obfuscation_score": 0.0,
+    "classification": "normal structure",
+    "chain_depth_score": 0.0,
+    "structural_similarity": 0.0,
+    "address_concentration": 0.0,
+    "transfer_velocity": 0.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": []
+  },
+  {
+    "entity": "SMITH TRUST",
+    "obfuscation_score": 0.0,
+    "classification": "normal structure",
+    "chain_depth_score": 0.0,
+    "structural_similarity": 0.0,
+    "address_concentration": 0.0,
+    "transfer_velocity": 0.0,
+    "entity_burst": 0.0,
+    "cycle_score": 0.0,
+    "controlled_parcels": []
+  }
+]

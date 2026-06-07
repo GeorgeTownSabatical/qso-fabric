@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "execution_telemetry.schema.json",
+  "title": "Solis Execution Telemetry Event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_id",
+    "intent_id",
+    "strategy_id",
+    "venue",
+    "symbol",
+    "metric_ts",
+    "latency_ms",
+    "slippage_bps",
+    "reject_rate",
+    "model_drift_score",
+    "anomaly_flags"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "intent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "strategy_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "venue": {
+      "type": "string",
+      "minLength": 1
+    },
+    "symbol": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._:/-]+$"
+    },
+    "metric_ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "latency_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "slippage_bps": {
+      "type": "number"
+    },
+    "reject_rate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "model_drift_score": {
+      "type": "number",
+      "minimum": 0
+    },
+    "anomaly_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "extra_metrics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "event_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

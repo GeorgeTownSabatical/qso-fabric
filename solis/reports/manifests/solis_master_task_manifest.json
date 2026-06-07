@@ -1,0 +1,1430 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "solis-qso-master-task-dag",
+  "title": "Master Codex Task Manifest - Solis/QSO End-to-End",
+  "generated_at_utc": "2026-02-25T00:00:00Z",
+  "description": "Phased dependency DAG including completed items and remaining work for governed Solis execution, sheaf stability, and full platform rollout.",
+  "phases": [
+    {
+      "id": "P00",
+      "order": 0,
+      "title": "Repo and Program Structure"
+    },
+    {
+      "id": "P01",
+      "order": 1,
+      "title": "QSO Object Model and Events"
+    },
+    {
+      "id": "P02",
+      "order": 2,
+      "title": "Execution Intent, Adapter, and Telemetry"
+    },
+    {
+      "id": "P03",
+      "order": 3,
+      "title": "Governance Engine"
+    },
+    {
+      "id": "P04",
+      "order": 4,
+      "title": "Strategy DSL Compiler and Sandbox"
+    },
+    {
+      "id": "P05",
+      "order": 5,
+      "title": "Whale Control Layer"
+    },
+    {
+      "id": "P06",
+      "order": 6,
+      "title": "Sheaf Stability Engine"
+    },
+    {
+      "id": "P07",
+      "order": 7,
+      "title": "Capital Allocator"
+    },
+    {
+      "id": "P08",
+      "order": 8,
+      "title": "Self-Improvement Proposal Loop"
+    },
+    {
+      "id": "P09",
+      "order": 9,
+      "title": "Determinism and CI Lanes"
+    },
+    {
+      "id": "P10",
+      "order": 10,
+      "title": "Security and Secrets"
+    },
+    {
+      "id": "P11",
+      "order": 11,
+      "title": "Regulatory Defensibility"
+    },
+    {
+      "id": "P12",
+      "order": 12,
+      "title": "Developer and Whale UX"
+    },
+    {
+      "id": "P13",
+      "order": 13,
+      "title": "Deployment and Operations"
+    }
+  ],
+  "status_legend": {
+    "planned": "Task is queued and not yet started",
+    "in_progress": "Task is currently active",
+    "done": "Task is implemented and validated",
+    "blocked": "Task cannot proceed due to unmet external condition",
+    "canceled": "Task has been explicitly removed from scope"
+  },
+  "tasks": [
+    {
+      "id": "T0001",
+      "phase_id": "P00",
+      "title": "Create canonical Solis module boundaries and package layout",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [],
+      "file_targets": [
+        "solis/",
+        "solis/execution/",
+        "solis/governance/",
+        "solis/sheaf/",
+        "solis/strategy_dsl/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Package boundaries are explicit and import-clean",
+        "New domains have top-level __init__.py exports"
+      ]
+    },
+    {
+      "id": "T0002",
+      "phase_id": "P00",
+      "title": "Define schema/model/compiler/policy versioning conventions",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0001"
+      ],
+      "file_targets": [
+        "solis/schemas/",
+        "solis/reports/",
+        "README.md"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Version fields are required in all governed schemas",
+        "Backward compatibility policy is documented"
+      ]
+    },
+    {
+      "id": "T0003",
+      "phase_id": "P00",
+      "title": "Add orchestrator CLI entrypoints: run/replay/shadow/audit/export/verify/serve",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0001",
+        "T0002"
+      ],
+      "file_targets": [
+        "tools/",
+        "pyproject.toml"
+      ],
+      "test_targets": [
+        "pytest -q tests -k orchestrator"
+      ],
+      "acceptance_criteria": [
+        "CLI subcommands resolve without runtime import errors",
+        "CLI help documents all bounded commands"
+      ]
+    },
+    {
+      "id": "T0101",
+      "phase_id": "P01",
+      "title": "Define canonical QSO event envelope and signature fields",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0002"
+      ],
+      "file_targets": [
+        "solis/schemas/",
+        "solis/shared/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Envelope requires event_id timestamp actor object_uri delta signature policy_version",
+        "Envelope serialization is deterministic"
+      ]
+    },
+    {
+      "id": "T0102",
+      "phase_id": "P01",
+      "title": "Implement append-only log, snapshot, and deterministic replay API",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0101"
+      ],
+      "file_targets": [
+        "solis/shared/",
+        "solis/agent/sandbox/replay_engine.py"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_replay_determinism.py"
+      ],
+      "acceptance_criteria": [
+        "Replay reconstructs state deterministically",
+        "Mutation path is append-only"
+      ]
+    },
+    {
+      "id": "T0103",
+      "phase_id": "P01",
+      "title": "Publish canonical QSO URI namespace map for all Solis domains",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0101"
+      ],
+      "file_targets": [
+        "solis/reports/",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "All domain objects map to explicit URI prefixes",
+        "URI map is versioned and auditable"
+      ]
+    },
+    {
+      "id": "T0104",
+      "phase_id": "P01",
+      "title": "Enforce transition allowlists to deny unsafe state mutations",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0102",
+        "T0103"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/services/"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_policy_guard_pre_execution.py"
+      ],
+      "acceptance_criteria": [
+        "Disallowed transition emits explicit deny reason",
+        "Allowed transitions are deterministic under replay"
+      ]
+    },
+    {
+      "id": "T0201",
+      "phase_id": "P02",
+      "title": "Implement ExecutionIntent schema and validator contract",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0101",
+        "T0103"
+      ],
+      "file_targets": [
+        "solis/schemas/",
+        "solis/execution/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Intent contains bounded exposure delta horizon confidence model hashes",
+        "Schema excludes direct order authority fields"
+      ]
+    },
+    {
+      "id": "T0202",
+      "phase_id": "P02",
+      "title": "Complete fixed-point projector migration for deterministic stellar math",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [],
+      "file_targets": [
+        "solis/projectors/stellar_projector_v1.py"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_replay_determinism.py"
+      ],
+      "acceptance_criteria": [
+        "Projection path uses Fixed64 math for core calculations",
+        "Replay hashes remain deterministic"
+      ]
+    },
+    {
+      "id": "T0203",
+      "phase_id": "P02",
+      "title": "Expand Alpaca adapter to full execution read/write surface",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0201"
+      ],
+      "file_targets": [
+        "solis/execution/adapters/alpaca.py"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Adapter supports account clock positions orders cancel",
+        "Responses are normalized to deterministic structures"
+      ]
+    },
+    {
+      "id": "T0204",
+      "phase_id": "P02",
+      "title": "Define adapter error taxonomy and failure provenance",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0203"
+      ],
+      "file_targets": [
+        "solis/execution/adapters/alpaca.py",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Network auth rate-limit and validation errors are distinct",
+        "Failure objects are replay-safe"
+      ]
+    },
+    {
+      "id": "T0205",
+      "phase_id": "P02",
+      "title": "Emit deterministic execution replay artifacts with hash-chain verification",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0203"
+      ],
+      "file_targets": [
+        "solis/execution/adapters/alpaca.py"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_alpaca_live_integration.py"
+      ],
+      "acceptance_criteria": [
+        "Artifacts include root_hash artifact_hash and linked event hashes",
+        "Artifact verification fails on any tamper"
+      ]
+    },
+    {
+      "id": "T0206",
+      "phase_id": "P02",
+      "title": "Add credential-gated Alpaca live integration tests",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0205"
+      ],
+      "file_targets": [
+        "solis/tests/test_alpaca_live_integration.py",
+        "pyproject.toml"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_alpaca_live_integration.py"
+      ],
+      "acceptance_criteria": [
+        "Tests skip cleanly without credentials",
+        "Live probe lane validates deterministic artifact rebuild"
+      ]
+    },
+    {
+      "id": "T0207",
+      "phase_id": "P02",
+      "title": "Introduce venue-agnostic execution adapter interface",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0203"
+      ],
+      "file_targets": [
+        "solis/execution/adapters/",
+        "solis/execution/__init__.py"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Alpaca is replaceable by interface without strategy/governor changes",
+        "Interface is covered by adapter contract tests"
+      ]
+    },
+    {
+      "id": "T0208",
+      "phase_id": "P02",
+      "title": "Define telemetry event schema for latency slippage rejects drift anomalies",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0101"
+      ],
+      "file_targets": [
+        "solis/telemetry/",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Telemetry payloads are canonical and versioned",
+        "Telemetry events can be replayed and hashed"
+      ]
+    },
+    {
+      "id": "T0209",
+      "phase_id": "P02",
+      "title": "Implement telemetry sinks (QSO sink + optional OTEL/Prometheus)",
+      "status": "done",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0208"
+      ],
+      "file_targets": [
+        "solis/telemetry/",
+        "observability/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "QSO sink is default and deterministic",
+        "Optional sinks are non-blocking and bounded"
+      ]
+    },
+    {
+      "id": "T0210",
+      "phase_id": "P02",
+      "title": "Seed telemetry dashboards for execution quality and model drift",
+      "status": "done",
+      "priority": 2,
+      "owner": "solis",
+      "depends_on": [
+        "T0209"
+      ],
+      "file_targets": [
+        "observability/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Dashboards expose latency slippage reject rates drift",
+        "Dashboards map metrics to strategy and venue dimensions"
+      ]
+    },
+    {
+      "id": "T0301",
+      "phase_id": "P03",
+      "title": "Define GovernorDecision schema (REJECTED/APPROVED_SHADOW/APPROVED_EXECUTE)",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0201",
+        "T0101"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Decision schema includes reason codes invariant traces and policy version",
+        "Decision schema is signed and replayable"
+      ]
+    },
+    {
+      "id": "T0302",
+      "phase_id": "P03",
+      "title": "Implement invariant library (exposure turnover liquidity volatility kill-switch)",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0301"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/agent/runtime/"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_policy_guard_pre_execution.py"
+      ],
+      "acceptance_criteria": [
+        "Invariant breaches are explicit hard failures",
+        "Invariant library is deterministic across replay"
+      ]
+    },
+    {
+      "id": "T0303",
+      "phase_id": "P03",
+      "title": "Enforce shadow-first rollout for new strategies",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0302",
+        "T0402"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/services/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Unapproved strategies cannot execute",
+        "Shadow history prerequisites are policy-configurable"
+      ]
+    },
+    {
+      "id": "T0304",
+      "phase_id": "P03",
+      "title": "Persist regulator-defensible governance audit trail",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0301",
+        "T0102"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Every decision links inputs invariants and outputs",
+        "Audit trail is signed and tamper-evident"
+      ]
+    },
+    {
+      "id": "T0401",
+      "phase_id": "P04",
+      "title": "Build DSL grammar parser and AST",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0201"
+      ],
+      "file_targets": [
+        "solis/strategy_dsl/",
+        "solis/agent/dsl/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Grammar supports conditions horizons confidence risk hints",
+        "AST is deterministic from identical source"
+      ]
+    },
+    {
+      "id": "T0402",
+      "phase_id": "P04",
+      "title": "Compile DSL to ExecutionIntent only",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0401",
+        "T0201"
+      ],
+      "file_targets": [
+        "solis/strategy_dsl/",
+        "solis/agent/dsl/compiler.py"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_agent_dsl_runtime.py"
+      ],
+      "acceptance_criteria": [
+        "Compiler cannot emit raw orders",
+        "Compiler output carries source/ast/compile hashes"
+      ]
+    },
+    {
+      "id": "T0403",
+      "phase_id": "P04",
+      "title": "Enforce sandbox limits and no-IO deterministic DSL runtime",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0402"
+      ],
+      "file_targets": [
+        "solis/strategy_dsl/",
+        "solis/agent/sandbox/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "DSL runtime has CPU/memory/time bounds",
+        "Forbidden capabilities fail closed"
+      ]
+    },
+    {
+      "id": "T0404",
+      "phase_id": "P04",
+      "title": "Add compiler lineage fields (dsl_source_hash ast_hash compiled_intent_hash)",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0402"
+      ],
+      "file_targets": [
+        "solis/strategy_dsl/",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Lineage fields are persisted per compile",
+        "Lineage is linked in audit exports"
+      ]
+    },
+    {
+      "id": "T0501",
+      "phase_id": "P05",
+      "title": "Implement Whale control QSOs (weights ceilings pause state)",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0301",
+        "T0103"
+      ],
+      "file_targets": [
+        "solis/whale/",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Whale objects are event-sourced and replayable",
+        "Whale controls are consumed by governor/allocator"
+      ]
+    },
+    {
+      "id": "T0502",
+      "phase_id": "P05",
+      "title": "Implement role permissions (dev submit / whale approve / operator operate)",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0501"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/whale/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Unauthorized promote/pause/weight operations are denied",
+        "Permission checks are audited"
+      ]
+    },
+    {
+      "id": "T0503",
+      "phase_id": "P05",
+      "title": "Expose whale control endpoints (approve pause resume set weights ceilings)",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0502"
+      ],
+      "file_targets": [
+        "api/",
+        "services/",
+        "solis/whale/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Endpoints are idempotent and signed",
+        "Endpoint mutations update QSO objects only"
+      ]
+    },
+    {
+      "id": "T0601",
+      "phase_id": "P06",
+      "title": "Build regime feature extraction pipeline (vol liquidity correlation skew kurtosis spread)",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0208"
+      ],
+      "file_targets": [
+        "solis/sheaf/",
+        "solis/regime/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Feature vectors are deterministic from identical data windows",
+        "Feature schema is versioned"
+      ]
+    },
+    {
+      "id": "T0602",
+      "phase_id": "P06",
+      "title": "Implement versioned regime clustering and centroid persistence",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0601"
+      ],
+      "file_targets": [
+        "solis/sheaf/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Cluster model version and hash are persisted",
+        "Regime assignment is replayable"
+      ]
+    },
+    {
+      "id": "T0603",
+      "phase_id": "P06",
+      "title": "Build overlap window detector for regime transition boundaries",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0602"
+      ],
+      "file_targets": [
+        "solis/sheaf/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Overlap windows are deterministic and versioned",
+        "Boundary extraction handles sparse transitions"
+      ]
+    },
+    {
+      "id": "T0604",
+      "phase_id": "P06",
+      "title": "Fit local section models per strategy and regime",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0602",
+        "T0402"
+      ],
+      "file_targets": [
+        "solis/sheaf/",
+        "solis/strategy/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Local section includes return drawdown cvar slippage exposure gradients",
+        "Local model hashes are persisted"
+      ]
+    },
+    {
+      "id": "T0605",
+      "phase_id": "P06",
+      "title": "Implement overlap compatibility metric E_ij",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0603",
+        "T0604"
+      ],
+      "file_targets": [
+        "solis/sheaf/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Compatibility score is computed on boundary windows",
+        "Metric function is deterministic and bounded"
+      ]
+    },
+    {
+      "id": "T0606",
+      "phase_id": "P06",
+      "title": "Implement obstruction tensor \u03a9 and forward \u03a9(t+\u0394) projection",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0605"
+      ],
+      "file_targets": [
+        "solis/sheaf/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "\u03a9 aggregates E_ij with transition probabilities",
+        "Forward projection emits signed forecast objects"
+      ]
+    },
+    {
+      "id": "T0607",
+      "phase_id": "P06",
+      "title": "Persist sheaf outputs to QSO stability URIs",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0606",
+        "T0103"
+      ],
+      "file_targets": [
+        "solis/sheaf/",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Writes qso://solis.sheaf/stability_matrix and overlap URIs",
+        "Writes are event-sourced and replayable"
+      ]
+    },
+    {
+      "id": "T0608",
+      "phase_id": "P06",
+      "title": "Bind \u03a9 and curvature risk into governor throttles",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0606",
+        "T0302"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/sheaf/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "\u03a9 breach tightens exposure or blocks execution",
+        "Curvature risk modifies strategy admissibility"
+      ]
+    },
+    {
+      "id": "T0609",
+      "phase_id": "P06",
+      "title": "Add deterministic sheaf replay tests with pinned hashes",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0607"
+      ],
+      "file_targets": [
+        "solis/tests/"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests -k sheaf"
+      ],
+      "acceptance_criteria": [
+        "Compatibility matrix hash and \u03a9 hash are pinned",
+        "Replay reproduces sheaf outputs across nodes"
+      ]
+    },
+    {
+      "id": "T0610",
+      "phase_id": "P06",
+      "title": "Convert sheaf math to fixed-point where required for determinism",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0605"
+      ],
+      "file_targets": [
+        "solis/sheaf/",
+        "solis/physics/fixed_math.py"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "No uncontrolled float drift in sheaf core loops",
+        "Fixed-point conversions are explicit and tested"
+      ]
+    },
+    {
+      "id": "T0611",
+      "phase_id": "P06",
+      "title": "Generate risk manifold visualization artifacts from sheaf outputs",
+      "status": "planned",
+      "priority": 2,
+      "owner": "solis",
+      "depends_on": [
+        "T0607"
+      ],
+      "file_targets": [
+        "solis/reports/",
+        "solis/ui/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Artifacts include fragility map and strategy robustness ranking",
+        "Visual output links back to source hashes"
+      ]
+    },
+    {
+      "id": "T0701",
+      "phase_id": "P07",
+      "title": "Define allocator input contract using intents governance and sheaf signals",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0301",
+        "T0608"
+      ],
+      "file_targets": [
+        "solis/allocation/",
+        "solis/schemas/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Allocator consumes approved intents only",
+        "Input contract excludes sensitive totals in DSL-facing paths"
+      ]
+    },
+    {
+      "id": "T0702",
+      "phase_id": "P07",
+      "title": "Implement constrained weighting engine with smoothing",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0701"
+      ],
+      "file_targets": [
+        "solis/allocation/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Weights respect hard limits and governor constraints",
+        "Weight transitions are smoothed to reduce cliffs"
+      ]
+    },
+    {
+      "id": "T0703",
+      "phase_id": "P07",
+      "title": "Emit allocation proof bundle for each allocation decision",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0702",
+        "T0304"
+      ],
+      "file_targets": [
+        "solis/allocation/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Proof bundle explains inputs constraints and outputs",
+        "Proof bundle is replay-verifiable"
+      ]
+    },
+    {
+      "id": "T0801",
+      "phase_id": "P08",
+      "title": "Define StrategyProposal schema with diff evidence and risk deltas",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0301",
+        "T0101"
+      ],
+      "file_targets": [
+        "solis/schemas/",
+        "solis/proposals/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Proposal includes expected impact and evidence hashes",
+        "Proposal is versioned signed and replayable"
+      ]
+    },
+    {
+      "id": "T0802",
+      "phase_id": "P08",
+      "title": "Implement shadow harness (historical replay synthetic shocks live shadow)",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0801",
+        "T0609"
+      ],
+      "file_targets": [
+        "solis/proposals/",
+        "solis/simulation/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Shadow pipeline produces pass/fail report per proposal",
+        "Harness is deterministic for fixed datasets"
+      ]
+    },
+    {
+      "id": "T0803",
+      "phase_id": "P08",
+      "title": "Require signed whale approval before promotion",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0801",
+        "T0502",
+        "T1003"
+      ],
+      "file_targets": [
+        "solis/proposals/",
+        "solis/whale/",
+        "solis/governance/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Unsigned proposals cannot promote",
+        "Promotion updates active policy reference atomically"
+      ]
+    },
+    {
+      "id": "T0804",
+      "phase_id": "P08",
+      "title": "Enforce no-silent-mutation guardrails on all learning updates",
+      "status": "planned",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0803",
+        "T0104"
+      ],
+      "file_targets": [
+        "solis/proposals/",
+        "solis/governance/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "All model/policy changes require proposal objects",
+        "Direct mutation paths fail closed"
+      ]
+    },
+    {
+      "id": "T0805",
+      "phase_id": "P08",
+      "title": "Add regime-aware bandit proposer for strategy weight updates",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0801",
+        "T0606",
+        "T0702"
+      ],
+      "file_targets": [
+        "solis/proposals/",
+        "solis/allocation/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Bandit emits proposal only and never mutates active weights",
+        "Bandit objective balances Sharpe and \u03a9"
+      ]
+    },
+    {
+      "id": "T0901",
+      "phase_id": "P09",
+      "title": "Pin deterministic replay hashes for long and nightly sequences",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T0202"
+      ],
+      "file_targets": [
+        "solis/tests/test_replay_determinism.py",
+        "solis/tests/test_multinode_replay_nightly.py"
+      ],
+      "test_targets": [
+        "pytest -q solis/tests/test_replay_determinism.py",
+        "SOLIS_NIGHTLY_REPLAY_EVENT_COUNT=1000 pytest -q solis/tests/test_multinode_replay_nightly.py -m nightly_replay"
+      ],
+      "acceptance_criteria": [
+        "Long and nightly state/root/anchor hashes are fixed constants",
+        "Nightly lane fails on deterministic drift"
+      ]
+    },
+    {
+      "id": "T0902",
+      "phase_id": "P09",
+      "title": "Add secret-gated live Alpaca CI lane",
+      "status": "done",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0206"
+      ],
+      "file_targets": [
+        ".github/workflows/solis-ci.yml"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Live lane runs only when required secrets exist",
+        "Lane skips safely without credentials"
+      ]
+    },
+    {
+      "id": "T0903",
+      "phase_id": "P09",
+      "title": "Build controlled hash-regeneration tooling",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0901"
+      ],
+      "file_targets": [
+        "tools/",
+        "solis/tests/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Hash refresh tool emits diff report and updates constants deterministically",
+        "Tool requires explicit operator opt-in"
+      ]
+    },
+    {
+      "id": "T0904",
+      "phase_id": "P09",
+      "title": "Maintain expected-skip registry for optional dependencies",
+      "status": "planned",
+      "priority": 2,
+      "owner": "solis",
+      "depends_on": [
+        "T0902"
+      ],
+      "file_targets": [
+        "solis/tests/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Skips are classified as expected vs unexpected",
+        "CI summary reports skip classes"
+      ]
+    },
+    {
+      "id": "T0905",
+      "phase_id": "P09",
+      "title": "Run replay lanes across short/long/nightly matrices",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0901"
+      ],
+      "file_targets": [
+        ".github/workflows/solis-ci.yml",
+        "solis/tests/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Matrix covers short long nightly replay tiers",
+        "Failures provide pinned-hash diff detail"
+      ]
+    },
+    {
+      "id": "T1001",
+      "phase_id": "P10",
+      "title": "Enforce local secret storage conventions and permissions",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [],
+      "file_targets": [
+        ".codex/state/secrets/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Secrets are excluded from logs and QSO events",
+        "Secret files are owner-only permissions"
+      ]
+    },
+    {
+      "id": "T1002",
+      "phase_id": "P10",
+      "title": "Implement RBAC model for dev whale operator roles",
+      "status": "done",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T1001"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "api/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Role checks gate all privileged actions",
+        "RBAC decisions are auditable"
+      ]
+    },
+    {
+      "id": "T1003",
+      "phase_id": "P10",
+      "title": "Require signatures on governance and promotion decisions",
+      "status": "done",
+      "priority": 5,
+      "owner": "solis",
+      "depends_on": [
+        "T1002",
+        "T0301"
+      ],
+      "file_targets": [
+        "solis/governance/",
+        "solis/proposals/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Unsigned high-trust decisions are rejected",
+        "Signature metadata is persisted for replay"
+      ]
+    },
+    {
+      "id": "T1004",
+      "phase_id": "P10",
+      "title": "Add tamper detection with hash-chain/Merkle anchors",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0102"
+      ],
+      "file_targets": [
+        "solis/shared/",
+        "solis/anchor/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Tamper evidence is verifiable from audit artifacts",
+        "Integrity failures trigger degraded status"
+      ]
+    },
+    {
+      "id": "T1101",
+      "phase_id": "P11",
+      "title": "Export audit bundle for external review",
+      "status": "planned",
+      "priority": 4,
+      "owner": "solis",
+      "depends_on": [
+        "T0304",
+        "T1003"
+      ],
+      "file_targets": [
+        "solis/reports/",
+        "solis/audit/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Bundle includes decision traces replay artifacts policy versions signatures",
+        "Bundle is reproducible from snapshots and logs"
+      ]
+    },
+    {
+      "id": "T1102",
+      "phase_id": "P11",
+      "title": "Implement redaction layer for third-party exports",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T1101"
+      ],
+      "file_targets": [
+        "solis/audit/",
+        "solis/reports/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Sensitive capital totals are removed in redacted outputs",
+        "Redaction policy is explicit and testable"
+      ]
+    },
+    {
+      "id": "T1103",
+      "phase_id": "P11",
+      "title": "Add regulator-mode replay command",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T1101",
+        "T0905"
+      ],
+      "file_targets": [
+        "tools/",
+        "solis/audit/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Replay command reconstructs outcome from exported bundle",
+        "Replay output includes deterministic verification hashes"
+      ]
+    },
+    {
+      "id": "T1201",
+      "phase_id": "P12",
+      "title": "Build developer portal for DSL authoring and shadow results",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0403",
+        "T0802"
+      ],
+      "file_targets": [
+        "solis/ui/developer/",
+        "api/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Developers can submit DSL and inspect shadow pass/fail",
+        "Portal enforces read-only exposure to sensitive capital"
+      ]
+    },
+    {
+      "id": "T1202",
+      "phase_id": "P12",
+      "title": "Build whale portal for governance controls and \u03a9/\u03ba risk surfaces",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0503",
+        "T0608",
+        "T0703"
+      ],
+      "file_targets": [
+        "solis/ui/whale/",
+        "api/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Whales can approve pause set ceilings and inspect risk surfaces",
+        "Portal actions are signed and auditable"
+      ]
+    },
+    {
+      "id": "T1301",
+      "phase_id": "P13",
+      "title": "Maintain local docker-compose stack for deterministic dev",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0001"
+      ],
+      "file_targets": [
+        "docker-compose.yml",
+        "infra/docker/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Local stack boots core services with deterministic defaults",
+        "Compose includes isolated mock dependencies"
+      ]
+    },
+    {
+      "id": "T1302",
+      "phase_id": "P13",
+      "title": "Maintain Kubernetes manifests for multi-node QSO deployment",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T1301"
+      ],
+      "file_targets": [
+        "infra/k8s/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "K8s manifests apply with dry-run validation",
+        "Manifests include replay and audit service components"
+      ]
+    },
+    {
+      "id": "T1303",
+      "phase_id": "P13",
+      "title": "Integrate observability stack for metrics traces structured logs",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0209",
+        "T1301"
+      ],
+      "file_targets": [
+        "observability/",
+        "infra/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Execution and governance traces are queryable",
+        "Alerts exist for invariant breaches and drift spikes"
+      ]
+    },
+    {
+      "id": "T1304",
+      "phase_id": "P13",
+      "title": "Run backup/restore disaster recovery drills",
+      "status": "planned",
+      "priority": 3,
+      "owner": "solis",
+      "depends_on": [
+        "T0102",
+        "T1302"
+      ],
+      "file_targets": [
+        "snapshot/",
+        "solis/reports/",
+        "infra/"
+      ],
+      "test_targets": [],
+      "acceptance_criteria": [
+        "Restore reproduces deterministic state from snapshots+logs",
+        "DR drill report includes RTO/RPO and validation hashes"
+      ]
+    }
+  ]
+}

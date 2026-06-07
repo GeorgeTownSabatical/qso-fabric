@@ -1,0 +1,5 @@
+{
+  "max_tensor_rank": 12,
+  "default_collapse_strategy": "deterministic",
+  "state_backend": "in_memory"
+}

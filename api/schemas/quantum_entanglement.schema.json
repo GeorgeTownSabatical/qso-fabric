@@ -1,0 +1,21 @@
+{
+  "$id": "qso://quantum.entanglement",
+  "type": "object",
+  "properties": {
+    "uri": { "type": "string", "pattern": "^qso://quantum.entanglement/.+$" },
+    "pairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "kind": { "type": "string" }
+        },
+        "required": ["source", "target"]
+      }
+    },
+    "fidelity_target": { "type": "number" }
+  },
+  "required": ["uri", "pairs"]
+}

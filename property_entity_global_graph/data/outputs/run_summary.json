@@ -1,0 +1,12 @@
+{
+  "graph_json": "/Users/ALISTAIRE/qso-fabric/property_entity_global_graph/data/outputs/global_graph.json",
+  "node_count": 18,
+  "edge_count": 22,
+  "beneficial_owner_findings": 2,
+  "shell_shared_address_clusters": 1,
+  "surname_clusters": 3,
+  "velocity_flags": 2,
+  "control_networks": 4,
+  "obfuscation_entities_flagged": 0,
+  "probabilistic_links": 1
+}

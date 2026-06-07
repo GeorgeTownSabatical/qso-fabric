@@ -1,0 +1,151 @@
+{
+  "code_footprint": {
+    "by_section": {
+      "agent": {
+        "files": 20,
+        "lines": 531
+      },
+      "anchor": {
+        "files": 5,
+        "lines": 115
+      },
+      "constellation": {
+        "files": 4,
+        "lines": 76
+      },
+      "entanglement": {
+        "files": 2,
+        "lines": 64
+      },
+      "gdml": {
+        "files": 4,
+        "lines": 114
+      },
+      "hardening": {
+        "files": 7,
+        "lines": 124
+      },
+      "identity": {
+        "files": 13,
+        "lines": 357
+      },
+      "integration": {
+        "files": 2,
+        "lines": 129
+      },
+      "mcp_tools": {
+        "files": 3,
+        "lines": 163
+      },
+      "merkle": {
+        "files": 4,
+        "lines": 99
+      },
+      "physics": {
+        "files": 8,
+        "lines": 761
+      },
+      "projectors": {
+        "files": 3,
+        "lines": 146
+      },
+      "renderer": {
+        "files": 6,
+        "lines": 116
+      },
+      "schemas": {
+        "files": 7,
+        "lines": 186
+      },
+      "services": {
+        "files": 6,
+        "lines": 1413
+      },
+      "shared": {
+        "files": 6,
+        "lines": 132
+      },
+      "simulation": {
+        "files": 5,
+        "lines": 121
+      },
+      "tests": {
+        "files": 16,
+        "lines": 886
+      },
+      "zk": {
+        "files": 4,
+        "lines": 110
+      }
+    },
+    "total_loc": 5643
+  },
+  "completion": {
+    "by_group": {
+      "CI workflow": {
+        "percent": 100.0,
+        "present": 1,
+        "total": 1
+      },
+      "Core runtime": {
+        "percent": 100.0,
+        "present": 17,
+        "total": 17
+      },
+      "Deployment assets": {
+        "percent": 100.0,
+        "present": 9,
+        "total": 9
+      },
+      "GDML binding": {
+        "percent": 100.0,
+        "present": 3,
+        "total": 3
+      },
+      "Merkle hardening": {
+        "percent": 100.0,
+        "present": 3,
+        "total": 3
+      },
+      "Phase 8-14 extensions": {
+        "percent": 100.0,
+        "present": 23,
+        "total": 23
+      }
+    },
+    "overall": {
+      "percent": 100.0,
+      "present": 56,
+      "total": 56
+    }
+  },
+  "gate_event_sample": {
+    "by_gate": {
+      "gate1": 3,
+      "gate2": 6,
+      "gate3": 3
+    },
+    "by_scope": {
+      "constellation": 4,
+      "signal": 4,
+      "star": 4
+    },
+    "by_stage": {
+      "postcommit": 3,
+      "precommit": 9
+    },
+    "total": 12
+  },
+  "generated_at": "2026-02-22T20:27:08.177576+00:00",
+  "tests": {
+    "by_area": {
+      "Arc I Physics": 16,
+      "Arc II Identity/Trust": 4,
+      "Arc III Dev Layer": 6,
+      "Runtime Admission": 9,
+      "Service/Replay": 7
+    },
+    "total": 42
+  },
+  "version": "v20260222T202708Z"
+}

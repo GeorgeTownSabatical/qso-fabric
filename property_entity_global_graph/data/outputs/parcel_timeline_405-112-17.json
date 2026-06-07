@@ -1,0 +1,37 @@
+[
+  {
+    "source": "JACOB T MESSER",
+    "target": "405-112-17",
+    "type": "OWNS",
+    "date": "2024-01-10",
+    "document": ""
+  },
+  {
+    "source": "405-112-17",
+    "target": "Jacob Messer",
+    "type": "OWNED_BY",
+    "date": "2024-02-12",
+    "document": "2024000012345"
+  },
+  {
+    "source": "Smith Trust",
+    "target": "405-112-17",
+    "type": "TRANSFERRED",
+    "date": "2024-02-12",
+    "document": "2024000012345"
+  },
+  {
+    "source": "405-112-17",
+    "target": "Mesner Holdings LLC",
+    "type": "OWNED_BY",
+    "date": "2024-06-02",
+    "document": "2024000012399"
+  },
+  {
+    "source": "Jacob T Messer",
+    "target": "405-112-17",
+    "type": "TRANSFERRED",
+    "date": "2024-06-02",
+    "document": "2024000012399"
+  }
+]

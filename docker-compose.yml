@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  qso-node:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - ./data:/var/lib/qso
+    environment:
+      QSO_EVENT_STORE_PATH: /var/lib/qso/events/events.jsonl
+      QSO_CHECKPOINT_STORE_PATH: /var/lib/qso/checkpoints/checkpoints.json
+      QSO_SNAPSHOT_STORE_DIR: /var/lib/qso/snapshots
+    command: sh -c "pip install -e '.[dev]' && python main.py"

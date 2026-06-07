@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qnsf-core
+  namespace: qnsf
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: qnsf-core
+  template:
+    metadata:
+      labels:
+        app: qnsf-core
+    spec:
+      containers:
+        - name: qnsf-core
+          image: qnsf/core:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "2"
+              memory: "4Gi"
+            limits:
+              cpu: "4"
+              memory: "8Gi"
+          envFrom:
+            - secretRef:
+                name: qnsf-secrets

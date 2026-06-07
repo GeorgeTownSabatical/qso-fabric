@@ -1,0 +1,26 @@
+[
+  {
+    "mass": 0.75,
+    "luminosity": 0.4,
+    "entropy_index": 0.05,
+    "magnetic_field": -0.02
+  },
+  {
+    "mass": -0.1,
+    "luminosity": 0.15,
+    "entropy_index": -0.01,
+    "magnetic_field": 0.01
+  },
+  {
+    "mass": 0.2,
+    "luminosity": -0.05,
+    "entropy_index": 0.02,
+    "magnetic_field": -0.03
+  },
+  {
+    "mass": 0.15,
+    "luminosity": 0.08,
+    "entropy_index": 0.0,
+    "magnetic_field": 0.015
+  }
+]

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solis-node
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: solis
+  template:
+    metadata:
+      labels:
+        app: solis
+    spec:
+      containers:
+        - name: solis
+          image: solis-node:latest
+          ports:
+            - containerPort: 9100
+          envFrom:
+            - configMapRef:
+                name: solis-config
+            - secretRef:
+                name: solis-secrets

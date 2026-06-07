@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settlement-oracle
+  namespace: qnsf
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: settlement-oracle
+  template:
+    metadata:
+      labels:
+        app: settlement-oracle
+    spec:
+      containers:
+        - name: oracle
+          image: qnsf/oracle:latest
+          ports:
+            - containerPort: 9000

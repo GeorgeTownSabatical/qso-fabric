@@ -1,0 +1,12 @@
+{
+  "node_count": 18,
+  "edge_count": 22,
+  "feature_nodes": 18,
+  "embedding_nodes": 18,
+  "clusters": 4,
+  "rapid_transfer_parcels": 1,
+  "ownership_cycles": 0,
+  "beneficial_owner_candidates": 5,
+  "influence_hubs": 18,
+  "predicted_links": 30
+}

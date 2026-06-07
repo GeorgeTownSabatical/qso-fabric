@@ -1,0 +1,23 @@
+// Declarative Solis agent DSL (non-Turing complete)
+start: agent
+agent: "agent" NAME "{" body "}"
+body: version assets allocation rebalance risk
+version: "version" NUMBER
+assets: "assets:" asset+
+asset: NAME
+allocation: "allocation:" alloc+
+alloc: NAME PERCENT
+rebalance: "rebalance" "interval" INTERVAL
+risk: "risk:" risk_item+
+risk_item: "max_drawdown" PERCENT
+         | "collapse_threshold" PERCENT
+         | "no_margin" BOOL
+
+NAME: /[A-Za-z_][A-Za-z0-9_.-]*/
+NUMBER: /[0-9]+(\.[0-9]+)?/
+PERCENT: /[0-9]+(\.[0-9]+)?%/
+INTERVAL: /[0-9]+[smhd]/
+BOOL: "true" | "false"
+
+%import common.WS
+%ignore WS

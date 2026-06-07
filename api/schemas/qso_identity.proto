@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package qso.identity.v1;
+
+message EventResponse {
+  string event_id = 1;
+  string state_hash = 2;
+  string object_uri = 3;
+}
+
+message SignedEnvelope {
+  string actor = 1;
+  string policy_version = 2;
+  string signature = 3;
+}
+
+message IdentityCreateRequest {
+  SignedEnvelope auth = 1;
+  string identity_id = 2;
+  map<string, string> immutable_core = 3;
+}
+
+message IdentityMutateRequest {
+  SignedEnvelope auth = 1;
+  string identity_id = 2;
+  map<string, string> delta = 3;
+}
+
+message IdentityRevokeRequest {
+  SignedEnvelope auth = 1;
+  string identity_id = 2;
+  string reason = 3;
+}
+
+message IdentityReinstateRequest {
+  SignedEnvelope auth = 1;
+  string identity_id = 2;
+}
+
+message PolicyProposeRequest {
+  SignedEnvelope auth = 1;
+  string policy_uri = 2;
+  string version = 3;
+  map<string, string> policy_body = 4;
+}
+
+message PolicyActivateRequest {
+  SignedEnvelope auth = 1;
+  string policy_uri = 2;
+  string version = 3;
+  uint64 activation_index = 4;
+}
+
+message FederationHandshakeRequest {
+  string runtime_version = 1;
+  string policy_set_hash = 2;
+  repeated string trust_roots = 3;
+  uint64 latest_block = 4;
+}
+
+message ArchiveImportResponse {
+  bool accepted = 1;
+  string reason = 2;
+}
+
+service QSOIdentityService {
+  rpc CreateIdentity (IdentityCreateRequest) returns (EventResponse);
+  rpc MutateIdentity (IdentityMutateRequest) returns (EventResponse);
+  rpc RevokeIdentity (IdentityRevokeRequest) returns (EventResponse);
+  rpc ReinstateIdentity (IdentityReinstateRequest) returns (EventResponse);
+  rpc ProposePolicy (PolicyProposeRequest) returns (EventResponse);
+  rpc ActivatePolicy (PolicyActivateRequest) returns (EventResponse);
+}
+
+service QSOFederationService {
+  rpc Handshake (FederationHandshakeRequest) returns (ArchiveImportResponse);
+}

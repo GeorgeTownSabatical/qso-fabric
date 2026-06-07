@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QSO XR WebGL/WebXR Viewer</title>
+  <style>
+    :root {
+      --bg: #0b1017;
+      --panel: #131a25;
+      --text: #e7eefb;
+      --muted: #9fb0cc;
+      --border: #2b384d;
+      --accent: #62a1ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      height: 100vh;
+      background: radial-gradient(circle at 10% 0%, #1b273b 0%, var(--bg) 42%);
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      background: rgba(8,12,18,0.78);
+      backdrop-filter: blur(6px);
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    select, button {
+      background: #1a2433;
+      color: #dfe9ff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-family: inherit;
+      font-size: 12px;
+    }
+    #viewport { position: relative; }
+    #overlay {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(7, 10, 16, 0.68);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 11px;
+      line-height: 1.5;
+      max-width: min(440px, calc(100% - 20px));
+      pointer-events: none;
+    }
+    #overlay b { color: #dbe8ff; }
+    #fallback {
+      display: none;
+      position: absolute;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      color: #c9d8f5;
+      background: rgba(5,8,12,0.86);
+    }
+    #fallback a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <div><b>QSO XR WebGL/WebXR Viewer</b></div>
+    <div class="controls">
+      <label>demo
+        <select id="demoSelect"></select>
+      </label>
+      <label><input type="checkbox" id="layer1" checked /> layer 1</label>
+      <label><input type="checkbox" id="layer2" checked /> layer 2</label>
+      <label><input type="checkbox" id="layer4" checked /> layer 4</label>
+      <button id="resetBtn" type="button">reset camera</button>
+      <a href="./index.html" style="color: var(--accent); text-decoration:none;">diagnostic viewer</a>
+    </div>
+  </header>
+  <div id="viewport">
+    <div id="overlay"></div>
+    <div id="fallback"></div>
+  </div>
+
+  <script type="module">
+    const DEMOS = [{"id": "image_1_shadow_throne", "needs": ["atmospheric low-key lighting", "single focal silhouette clarity", "depth layering for sentinel figure", "slow camera drift with minimal UI"], "png": "image_1_shadow_throne.preview.png", "render": "image_1_shadow_throne.png.render.json", "render_payload": {"frame": 2, "frame_hash": "aeb6c39fecd1f128cccc1059b8ba1f141fcf433b2496a9b18a8c818123f7787f", "integrity": {"issues": [], "ok": true}, "matrix_order": "row_major", "projection": "scene.render_v1", "stats": {"culled": 0, "total_nodes": 3, "visible": 3}, "visible": [{"layer_mask": 1, "material": "qso://mat.avatar.midnight_steel", "mesh": "qso://mesh.avatar.regal_queen", "node_id": "queen_avatar", "uri": "qso://xr.world.preview.png/image_1_shadow_throne/node/queen_avatar", "world_bounds": {"center": [0.0, 1.4, 0.0], "radius": 1.224745}, "world_matrix": [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.4, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 1, "material": "qso://mat.entity.void_black", "mesh": "qso://mesh.entity.shadow_sentinel", "node_id": "sentinel_shadow", "uri": "qso://xr.world.preview.png/image_1_shadow_throne/node/sentinel_shadow", "world_bounds": {"center": [0.0, 2.2, -3.2], "radius": 5.542563}, "world_matrix": [3.2, 0.0, 0.0, 0.0, 0.0, 3.2, 0.0, 2.2, 0.0, 0.0, 3.2, -3.2, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 1, "material": "qso://mat.cinematic.obsidian", "mesh": null, "node_id": "throne_room", "uri": "qso://xr.world.preview.png/image_1_shadow_throne/node/throne_room", "world_bounds": {"center": [0.0, 24.0, 0.0], "radius": 112.569978}, "world_matrix": [12.0, 0.0, 0.0, 0.0, 0.0, 8.0, 0.0, 0.0, 0.0, 0.0, 12.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], "world_uri": "qso://xr.world.preview.png/image_1_shadow_throne"}, "source_image": "Image #1", "svg": "image_1_shadow_throne.preview.svg", "theme": "cinematic_low_light", "title": "Shadow Throne Demo"}, {"id": "image_2_torus_topology", "needs": ["annotation and label readability", "geometry-first clarity", "semantic color channel separation", "fixed camera framing"], "png": "image_2_torus_topology.preview.png", "render": "image_2_torus_topology.png.render.json", "render_payload": {"frame": 2, "frame_hash": "7cd3f1aeeaa3568ce16b600a64e5bc240697707a494d5147bf2e9c1d055803bb", "integrity": {"issues": [], "ok": true}, "matrix_order": "row_major", "projection": "scene.render_v1", "stats": {"culled": 0, "total_nodes": 3, "visible": 3}, "visible": [{"layer_mask": 2, "material": null, "mesh": null, "node_id": "annotation_panel", "uri": "qso://xr.world.preview.png/image_2_torus_topology/node/annotation_panel", "world_bounds": {"center": [-5.2, 3.0, 0.0], "radius": 3.342813}, "world_matrix": [2.4, 0.0, 0.0, -5.2, 0.0, 1.4, 0.0, 3.0, 0.0, 0.0, 0.2, 0.0, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 2, "material": "qso://mat.math.purple_loop", "mesh": "qso://mesh.math.loop_bundle", "node_id": "cohomology_loops", "uri": "qso://xr.world.preview.png/image_2_torus_topology/node/cohomology_loops", "world_bounds": {"center": [0.0, 0.1, 0.0], "radius": 16.004149}, "world_matrix": [4.2, 0.0, 0.0, 0.0, 0.0, 4.2, 0.0, 0.1, 0.0, 0.0, 4.2, 0.0, 0.0, 0.0, 0.0, 1.0]}, {"layer_mask": 1, "material": "qso://mat.math.translucent_substrate", "mesh": "qso://mesh.math.torus", "node_id": "torus_core", "uri": "qso://xr.world.preview.png/image_2_torus_topology/node/torus_core", "world_bounds": {"center": [0.0, 0.0, 0.0], "radius": 13.856406}, "world_matrix": [4.0, 0.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 1.0]}], "world_uri": "qso://xr.world.preview.png/image_2_torus_topology"}, "source_image": "Image #2", "svg": "image_2_torus_topology.preview.svg", "theme": "analytic_educational", "title": "Torus Topology Demo"}];
+    const viewport = document.getElementById('viewport');
+    const overlay = document.getElementById('overlay');
+    const fallback = document.getElementById('fallback');
+    const demoSelect = document.getElementById('demoSelect');
+    const layerChecks = [
+      document.getElementById('layer1'),
+      document.getElementById('layer2'),
+      document.getElementById('layer4'),
+    ];
+
+    for (const demo of DEMOS) {
+      const opt = document.createElement('option');
+      opt.value = demo.id;
+      opt.textContent = `${demo.title} (${demo.theme})`;
+      demoSelect.appendChild(opt);
+    }
+
+    let THREE, OrbitControls, VRButton;
+    try {
+      THREE = await import('https://unpkg.com/three@0.166.1/build/three.module.js');
+      OrbitControls = (await import('https://unpkg.com/three@0.166.1/examples/jsm/controls/OrbitControls.js')).OrbitControls;
+      VRButton = (await import('https://unpkg.com/three@0.166.1/examples/jsm/webxr/VRButton.js')).VRButton;
+    } catch (err) {
+      fallback.style.display = 'flex';
+      fallback.innerHTML = `Unable to load Three.js modules (network required).<br/>Open <a href="./index.html">index.html</a> instead.`;
+      throw err;
+    }
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b1017);
+    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 2000);
+    camera.position.set(16, 12, 18);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio || 1);
+    renderer.setSize(viewport.clientWidth, viewport.clientHeight);
+    renderer.xr.enabled = true;
+    viewport.appendChild(renderer.domElement);
+    document.body.appendChild(VRButton.createButton(renderer));
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.target.set(0, 0, 0);
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.42));
+    const key = new THREE.DirectionalLight(0xffffff, 0.88);
+    key.position.set(10, 16, 8);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0x88a9ff, 0.28);
+    fill.position.set(-8, 6, -10);
+    scene.add(fill);
+
+    const grid = new THREE.GridHelper(40, 20, 0x385070, 0x223145);
+    grid.position.set(0, -0.01, 0);
+    scene.add(grid);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    function layerMask() {
+      let mask = 0;
+      if (layerChecks[0].checked) mask |= 1;
+      if (layerChecks[1].checked) mask |= 2;
+      if (layerChecks[2].checked) mask |= 4;
+      return mask;
+    }
+
+    function clearGroup() {
+      while (group.children.length) {
+        const child = group.children.pop();
+        if (child.geometry) child.geometry.dispose();
+        if (child.material) {
+          if (Array.isArray(child.material)) child.material.forEach(m => m.dispose());
+          else child.material.dispose();
+        }
+      }
+    }
+
+    function makeLabel(text, color) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 64;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(8,10,14,0.65)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = 'rgba(220,230,255,0.28)';
+      ctx.strokeRect(1, 1, canvas.width - 2, canvas.height - 2);
+      ctx.fillStyle = color;
+      ctx.font = '28px Menlo, monospace';
+      ctx.fillText(text, 12, 40);
+      const tex = new THREE.CanvasTexture(canvas);
+      tex.needsUpdate = true;
+      const mat = new THREE.SpriteMaterial({ map: tex, transparent: true });
+      const sprite = new THREE.Sprite(mat);
+      sprite.scale.set(4.8, 0.6, 1);
+      return sprite;
+    }
+
+    function colorForTheme(theme, index) {
+      if (theme === 'cinematic_low_light') {
+        const palette = [0xd34a4a, 0x8f2d2d, 0xe99b9b];
+        return palette[index % palette.length];
+      }
+      const palette = [0x2d5be3, 0x66a4ff, 0x87bfff];
+      return palette[index % palette.length];
+    }
+
+    function applyDemo() {
+      clearGroup();
+      const id = demoSelect.value || DEMOS[0].id;
+      const demo = DEMOS.find(d => d.id === id) || DEMOS[0];
+      const rows = (demo.render_payload.visible || []).filter(r => ((r.layer_mask || 0) & layerMask()) !== 0);
+
+      rows.forEach((row, index) => {
+        const c = row.world_bounds.center || [0, 0, 0];
+        const radius = Math.max(0.3, Number(row.world_bounds.radius || 1) * 0.08);
+        const geom = new THREE.SphereGeometry(radius, 24, 16);
+        const mat = new THREE.MeshStandardMaterial({
+          color: colorForTheme(demo.theme, index),
+          roughness: 0.35,
+          metalness: 0.2,
+          emissive: demo.theme === 'cinematic_low_light' ? 0x200808 : 0x0b1233,
+          emissiveIntensity: demo.theme === 'cinematic_low_light' ? 0.6 : 0.24,
+        });
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.position.set(Number(c[0]), Number(c[1]), Number(c[2]));
+        group.add(mesh);
+
+        const label = makeLabel(row.node_id, demo.theme === 'cinematic_low_light' ? '#ffe8e8' : '#dbe7ff');
+        label.position.set(Number(c[0]), Number(c[1]) + radius + 0.45, Number(c[2]));
+        group.add(label);
+      });
+
+      const total = demo.render_payload.stats?.total_nodes ?? rows.length;
+      overlay.innerHTML = `
+        <div><b>${demo.title}</b> <span style="opacity:.78">(${demo.theme})</span></div>
+        <div>source: ${demo.source_image}</div>
+        <div>frame_hash: <span style="word-break:break-all;">${demo.render_payload.frame_hash || ''}</span></div>
+        <div>visible: ${rows.length} / ${total} | layer_mask=${layerMask()}</div>
+        <div>world_uri: ${demo.render_payload.world_uri}</div>
+      `;
+    }
+
+    demoSelect.addEventListener('change', applyDemo);
+    layerChecks.forEach(chk => chk.addEventListener('change', applyDemo));
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      camera.position.set(16, 12, 18);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    });
+
+    function onResize() {
+      const w = viewport.clientWidth;
+      const h = viewport.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+    window.addEventListener('resize', onResize);
+    onResize();
+    applyDemo();
+
+    renderer.setAnimationLoop(() => {
+      controls.update();
+      renderer.render(scene, camera);
+    });
+  </script>
+</body>
+</html>

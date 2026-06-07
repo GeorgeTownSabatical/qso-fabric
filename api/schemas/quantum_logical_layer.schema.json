@@ -1,0 +1,12 @@
+{
+  "$id": "qso://quantum.logical_layer",
+  "type": "object",
+  "properties": {
+    "uri": { "type": "string", "pattern": "^qso://quantum.logical_layer/.+$" },
+    "logical_qubit_mapping": { "type": "object" },
+    "stabilizer_configuration": { "type": "object" },
+    "code_distance": { "type": "integer", "minimum": 1 },
+    "syndrome_strategy": { "type": "string" }
+  },
+  "required": ["uri"]
+}

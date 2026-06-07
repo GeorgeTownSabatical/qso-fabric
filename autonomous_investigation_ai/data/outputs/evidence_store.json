@@ -1,0 +1,452 @@
+[
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  },
+  {
+    "hypothesis_id": "H-b06734d1be",
+    "source": "reasoning_anomaly",
+    "detail": "Rapid transfer parcel anomaly persisted",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-13149dbb10",
+    "source": "graph_query",
+    "detail": "405-112-17 linked to 2 parcels",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-bfbb762ff2",
+    "source": "address_cluster",
+    "detail": "1 shared-address clusters found",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "link_prediction",
+    "detail": "High-probability missing links exist",
+    "polarity": "support"
+  },
+  {
+    "hypothesis_id": "H-0bb3c652a1",
+    "source": "external_registry",
+    "detail": "External corroboration pending",
+    "polarity": "neutral"
+  }
+]

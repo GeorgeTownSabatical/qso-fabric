@@ -1,0 +1,8 @@
+{
+  "input_rows": 10,
+  "normalized_rows": 10,
+  "surname_rows": 10,
+  "alert_rows": 3,
+  "parcel_rows": 3,
+  "communities": 3
+}

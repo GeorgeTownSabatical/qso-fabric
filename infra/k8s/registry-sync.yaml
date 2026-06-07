@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: qnsf-registry-sync
+  namespace: qnsf
+spec:
+  schedule: "*/15 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: registry-sync
+              image: qnsf/registry-sync:latest
+              args: ["--sync"]

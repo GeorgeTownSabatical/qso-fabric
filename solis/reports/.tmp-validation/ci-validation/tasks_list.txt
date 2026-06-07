@@ -1,0 +1,16 @@
+# Solis Next Task List
+
+## P0
+1. Fixed-point runtime migration completion for star service state boundaries.
+2. Full strict typing expansion across `solis/services` and `solis/agent`.
+3. Gate health rollup publication to long-window health URIs.
+
+## P1
+4. Real on-chain anchor transactions for Ethereum/SphereChain adapters.
+5. Circuit-backed ZK generation/verification path replacing hash stubs.
+6. Multi-node replay CI matrix across multiple datasets.
+
+## P2
+7. Harden observability exporters with scrape/tracing integration tests.
+8. Policy manifests for contagion/cascade deny rules.
+9. Weekly automated report generation + archival retention policy.

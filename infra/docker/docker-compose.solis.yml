@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  solis:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.solis
+    ports:
+      - "9100:9100"
+    environment:
+      - SOLIS_ENV=production

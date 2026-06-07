@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "clusters": {
+    "QSO": {"entities": [], "relations": [], "documents": [], "equations": []},
+    "SOLIS": {"entities": [], "relations": [], "documents": [], "equations": []},
+    "SYMBOLIC_PHYSICS": {"entities": [], "relations": [], "documents": [], "equations": []},
+    "PROPERTY_INVESTIGATION": {"entities": [], "relations": [], "documents": [], "equations": []},
+    "AGENT_ORCHESTRATION": {"entities": [], "relations": [], "documents": [], "equations": []},
+    "XR_SIMULATION": {"entities": [], "relations": [], "documents": [], "equations": []},
+    "HYBRID_QUANTUM_OPTICAL": {"entities": [], "relations": [], "documents": [], "equations": []},
+    "GOVERNANCE_FRAMEWORK": {"entities": [], "relations": [], "documents": [], "equations": []}
+  }
+}

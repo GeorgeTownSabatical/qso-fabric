@@ -1,0 +1,280 @@
+name: solis-ci
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  schedule:
+    - cron: "17 3 * * *"
+
+jobs:
+  build-and-verify:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Mypy strict (Solis deterministic core)
+        run: |
+          mypy --strict --follow-imports=skip \
+            solis/physics/fixed_math.py \
+            solis/physics/entropy_engine.py \
+            solis/physics/collapse_engine.py \
+            solis/physics/contagion_engine.py \
+            solis/physics/sheaf_model.py \
+            solis/physics/stability_solver.py \
+            solis/shared/canonical_json.py \
+            solis/shared/hashing.py \
+            solis/integration/gates.py \
+            solis/agent/sandbox/replay_engine.py \
+            solis/identity/anchor/merkle.py
+
+      - name: Mypy strict (Solis services + agent)
+        run: |
+          mypy --strict --follow-imports=skip \
+            solis/services \
+            solis/agent
+
+      - name: Type/Import compile check
+        run: python -m py_compile $(find solis -name '*.py')
+
+      - name: Run Solis tests
+        run: pytest -q solis/tests -m "not nightly_replay and not zk_command_path"
+
+      - name: ZK fallback + command-path integration (mocked subprocess)
+        run: pytest -q solis/tests/test_zk_command_integration.py
+
+      - name: Deterministic replay check
+        run: pytest -q solis/tests/test_replay_determinism.py
+
+      - name: Deterministic replay hash constant check (long lane)
+        run: python tools/solis_replay_hashes.py verify --scope long --long-events 360
+
+      - name: Multi-node replay smoke check
+        run: pytest -q solis/tests/test_multinode_replay_matrix.py -k dataset_alpha
+
+      - name: Merkle consistency validation
+        run: |
+          python - <<'PY'
+          import json
+          from solis.merkle.merkle_tree import hash_event, build_merkle_root
+          e1 = json.dumps({"a": 1}, sort_keys=True)
+          e2 = json.dumps({"b": 2}, sort_keys=True)
+          r1 = build_merkle_root([hash_event(e1), hash_event(e2)])
+          r2 = build_merkle_root([hash_event(e1), hash_event(e2)])
+          assert r1 == r2
+          print(r1)
+          PY
+
+      - name: ZK proof verification
+        run: |
+          python - <<'PY'
+          from solis.zk.generate_proof import generate_collapse_proof
+          from solis.zk.verify_proof import verify_collapse_proof
+          proof = generate_collapse_proof(epoch=1, entropy=0.2, magnetic=0.8, fusion=0.7, threshold=0.5)
+          assert verify_collapse_proof(proof)
+          print(proof["proof_hash"])
+          PY
+
+      - name: Docker build validation
+        run: docker build -f infra/docker/Dockerfile.solis -t solis-node .
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'v1.30.0'
+
+      - name: Kubernetes dry-run apply
+        run: kubectl apply -f infra/k8s --dry-run=client --validate=false
+
+  report-validation:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate Solis report generation (non-blocking)
+        run: |
+          make solis-report \
+            SOLIS_REPORT_VALIDATE_ONLY=1 \
+            SOLIS_REPORT_VERSION=ci-validation \
+            SOLIS_REPORT_TIMESTAMP=2026-02-22T00:00:00Z
+
+  multinode-replay-matrix:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+        dataset: ["dataset_alpha", "dataset_beta"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+
+      - name: Replay matrix (dataset + runtime)
+        run: pytest -q solis/tests/test_multinode_replay_matrix.py -k ${{ matrix.dataset }}
+
+  replay-determinism-tiers:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+        tier: ["short", "long"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+
+      - name: Replay tier validation
+        run: |
+          if [ "${{ matrix.tier }}" = "short" ]; then
+            pytest -q solis/tests/test_replay_determinism.py::test_replay_determinism_final_state_and_anchor
+          else
+            pytest -q solis/tests/test_replay_determinism.py::test_replay_determinism_long_sequence_three_nodes
+            python tools/solis_replay_hashes.py verify --scope long --long-events 360
+          fi
+
+  zk-toolchain-detect:
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    outputs:
+      available: ${{ steps.detect.outputs.available }}
+      circom_bin: ${{ steps.detect.outputs.circom_bin }}
+      snarkjs_bin: ${{ steps.detect.outputs.snarkjs_bin }}
+    steps:
+      - name: Detect circom/snarkjs availability
+        id: detect
+        run: |
+          CIRCOM_BIN="${SOLIS_ZK_CIRCOM_BIN:-circom}"
+          SNARKJS_BIN="${SOLIS_ZK_SNARKJS_BIN:-snarkjs}"
+          if command -v "$CIRCOM_BIN" >/dev/null 2>&1 && command -v "$SNARKJS_BIN" >/dev/null 2>&1; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "circom_bin=$CIRCOM_BIN" >> "$GITHUB_OUTPUT"
+          echo "snarkjs_bin=$SNARKJS_BIN" >> "$GITHUB_OUTPUT"
+
+  zk-command-path-smoke:
+    if: github.event_name != 'schedule' && needs.zk-toolchain-detect.outputs.available == 'true'
+    needs: [zk-toolchain-detect]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+
+      - name: ZK command-path smoke (real circom/snarkjs)
+        env:
+          SOLIS_ZK_COMMAND_SMOKE: "1"
+          SOLIS_ZK_CIRCOM_BIN: ${{ needs.zk-toolchain-detect.outputs.circom_bin }}
+          SOLIS_ZK_SNARKJS_BIN: ${{ needs.zk-toolchain-detect.outputs.snarkjs_bin }}
+        run: pytest -q solis/tests/test_zk_command_path_smoke.py -m zk_command_path
+
+  nightly-long-run-replay:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+
+      - name: Nightly long-run replay matrix (1000-event)
+        env:
+          SOLIS_NIGHTLY_REPLAY_EVENT_COUNT: "1000"
+        run: |
+          pytest -q solis/tests -m nightly_replay
+          python tools/solis_replay_hashes.py verify --scope nightly --nightly-events 1000
+
+  alpaca-live-integration:
+    if: github.event_name != 'schedule' && secrets.APCA_API_KEY_ID != '' && secrets.APCA_API_SECRET_KEY != ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+
+      - name: Alpaca live integration (secret-gated)
+        env:
+          APCA_API_KEY_ID: ${{ secrets.APCA_API_KEY_ID }}
+          APCA_API_SECRET_KEY: ${{ secrets.APCA_API_SECRET_KEY }}
+          APCA_API_BASE_URL: ${{ secrets.APCA_API_BASE_URL }}
+          SOLIS_ALPACA_LIVE_ORDER: ${{ secrets.SOLIS_ALPACA_LIVE_ORDER }}
+          SOLIS_ALPACA_ALLOW_LIVE: ${{ secrets.SOLIS_ALPACA_ALLOW_LIVE }}
+          SOLIS_ALPACA_TEST_SYMBOL: ${{ secrets.SOLIS_ALPACA_TEST_SYMBOL }}
+          SOLIS_ALPACA_TEST_NOTIONAL: ${{ secrets.SOLIS_ALPACA_TEST_NOTIONAL }}
+        run: pytest -q solis/tests/test_alpaca_live_integration.py -m live_alpaca

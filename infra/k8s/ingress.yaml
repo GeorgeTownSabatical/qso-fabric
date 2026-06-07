@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qnsf-ingress
+  namespace: qnsf
+spec:
+  rules:
+    - host: qnsf.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qnsf-core
+                port:
+                  number: 80

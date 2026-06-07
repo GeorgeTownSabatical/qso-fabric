@@ -1,0 +1,19 @@
+# Solis Next Task List
+
+## P0
+1. Finish fixed-point migration at the projector/service boundary (eliminate residual float math in stellar projection fields).
+2. Add live integration tests for Ethereum/SphereChain anchor adapters against local dev chains.
+3. Make circom/snarkjs artifacts first-class in CI when toolchain is present (command path smoke test + fallback path test).
+4. Add nightly long-run deterministic replay job (1000-event, 3-node matrix with state/merkle/anchor hash assertions).
+
+## P1
+5. Add policy-manifest-driven contagion/cascade deny rules with explicit QSO gate decision evidence.
+6. Expand observability hardening tests (Prometheus scrape payload and OTEL exporter wiring).
+7. Extend gate health rollups with windowed SLOs (24h/7d pass-rate envelopes and drift alerts).
+8. Formalize 36-chamber evidence map: each chamber linked to code artifacts, tests, and acceptance checks.
+
+## P2
+9. Developer marketplace hardening: signed strategy manifests, provenance labels, and deterministic fee settlement checks.
+10. Civilian/Sovereign/Architect mode permission graph wiring with invariant-backed transition tests.
+11. Sovereign identity rollout hardening: device attestation verification path and recovery quorum lifecycle tests.
+12. Publish a chamber-completion dashboard generated from report stats + gate history snapshots.

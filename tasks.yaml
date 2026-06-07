@@ -1,0 +1,713 @@
+program:
+  name: "CSTE + Multilattice Universal Analysis Engine"
+  version: "0.1.0"
+  description: "Machine-readable task archive for orchestrated development."
+  default_status: "pending"
+  status_values:
+    - pending
+    - ready
+    - in_progress
+    - blocked
+    - review
+    - done
+    - failed
+    - archived
+
+agents:
+  - ArchitectAgent
+  - ScaffoldAgent
+  - CoreLogicAgent
+  - InvestigationAgent
+  - SymbolicsAgent
+  - VisualizationAgent
+  - QAAgent
+  - RefactorAgent
+  - DocsAgent
+  - OrchestratorAgent
+
+phases:
+  - id: "P0"
+    title: "Program Initialization"
+  - id: "P1"
+    title: "Base Topology Engine"
+  - id: "P2"
+    title: "Fiber Bundle State Model"
+  - id: "P3"
+    title: "Transport Engine"
+  - id: "P4"
+    title: "Sheaf Consistency Engine"
+  - id: "P5"
+    title: "Cohomology Engine"
+  - id: "P6"
+    title: "Spectral Analysis"
+  - id: "P7"
+    title: "Investigation Engine"
+  - id: "P8"
+    title: "Multilattice Engine"
+  - id: "P9"
+    title: "Visualization Engine"
+  - id: "P10"
+    title: "QSML Symbolic Layer"
+  - id: "P11"
+    title: "AI Reasoning Layer"
+  - id: "P12"
+    title: "Autonomous Codex Development"
+
+tasks:
+  - id: "TASK-0.1.1"
+    title: "Initialize git repository"
+    phase: "P0"
+    module: "repo"
+    description: "Create repository root and baseline version control assets."
+    assignee: "ScaffoldAgent"
+    priority: "high"
+    status: "pending"
+    dependencies: []
+    outputs:
+      - ".git"
+      - "README.md"
+    validation:
+      - "repository initialized"
+
+  - id: "TASK-0.1.2"
+    title: "Create project README"
+    phase: "P0"
+    module: "docs"
+    description: "Write repository overview, setup, and architecture summary."
+    assignee: "DocsAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.1.1"
+    outputs:
+      - "README.md"
+    validation:
+      - "file exists"
+      - "contains install instructions"
+
+  - id: "TASK-0.1.3"
+    title: "Create architecture spec"
+    phase: "P0"
+    module: "docs"
+    description: "Document system architecture, modules, and dependency flow."
+    assignee: "ArchitectAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.1.1"
+    outputs:
+      - "architecture.md"
+    validation:
+      - "file exists"
+      - "module boundaries documented"
+
+  - id: "TASK-0.1.4"
+    title: "Create AGENTS.md"
+    phase: "P0"
+    module: "orchestration"
+    description: "Define agent rules, roles, and lifecycle guidance."
+    assignee: "ArchitectAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.1.1"
+    outputs:
+      - "AGENTS.md"
+    validation:
+      - "file exists"
+
+  - id: "TASK-0.1.5"
+    title: "Create task registry YAML"
+    phase: "P0"
+    module: "orchestration"
+    description: "Create machine-readable task archive for orchestrated execution."
+    assignee: "OrchestratorAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.1.1"
+    outputs:
+      - "tasks.yaml"
+    validation:
+      - "yaml parses"
+
+  - id: "TASK-0.2.1"
+    title: "Set up Python environment"
+    phase: "P0"
+    module: "env"
+    description: "Prepare Python runtime and baseline package management."
+    assignee: "ScaffoldAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.1.1"
+    outputs:
+      - "pyproject.toml"
+    validation:
+      - "python version pinned"
+
+  - id: "TASK-0.2.2"
+    title: "Install analysis dependencies"
+    phase: "P0"
+    module: "env"
+    description: "Add networkx, numpy, scipy, and related analysis packages."
+    assignee: "ScaffoldAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.2.1"
+    outputs:
+      - "pyproject.toml"
+      - "requirements.txt"
+    validation:
+      - "dependency list updated"
+
+  - id: "TASK-0.2.3"
+    title: "Install API and UI dependencies"
+    phase: "P0"
+    module: "env"
+    description: "Add fastapi and streamlit."
+    assignee: "ScaffoldAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-0.2.1"
+    outputs:
+      - "pyproject.toml"
+    validation:
+      - "dependency list updated"
+
+  - id: "TASK-0.2.4"
+    title: "Install QA tooling"
+    phase: "P0"
+    module: "env"
+    description: "Add pytest, ruff, black, and mypy."
+    assignee: "QAAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.2.1"
+    outputs:
+      - "pyproject.toml"
+      - ".pre-commit-config.yaml"
+    validation:
+      - "qa tools configured"
+
+  - id: "TASK-0.3.1"
+    title: "Create task loader"
+    phase: "P0"
+    module: "orchestrator"
+    description: "Load and validate tasks from YAML."
+    assignee: "OrchestratorAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.1.5"
+    outputs:
+      - "codex_orchestrator.py"
+    validation:
+      - "yaml load succeeds"
+
+  - id: "TASK-0.3.2"
+    title: "Create dependency resolver"
+    phase: "P0"
+    module: "orchestrator"
+    description: "Resolve readiness based on dependency completion."
+    assignee: "OrchestratorAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.3.1"
+    outputs:
+      - "codex_orchestrator.py"
+    validation:
+      - "ready tasks can be computed"
+
+  - id: "TASK-0.3.3"
+    title: "Create progress tracker"
+    phase: "P0"
+    module: "orchestrator"
+    description: "Track task state transitions and summaries."
+    assignee: "OrchestratorAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.3.1"
+    outputs:
+      - "codex_orchestrator.py"
+    validation:
+      - "status updates persisted"
+
+  - id: "TASK-1.1"
+    title: "Create graph space class"
+    phase: "P1"
+    module: "topology"
+    description: "Implement directed graph wrapper with metadata support."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-0.2.2"
+    outputs:
+      - "cste/topology/graph_space.py"
+    validation:
+      - "unit tests pass"
+
+  - id: "TASK-1.2"
+    title: "Implement multilayer graph"
+    phase: "P1"
+    module: "topology"
+    description: "Build layer registry and cross-layer adjacency support."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-1.1"
+    outputs:
+      - "cste/topology/multilayer_graph.py"
+    validation:
+      - "unit tests pass"
+
+  - id: "TASK-1.3"
+    title: "Implement event DAG"
+    phase: "P1"
+    module: "topology"
+    description: "Create time-ordered event topology with rollback-friendly semantics."
+    assignee: "CoreLogicAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-1.1"
+    outputs:
+      - "cste/topology/event_dag.py"
+    validation:
+      - "unit tests pass"
+
+  - id: "TASK-2.1"
+    title: "Create state fiber class"
+    phase: "P2"
+    module: "fiber"
+    description: "Represent local state and invariant requirements."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-1.1"
+    outputs:
+      - "cste/fiber/state_fiber.py"
+    validation:
+      - "unit tests pass"
+
+  - id: "TASK-2.2"
+    title: "Create fiber bundle manager"
+    phase: "P2"
+    module: "fiber"
+    description: "Attach and query fibers across topology nodes."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-2.1"
+    outputs:
+      - "cste/fiber/fiber_bundle.py"
+    validation:
+      - "unit tests pass"
+
+  - id: "TASK-2.3"
+    title: "Implement event log and snapshotting"
+    phase: "P2"
+    module: "fiber"
+    description: "Track state changes with replay and snapshot support."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-2.2"
+    outputs:
+      - "cste/fiber/event_log.py"
+      - "cste/fiber/snapshots.py"
+    validation:
+      - "state reconstruction works"
+
+  - id: "TASK-3.1"
+    title: "Create transport operator base"
+    phase: "P3"
+    module: "transport"
+    description: "Define validated operator interface for edge-wise transformations."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-2.2"
+    outputs:
+      - "cste/transport/operators.py"
+    validation:
+      - "operators instantiate and apply"
+
+  - id: "TASK-3.2"
+    title: "Implement sequential transport pipeline"
+    phase: "P3"
+    module: "transport"
+    description: "Execute ordered operators over state."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-3.1"
+    outputs:
+      - "cste/transport/pipeline.py"
+    validation:
+      - "pipeline tests pass"
+
+  - id: "TASK-3.3"
+    title: "Implement domain-specific operators"
+    phase: "P3"
+    module: "transport"
+    description: "Add ownership, trade, infection, neural, and symbolic example operators."
+    assignee: "CoreLogicAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-3.1"
+    outputs:
+      - "cste/transport/domain_operators.py"
+    validation:
+      - "operator examples execute"
+
+  - id: "TASK-4.1"
+    title: "Implement local consistency checks"
+    phase: "P4"
+    module: "consistency"
+    description: "Compare overlapping state assignments and report conflicts."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-2.2"
+    outputs:
+      - "cste/consistency/sheaf_rules.py"
+    validation:
+      - "conflicts detected correctly"
+
+  - id: "TASK-4.2"
+    title: "Implement section extension logic"
+    phase: "P4"
+    module: "consistency"
+    description: "Attempt to extend local compatible assignments to larger regions."
+    assignee: "CoreLogicAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-4.1"
+    outputs:
+      - "cste/consistency/sections.py"
+    validation:
+      - "section extension tests pass"
+
+  - id: "TASK-5.1"
+    title: "Implement cycle detection"
+    phase: "P5"
+    module: "cohomology"
+    description: "Enumerate cycles and strongly connected regions."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-1.1"
+    outputs:
+      - "cste/cohomology/cycle_detector.py"
+    validation:
+      - "cycles found in fixtures"
+
+  - id: "TASK-5.2"
+    title: "Implement loop transport analysis"
+    phase: "P5"
+    module: "cohomology"
+    description: "Transport a state around a loop and measure divergence."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-5.1"
+      - "TASK-3.2"
+    outputs:
+      - "cste/cohomology/obstruction_engine.py"
+    validation:
+      - "anomaly score computed"
+
+  - id: "TASK-5.3"
+    title: "Implement cochain and coboundary primitives"
+    phase: "P5"
+    module: "cohomology"
+    description: "Create data structures for formal cohomology computations."
+    assignee: "CoreLogicAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-5.1"
+    outputs:
+      - "cste/cohomology/cochains.py"
+    validation:
+      - "coboundary tests pass"
+
+  - id: "TASK-6.1"
+    title: "Implement Laplacian computation"
+    phase: "P6"
+    module: "spectral"
+    description: "Generate adjacency, degree, and Laplacian matrices."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-1.1"
+    outputs:
+      - "cste/spectral/laplacian_analysis.py"
+    validation:
+      - "matrix tests pass"
+
+  - id: "TASK-6.2"
+    title: "Implement instability metrics"
+    phase: "P6"
+    module: "spectral"
+    description: "Detect spectral gaps, near-zero eigenvalues, and unstable regions."
+    assignee: "CoreLogicAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-6.1"
+    outputs:
+      - "cste/spectral/instability.py"
+    validation:
+      - "instability metrics validated"
+
+  - id: "TASK-7.1"
+    title: "Create parcel and deed ingest pipeline"
+    phase: "P7"
+    module: "investigation"
+    description: "Load and normalize ownership-related source data."
+    assignee: "InvestigationAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-1.1"
+      - "TASK-2.2"
+    outputs:
+      - "cste/investigation/ingest.py"
+      - "cste/investigation/normalize.py"
+    validation:
+      - "fixture data ingests"
+
+  - id: "TASK-7.2"
+    title: "Construct ownership graph"
+    phase: "P7"
+    module: "investigation"
+    description: "Map normalized records into graph entities and relations."
+    assignee: "InvestigationAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-7.1"
+    outputs:
+      - "cste/investigation/ownership_graph.py"
+    validation:
+      - "ownership graph builds"
+
+  - id: "TASK-7.3"
+    title: "Detect circular ownership anomalies"
+    phase: "P7"
+    module: "investigation"
+    description: "Run cohomology and loop divergence logic over ownership graphs."
+    assignee: "InvestigationAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-7.2"
+      - "TASK-5.2"
+    outputs:
+      - "cste/investigation/anomaly_reports.py"
+    validation:
+      - "sample anomaly report generated"
+
+  - id: "TASK-8.1"
+    title: "Create multilattice layer abstraction"
+    phase: "P8"
+    module: "multilattice"
+    description: "Represent layers and coupling maps for multilayer systems."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-1.2"
+    outputs:
+      - "cste/multilattice/layers.py"
+    validation:
+      - "layer fixtures pass"
+
+  - id: "TASK-8.2"
+    title: "Implement sheaf Laplacian for multilattices"
+    phase: "P8"
+    module: "multilattice"
+    description: "Compute sheaf-aware operators over coupled layers."
+    assignee: "CoreLogicAgent"
+    priority: "high"
+    status: "pending"
+    dependencies:
+      - "TASK-8.1"
+      - "TASK-6.1"
+    outputs:
+      - "cste/multilattice/sheaf_laplacian.py"
+    validation:
+      - "tests pass"
+
+  - id: "TASK-8.3"
+    title: "Implement control node analysis"
+    phase: "P8"
+    module: "multilattice"
+    description: "Rank stabilization and intervention points across layers."
+    assignee: "CoreLogicAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-8.2"
+      - "TASK-5.2"
+    outputs:
+      - "cste/multilattice/control_points.py"
+    validation:
+      - "control node outputs generated"
+
+  - id: "TASK-9.1"
+    title: "Create graph renderer"
+    phase: "P9"
+    module: "visualization"
+    description: "Render graph structures and anomaly overlays."
+    assignee: "VisualizationAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-5.2"
+    outputs:
+      - "cste/visualization/graph_renderer.py"
+    validation:
+      - "render function produces figure"
+
+  - id: "TASK-9.2"
+    title: "Create Streamlit dashboard"
+    phase: "P9"
+    module: "visualization"
+    description: "Interactive UI for loading data and inspecting anomalies."
+    assignee: "VisualizationAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-9.1"
+      - "TASK-7.3"
+    outputs:
+      - "cste/visualization/dashboard.py"
+    validation:
+      - "dashboard launches"
+
+  - id: "TASK-10.1"
+    title: "Create QSML parser"
+    phase: "P10"
+    module: "qsml"
+    description: "Parse symbolic transport declarations into internal representations."
+    assignee: "SymbolicsAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-3.1"
+    outputs:
+      - "cste/qsml/parser.py"
+    validation:
+      - "parser handles sample input"
+
+  - id: "TASK-10.2"
+    title: "Bind QSML to transport operators"
+    phase: "P10"
+    module: "qsml"
+    description: "Compile symbolic transport specifications into executable operators."
+    assignee: "SymbolicsAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-10.1"
+      - "TASK-3.1"
+    outputs:
+      - "cste/qsml/compiler.py"
+    validation:
+      - "compiled operators execute"
+
+  - id: "TASK-11.1"
+    title: "Create anomaly explanation layer"
+    phase: "P11"
+    module: "ai"
+    description: "Summarize and rank structural anomalies in human-readable terms."
+    assignee: "DocsAgent"
+    priority: "medium"
+    status: "pending"
+    dependencies:
+      - "TASK-7.3"
+      - "TASK-8.3"
+    outputs:
+      - "cste/ai/explanations.py"
+    validation:
+      - "summaries generated for fixtures"
+
+  - id: "TASK-12.1"
+    title: "Create code generation agent adapter"
+    phase: "P12"
+    module: "automation"
+    description: "Define interface for autonomous code-producing agents."
+    assignee: "OrchestratorAgent"
+    priority: "low"
+    status: "pending"
+    dependencies:
+      - "TASK-0.3.3"
+    outputs:
+      - "cste/automation/agent_adapter.py"
+    validation:
+      - "adapter import succeeds"
+
+  - id: "TASK-12.2"
+    title: "Create automated review pipeline"
+    phase: "P12"
+    module: "automation"
+    description: "Run validations and status transitions automatically after task completion."
+    assignee: "OrchestratorAgent"
+    priority: "low"
+    status: "pending"
+    dependencies:
+      - "TASK-12.1"
+      - "TASK-0.2.4"
+    outputs:
+      - "cste/automation/review_pipeline.py"
+    validation:
+      - "review flow works"
+
+metadata:
+  recommendations:
+    first_execution_batch:
+      - "TASK-0.1.1"
+      - "TASK-0.1.2"
+      - "TASK-0.1.3"
+      - "TASK-0.1.4"
+      - "TASK-0.1.5"
+      - "TASK-0.2.1"
+      - "TASK-0.2.2"
+      - "TASK-0.2.4"
+    critical_path:
+      - "TASK-0.1.5"
+      - "TASK-0.3.1"
+      - "TASK-0.3.2"
+      - "TASK-1.1"
+      - "TASK-2.1"
+      - "TASK-2.2"
+      - "TASK-3.1"
+      - "TASK-3.2"
+      - "TASK-4.1"
+      - "TASK-5.1"
+      - "TASK-5.2"
+      - "TASK-6.1"
+      - "TASK-7.1"
+      - "TASK-7.2"
+      - "TASK-7.3"

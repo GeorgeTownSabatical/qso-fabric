@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solis Stellar Renderer</title>
+  <style>
+    :root {
+      --bg: #050b16;
+      --fg: #e7ecf7;
+      --accent: #39a8ff;
+      --grid: rgba(57, 168, 255, 0.2);
+    }
+    html, body { margin: 0; height: 100%; background: radial-gradient(circle at top, #0d1f39, var(--bg)); color: var(--fg); font-family: Menlo, Monaco, Consolas, monospace; }
+    #hud { position: fixed; top: 12px; left: 12px; padding: 10px; border: 1px solid var(--grid); background: rgba(5, 11, 22, 0.85); }
+    #scene { width: 100vw; height: 100vh; display: grid; place-items: center; }
+    #star { width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #fff5d5, #ff9f1c 55%, #9f2a00); box-shadow: 0 0 48px rgba(255, 163, 26, 0.75); }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <div><strong>Solis WebXR Stub</strong></div>
+    <div id="metrics">waiting for stream...</div>
+  </div>
+  <main id="scene">
+    <div id="star" aria-label="stellar core"></div>
+  </main>
+  <script src="./stellar_scene.js"></script>
+  <script src="./solis_client.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "$id": "qso://infra.transport",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "enum": ["direct", "vpn", "tor"]
+    },
+    "node_id": {
+      "type": "string"
+    },
+    "latency_ms": {
+      "type": "number"
+    },
+    "throughput_mbps": {
+      "type": "number"
+    },
+    "risk_profile": {
+      "type": "string"
+    },
+    "health_status": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "exit_fingerprint": {
+      "type": "string"
+    }
+  },
+  "required": ["mode", "policy_version"]
+}

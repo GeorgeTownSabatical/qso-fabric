@@ -1,0 +1,124 @@
+[
+  {
+    "entity": "JACOB T MESSER",
+    "assets_controlled": [
+      {
+        "parcel": "405-112-17",
+        "depth": 1,
+        "path": [
+          "JACOB T MESSER",
+          "405-112-17"
+        ]
+      },
+      {
+        "parcel": "405-112-18",
+        "depth": 3,
+        "path": [
+          "JACOB T MESSER",
+          "405-112-17",
+          "101 HARBOR ST, ORANGE, CA",
+          "405-112-18"
+        ]
+      }
+    ],
+    "confidence": 0.65
+  },
+  {
+    "entity": "Jacob Messer",
+    "assets_controlled": [
+      {
+        "parcel": "405-112-17",
+        "depth": 1,
+        "path": [
+          "Jacob Messer",
+          "405-112-17"
+        ]
+      },
+      {
+        "parcel": "405-112-18",
+        "depth": 3,
+        "path": [
+          "Jacob Messer",
+          "405-112-17",
+          "101 HARBOR ST, ORANGE, CA",
+          "405-112-18"
+        ]
+      }
+    ],
+    "confidence": 0.65
+  },
+  {
+    "entity": "Jacob T Messer",
+    "assets_controlled": [
+      {
+        "parcel": "405-112-17",
+        "depth": 1,
+        "path": [
+          "Jacob T Messer",
+          "405-112-17"
+        ]
+      },
+      {
+        "parcel": "405-112-18",
+        "depth": 3,
+        "path": [
+          "Jacob T Messer",
+          "405-112-17",
+          "101 HARBOR ST, ORANGE, CA",
+          "405-112-18"
+        ]
+      }
+    ],
+    "confidence": 0.65
+  },
+  {
+    "entity": "JACOB MESSER",
+    "assets_controlled": [
+      {
+        "parcel": "405-112-17",
+        "depth": 3,
+        "path": [
+          "JACOB MESSER",
+          "MESNER HOLDINGS LLC",
+          "101 HARBOR ST, ORANGE, CA",
+          "405-112-17"
+        ]
+      },
+      {
+        "parcel": "405-112-18",
+        "depth": 2,
+        "path": [
+          "JACOB MESSER",
+          "MESNER HOLDINGS LLC",
+          "405-112-18"
+        ]
+      }
+    ],
+    "confidence": 0.65
+  },
+  {
+    "entity": "J T MESSER",
+    "assets_controlled": [
+      {
+        "parcel": "405-112-17",
+        "depth": 3,
+        "path": [
+          "J T MESSER",
+          "MESNER HOLDINGS LLC",
+          "101 HARBOR ST, ORANGE, CA",
+          "405-112-17"
+        ]
+      },
+      {
+        "parcel": "405-112-18",
+        "depth": 2,
+        "path": [
+          "J T MESSER",
+          "MESNER HOLDINGS LLC",
+          "405-112-18"
+        ]
+      }
+    ],
+    "confidence": 0.65
+  }
+]

@@ -1,0 +1,117 @@
+{
+  "frame": 2,
+  "frame_hash": "cbe3ec8b15a7ad00f1762569150d1d2af568b8a934f631334e66f5defdc6da15",
+  "integrity": {
+    "issues": [],
+    "ok": true
+  },
+  "matrix_order": "row_major",
+  "projection": "scene.render_v1",
+  "stats": {
+    "culled": 0,
+    "total_nodes": 3,
+    "visible": 3
+  },
+  "visible": [
+    {
+      "layer_mask": 1,
+      "material": "qso://mat.avatar.midnight_steel",
+      "mesh": "qso://mesh.avatar.regal_queen",
+      "node_id": "queen_avatar",
+      "uri": "qso://xr.world.preview/image_1_shadow_throne/node/queen_avatar",
+      "world_bounds": {
+        "center": [
+          0.0,
+          1.4,
+          0.0
+        ],
+        "radius": 1.224745
+      },
+      "world_matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.4,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "layer_mask": 1,
+      "material": "qso://mat.entity.void_black",
+      "mesh": "qso://mesh.entity.shadow_sentinel",
+      "node_id": "sentinel_shadow",
+      "uri": "qso://xr.world.preview/image_1_shadow_throne/node/sentinel_shadow",
+      "world_bounds": {
+        "center": [
+          0.0,
+          2.2,
+          -3.2
+        ],
+        "radius": 5.542563
+      },
+      "world_matrix": [
+        3.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        3.2,
+        0.0,
+        2.2,
+        0.0,
+        0.0,
+        3.2,
+        -3.2,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "layer_mask": 1,
+      "material": "qso://mat.cinematic.obsidian",
+      "mesh": null,
+      "node_id": "throne_room",
+      "uri": "qso://xr.world.preview/image_1_shadow_throne/node/throne_room",
+      "world_bounds": {
+        "center": [
+          0.0,
+          24.0,
+          0.0
+        ],
+        "radius": 112.569978
+      },
+      "world_matrix": [
+        12.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        8.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        12.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "world_uri": "qso://xr.world.preview/image_1_shadow_throne"
+}

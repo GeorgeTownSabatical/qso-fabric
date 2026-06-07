@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QSO Demo: Higher-D Sphere + PQ-Inspired Transaction Channel</title>
+  <style>
+    :root {
+      --bg-0: #030712;
+      --bg-1: #0b1220;
+      --panel: rgba(12, 18, 33, 0.82);
+      --text: #e6edf8;
+      --muted: #9fb0cd;
+      --node-a: #3dd9b3;
+      --node-b: #55a6ff;
+      --link: #6d7f9e;
+      --packet: #ffd166;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: radial-gradient(circle at 20% 20%, #11203a 0%, var(--bg-1) 32%, var(--bg-0) 88%);
+      font-family: "SF Mono", "Menlo", "Consolas", monospace;
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    #stage {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .panel {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      width: min(540px, calc(100vw - 28px));
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+      padding: 12px 14px;
+      box-shadow: 0 14px 38px rgba(0, 0, 0, 0.35);
+    }
+
+    .panel h1 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      line-height: 1.35;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #f6fbff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .k { color: #d7e4ff; }
+    .v { color: #b6f3e5; word-break: break-word; }
+
+    .legend {
+      position: fixed;
+      bottom: 14px;
+      left: 14px;
+      font-size: 11px;
+      color: #b8c5dc;
+      background: rgba(7, 12, 24, 0.66);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stage"></canvas>
+
+  <section class="panel">
+    <h1>QSO Pipeline Demonstration</h1>
+    <div class="grid">
+      <div><span class="k">Sphere Model:</span> <span class="v">5D hypersphere projected to 3D/2D (continuous multi-plane rotation)</span></div>
+      <div><span class="k">Node A:</span> <span class="v" id="nodeAKey">initializing...</span></div>
+      <div><span class="k">Node B:</span> <span class="v" id="nodeBKey">initializing...</span></div>
+      <div><span class="k">Tx Plaintext:</span> <span class="v" id="plainText">-</span></div>
+      <div><span class="k">Ciphertext:</span> <span class="v" id="cipherText">-</span></div>
+      <div><span class="k">Decrypt Verify:</span> <span class="v" id="verifyText">-</span></div>
+      <div><span class="k">Channel:</span> <span class="v">Toy lattice KEM-style derivation (demonstration only, not production cryptography)</span></div>
+    </div>
+  </section>
+
+  <div class="legend">Multicolor encodes hidden dimensions (d3,d4). Rotating packet carries encrypted transaction data A → B.</div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById('stage');
+      const ctx = canvas.getContext('2d', { alpha: true });
+
+      const ui = {
+        nodeAKey: document.getElementById('nodeAKey'),
+        nodeBKey: document.getElementById('nodeBKey'),
+        plainText: document.getElementById('plainText'),
+        cipherText: document.getElementById('cipherText'),
+        verifyText: document.getElementById('verifyText'),
+      };
+
+      const nodeAColor = '#3dd9b3';
+      const nodeBColor = '#55a6ff';
+
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let dpr = Math.max(1, window.devicePixelRatio || 1);
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.max(1, window.devicePixelRatio || 1);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      // ---------------------------
+      // Higher-dimensional sphere
+      // ---------------------------
+      const POINTS = 1700;
+      const sphere5D = [];
+
+      function randn() {
+        let u = 0, v = 0;
+        while (u === 0) u = Math.random();
+        while (v === 0) v = Math.random();
+        return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+      }
+
+      for (let i = 0; i < POINTS; i++) {
+        const p = [randn(), randn(), randn(), randn(), randn()];
+        const mag = Math.hypot(p[0], p[1], p[2], p[3], p[4]) || 1;
+        sphere5D.push(p.map((x) => x / mag));
+      }
+
+      function rotatePlane(v, i, j, angle) {
+        const c = Math.cos(angle);
+        const s = Math.sin(angle);
+        const vi = v[i], vj = v[j];
+        v[i] = vi * c - vj * s;
+        v[j] = vi * s + vj * c;
+      }
+
+      function project5Dto2D(p, t) {
+        const v = p.slice();
+
+        // Multiple plane rotations to express higher-dimensional motion.
+        rotatePlane(v, 0, 1, t * 0.00067);
+        rotatePlane(v, 2, 3, t * 0.00051);
+        rotatePlane(v, 1, 4, t * 0.00043);
+        rotatePlane(v, 0, 3, t * 0.00037);
+        rotatePlane(v, 2, 4, t * 0.00029);
+
+        const depth4 = 2.7;
+        const k4 = depth4 / (depth4 - v[4]);
+        const p4 = [v[0] * k4, v[1] * k4, v[2] * k4, v[3] * k4, v[4]];
+
+        const depth3 = 2.3;
+        const k3 = depth3 / (depth3 - p4[3]);
+        const p3 = [p4[0] * k3, p4[1] * k3, p4[2] * k3, p4[3], p4[4]];
+
+        const scale = Math.min(width, height) * 0.22;
+        const cx = width * 0.5;
+        const cy = height * 0.43;
+
+        return {
+          x: cx + p3[0] * scale,
+          y: cy + p3[1] * scale,
+          z: p3[2],
+          d3: p3[3],
+          d4: p3[4],
+        };
+      }
+
+      // ---------------------------
+      // Toy lattice KEM-style channel
+      // ---------------------------
+      const q = 3329;
+      const n = 8;
+
+      function randInt(mod) {
+        const buf = new Uint32Array(1);
+        crypto.getRandomValues(buf);
+        return Number(buf[0] % mod);
+      }
+
+      function randVec(len, mod) {
+        const out = new Array(len);
+        for (let i = 0; i < len; i++) out[i] = randInt(mod);
+        return out;
+      }
+
+      function randMatrix(rows, cols, mod) {
+        const m = new Array(rows);
+        for (let r = 0; r < rows; r++) m[r] = randVec(cols, mod);
+        return m;
+      }
+
+      function mod(x, m = q) {
+        const y = x % m;
+        return y < 0 ? y + m : y;
+      }
+
+      function matVec(A, x) {
+        const y = new Array(A.length).fill(0);
+        for (let i = 0; i < A.length; i++) {
+          let s = 0;
+          for (let j = 0; j < x.length; j++) s += A[i][j] * x[j];
+          y[i] = mod(s);
+        }
+        return y;
+      }
+
+      function transpose(A) {
+        const rows = A.length;
+        const cols = A[0].length;
+        const T = new Array(cols);
+        for (let c = 0; c < cols; c++) {
+          T[c] = new Array(rows);
+          for (let r = 0; r < rows; r++) T[c][r] = A[r][c];
+        }
+        return T;
+      }
+
+      function dot(a, b) {
+        let s = 0;
+        for (let i = 0; i < a.length; i++) s += a[i] * b[i];
+        return mod(s);
+      }
+
+      async function sha256Bytes(bytes) {
+        const digest = await crypto.subtle.digest('SHA-256', bytes);
+        return new Uint8Array(digest);
+      }
+
+      function utf8Encode(str) {
+        return new TextEncoder().encode(str);
+      }
+
+      function utf8Decode(bytes) {
+        return new TextDecoder().decode(bytes);
+      }
+
+      async function deriveStreamKey(seedText) {
+        return sha256Bytes(utf8Encode(seedText));
+      }
+
+      async function keystream(seed, length) {
+        const out = new Uint8Array(length);
+        let offset = 0;
+        let counter = 0;
+        while (offset < length) {
+          const material = new Uint8Array(seed.length + 4);
+          material.set(seed, 0);
+          material[seed.length + 0] = (counter >>> 24) & 0xff;
+          material[seed.length + 1] = (counter >>> 16) & 0xff;
+          material[seed.length + 2] = (counter >>> 8) & 0xff;
+          material[seed.length + 3] = counter & 0xff;
+          const block = await sha256Bytes(material);
+          const take = Math.min(block.length, length - offset);
+          out.set(block.slice(0, take), offset);
+          offset += take;
+          counter += 1;
+        }
+        return out;
+      }
+
+      async function xorEncrypt(plainBytes, seed) {
+        const ks = await keystream(seed, plainBytes.length);
+        const out = new Uint8Array(plainBytes.length);
+        for (let i = 0; i < plainBytes.length; i++) out[i] = plainBytes[i] ^ ks[i];
+        return out;
+      }
+
+      function hex(bytes, max = 80) {
+        const text = Array.from(bytes).map((b) => b.toString(16).padStart(2, '0')).join('');
+        return text.length > max ? `${text.slice(0, max)}…` : text;
+      }
+
+      function keygen() {
+        const A = randMatrix(n, n, q);
+        const s = randVec(n, q);
+        const b = matVec(A, s);
+        return { publicKey: { A, b }, secretKey: { s } };
+      }
+
+      async function encapsulate(publicKey) {
+        const r = randVec(n, q);
+        const u = matVec(transpose(publicKey.A), r);
+        const w = dot(publicKey.b, r);
+        const seed = await deriveStreamKey(`${w}:${u.join(',')}`);
+        return { ciphertextPart: { u }, seed };
+      }
+
+      async function decapsulate(secretKey, ciphertextPart) {
+        const w = dot(secretKey.s, ciphertextPart.u);
+        return deriveStreamKey(`${w}:${ciphertextPart.u.join(',')}`);
+      }
+
+      // ---------------------------
+      // Nodes + packet simulation
+      // ---------------------------
+      const nodeA = { label: 'Node A', x: 0, y: 0, color: nodeAColor };
+      const nodeB = { label: 'Node B', x: 0, y: 0, color: nodeBColor };
+      const packet = { active: false, progress: 0, duration: 2400, launchedAt: 0, ciphertextHex: '', plaintext: '', ok: false };
+
+      const keysA = keygen();
+      const keysB = keygen();
+
+      // We use B's keypair for receiving, A sends to B.
+      ui.nodeAKey.textContent = `sender_pub_fingerprint=${keysA.publicKey.b.slice(0, 4).join('.')}`;
+      ui.nodeBKey.textContent = `receiver_pub_fingerprint=${keysB.publicKey.b.slice(0, 4).join('.')}`;
+
+      async function sendTransaction() {
+        const tx = {
+          tx_id: `tx_${Date.now()}`,
+          from: 'node-A-wallet',
+          to: 'node-B-wallet',
+          amount: (100 + Math.random() * 900).toFixed(2),
+          asset: 'QSO',
+          nonce: Math.floor(Math.random() * 1e9),
+          ts: new Date().toISOString(),
+        };
+
+        const plainText = JSON.stringify(tx);
+        const plainBytes = utf8Encode(plainText);
+
+        const kem = await encapsulate(keysB.publicKey);
+        const cipherBytes = await xorEncrypt(plainBytes, kem.seed);
+
+        const recvSeed = await decapsulate(keysB.secretKey, kem.ciphertextPart);
+        const decryptedBytes = await xorEncrypt(cipherBytes, recvSeed);
+        const decryptedText = utf8Decode(decryptedBytes);
+
+        const ok = decryptedText === plainText;
+        packet.active = true;
+        packet.progress = 0;
+        packet.launchedAt = performance.now();
+        packet.ciphertextHex = hex(cipherBytes, 96);
+        packet.plaintext = plainText;
+        packet.ok = ok;
+
+        ui.plainText.textContent = plainText;
+        ui.cipherText.textContent = packet.ciphertextHex;
+        ui.verifyText.textContent = ok ? 'verified=true (integrity pass)' : 'verified=false (integrity fail)';
+      }
+
+      setInterval(() => {
+        sendTransaction().catch((err) => {
+          ui.verifyText.textContent = `error=${String(err)}`;
+        });
+      }, 3600);
+      sendTransaction().catch(() => {});
+
+      // ---------------------------
+      // Render loop
+      // ---------------------------
+      function drawBackgroundGrid() {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+        ctx.lineWidth = 1;
+        const step = 48;
+        for (let x = 0; x <= width; x += step) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, height);
+          ctx.stroke();
+        }
+        for (let y = 0; y <= height; y += step) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function drawNodesAndLink(t) {
+        nodeA.x = width * 0.24;
+        nodeA.y = height * 0.78;
+        nodeB.x = width * 0.76;
+        nodeB.y = height * 0.78;
+
+        ctx.save();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'rgba(140,160,190,0.45)';
+        ctx.beginPath();
+        ctx.moveTo(nodeA.x, nodeA.y);
+        ctx.lineTo(nodeB.x, nodeB.y);
+        ctx.stroke();
+
+        const dashOffset = (t * 0.06) % 22;
+        ctx.setLineDash([8, 14]);
+        ctx.lineDashOffset = -dashOffset;
+        ctx.strokeStyle = 'rgba(255,209,102,0.46)';
+        ctx.beginPath();
+        ctx.moveTo(nodeA.x, nodeA.y);
+        ctx.lineTo(nodeB.x, nodeB.y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        for (const node of [nodeA, nodeB]) {
+          const r = 22;
+          ctx.beginPath();
+          ctx.fillStyle = node.color;
+          ctx.shadowColor = node.color;
+          ctx.shadowBlur = 24;
+          ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = '#06101f';
+          ctx.font = '11px SF Mono, Menlo, monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(node.label, node.x, node.y + 4);
+        }
+
+        if (packet.active) {
+          const elapsed = performance.now() - packet.launchedAt;
+          const p = Math.min(1, elapsed / packet.duration);
+          packet.progress = p;
+          const x = nodeA.x + (nodeB.x - nodeA.x) * p;
+          const arc = Math.sin(Math.PI * p) * 64;
+          const y = nodeA.y - arc;
+
+          ctx.beginPath();
+          ctx.fillStyle = '#ffd166';
+          ctx.shadowColor = '#ffd166';
+          ctx.shadowBlur = 22;
+          ctx.arc(x, y, 9, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          if (p >= 1) {
+            packet.active = false;
+          }
+        }
+
+        ctx.restore();
+      }
+
+      function drawSphere(t) {
+        const projected = new Array(sphere5D.length);
+        for (let i = 0; i < sphere5D.length; i++) {
+          projected[i] = project5Dto2D(sphere5D[i], t);
+        }
+        projected.sort((a, b) => a.z - b.z);
+
+        for (const p of projected) {
+          const hue = ((p.d3 + 1) * 0.5 * 360 + t * 0.015) % 360;
+          const light = 44 + (p.d4 * 22);
+          const alpha = 0.28 + ((p.z + 1) * 0.5) * 0.72;
+          const r = 0.8 + ((p.z + 1) * 0.5) * 2.8;
+
+          ctx.beginPath();
+          ctx.fillStyle = `hsla(${hue.toFixed(1)}, 88%, ${light.toFixed(1)}%, ${alpha.toFixed(3)})`;
+          ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // Soft halo around the sphere core.
+        const cx = width * 0.5;
+        const cy = height * 0.43;
+        const gradient = ctx.createRadialGradient(cx, cy, 8, cx, cy, Math.min(width, height) * 0.26);
+        gradient.addColorStop(0, 'rgba(107, 198, 255, 0.18)');
+        gradient.addColorStop(1, 'rgba(107, 198, 255, 0.0)');
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(cx, cy, Math.min(width, height) * 0.27, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function frame(t) {
+        ctx.clearRect(0, 0, width, height);
+        drawBackgroundGrid();
+        drawSphere(t);
+        drawNodesAndLink(t);
+        requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>

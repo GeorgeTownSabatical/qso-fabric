@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QSO Scene Render v1 - Three.js WebXR Demo</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap");
+    :root {
+      --bg-0: #081322;
+      --bg-1: #14243f;
+      --bg-2: #1f3b58;
+      --panel: rgba(9, 18, 31, 0.78);
+      --ink: #e8eff9;
+      --ink-muted: #a7b6c9;
+      --line: rgba(255, 255, 255, 0.16);
+      --accent-a: #ff9f1c;
+      --accent-b: #2ec4b6;
+      --accent-c: #e71d36;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(255, 159, 28, 0.24), transparent 65%),
+        radial-gradient(1200px 700px at 110% 0%, rgba(46, 196, 182, 0.20), transparent 65%),
+        linear-gradient(120deg, var(--bg-0), var(--bg-1), var(--bg-2));
+    }
+
+    #shell {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    #hud {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 20;
+      width: min(380px, calc(100% - 28px));
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      padding: 14px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    #title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    #title h1 {
+      font-size: 1.02rem;
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    #title span {
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+    }
+
+    #controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    #pluginPanel {
+      margin-top: 10px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+
+    #pluginPanelHead {
+      font-size: 0.79rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    #pluginList {
+      display: grid;
+      gap: 6px;
+      max-height: 92px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .pluginOption {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-size: 0.8rem;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .pluginOption input {
+      accent-color: var(--accent-b);
+    }
+
+    #pluginActions {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    #nlmPanel {
+      margin-top: 8px;
+      border-top: 1px dashed var(--line);
+      padding-top: 8px;
+      display: grid;
+      gap: 6px;
+    }
+
+    #nlmRow {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+
+    #nlmTerm {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 9px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.03);
+      font: inherit;
+      font-size: 0.8rem;
+    }
+
+    #nlmResult {
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+      color: var(--ink);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: rgba(255, 255, 255, 0.34);
+    }
+
+    #stats {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      font-size: 0.83rem;
+      color: var(--ink-muted);
+    }
+
+    #stats b {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    #log {
+      margin-top: 10px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      min-height: 1.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+  <div id="shell">
+    <section id="hud">
+      <div id="title">
+        <h1>Scene Render v1</h1>
+        <span>Three.js WebXR</span>
+      </div>
+      <div id="controls">
+        <button id="seedBtn">Seed World</button>
+        <button id="joinBtn">Join Avatar</button>
+      </div>
+      <div id="pluginPanel">
+        <div id="pluginPanelHead">Demo Plugins</div>
+        <div id="pluginList"></div>
+        <div id="pluginActions">
+          <button id="pluginReloadBtn">Reload Plugins</button>
+          <button id="pluginApplyBtn">Apply Selected</button>
+        </div>
+        <div id="nlmPanel">
+          <div id="nlmRow">
+            <input id="nlmTerm" type="text" value="cholera" placeholder="NLM query term" />
+            <button id="nlmSearchBtn">NLM Search</button>
+          </div>
+          <div id="nlmResult">NLM result: idle</div>
+        </div>
+      </div>
+      <div id="stats">
+        <div>World: <b id="worldUri"></b></div>
+        <div>Avatar: <b id="avatarUri">not joined</b></div>
+        <div>Plugins: <b id="pluginCount">0</b></div>
+        <div>Active: <b id="activePlugins">none</b></div>
+        <div>Frame: <b id="frame">0</b></div>
+        <div>Visible: <b id="visible">0</b></div>
+      </div>
+      <div id="log">ready</div>
+    </section>
+  </div>
+
+  <script type="module">
+    import * as THREE from "https://unpkg.com/three@0.167.1/build/three.module.js";
+    import { VRButton } from "https://unpkg.com/three@0.167.1/examples/jsm/webxr/VRButton.js";
+
+    const WORLD_URI = "qso://vr.world/demo";
+    const ROOT_URI = `${WORLD_URI}/node/root`;
+    const FLOOR_URI = `${WORLD_URI}/node/floor`;
+    const CUBE_URI = `${WORLD_URI}/node/cube`;
+    const LIGHT_URI = `${WORLD_URI}/node/light_anchor`;
+
+    const shell = document.getElementById("shell");
+    const logEl = document.getElementById("log");
+    const frameEl = document.getElementById("frame");
+    const visibleEl = document.getElementById("visible");
+    const pluginCountEl = document.getElementById("pluginCount");
+    const activePluginsEl = document.getElementById("activePlugins");
+    const pluginListEl = document.getElementById("pluginList");
+    const pluginReloadBtn = document.getElementById("pluginReloadBtn");
+    const pluginApplyBtn = document.getElementById("pluginApplyBtn");
+    const nlmTermEl = document.getElementById("nlmTerm");
+    const nlmSearchBtn = document.getElementById("nlmSearchBtn");
+    const nlmResultEl = document.getElementById("nlmResult");
+    const worldUriEl = document.getElementById("worldUri");
+    const avatarUriEl = document.getElementById("avatarUri");
+    worldUriEl.textContent = WORLD_URI;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.xr.enabled = true;
+    shell.appendChild(renderer.domElement);
+    document.body.appendChild(VRButton.createButton(renderer));
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x101a2d);
+
+    const hemi = new THREE.HemisphereLight(0x8fb3ff, 0x102030, 0.95);
+    scene.add(hemi);
+    const dir = new THREE.DirectionalLight(0xffffff, 0.55);
+    dir.position.set(4, 8, -3);
+    scene.add(dir);
+
+    const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.05, 500);
+    camera.position.set(0, 1.6, 4);
+    scene.add(camera);
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    const objects = new Map();
+    let avatarUri = "";
+    let lastAvatarPatchAt = 0;
+    let patchInFlight = false;
+    let pluginAnimations = [];
+    let lastPluginPatchAt = 0;
+    let pluginPatchInFlight = false;
+    let allPluginManifests = [];
+    const selectedPluginIds = new Set();
+
+    function log(msg) {
+      logEl.textContent = msg;
+    }
+
+    function selectedPluginIdList() {
+      return Array.from(selectedPluginIds).sort();
+    }
+
+    function syncPluginSummary() {
+      const ids = selectedPluginIdList();
+      pluginCountEl.textContent = String(ids.length);
+      if (ids.length === 0) {
+        activePluginsEl.textContent = "none";
+        return;
+      }
+      const names = allPluginManifests
+        .filter((item) => ids.includes(String(item.plugin_id || "")))
+        .map((item) => String(item.name || item.plugin_id))
+        .slice(0, 2);
+      if (ids.length > 2) {
+        names.push(`+${ids.length - 2}`);
+      }
+      activePluginsEl.textContent = names.join(", ");
+    }
+
+    function renderPluginSelector() {
+      pluginListEl.innerHTML = "";
+      if (allPluginManifests.length === 0) {
+        const msg = document.createElement("div");
+        msg.style.fontSize = "0.8rem";
+        msg.style.color = "var(--ink-muted)";
+        msg.textContent = "No demo plugins available";
+        pluginListEl.appendChild(msg);
+        syncPluginSummary();
+        return;
+      }
+
+      for (const plugin of allPluginManifests) {
+        const pluginId = String(plugin.plugin_id || "");
+        const name = String(plugin.name || pluginId);
+        const label = document.createElement("label");
+        label.className = "pluginOption";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = pluginId;
+        checkbox.checked = selectedPluginIds.has(pluginId);
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) {
+            selectedPluginIds.add(pluginId);
+          } else {
+            selectedPluginIds.delete(pluginId);
+          }
+          syncPluginSummary();
+        });
+
+        const span = document.createElement("span");
+        span.textContent = name;
+
+        label.appendChild(checkbox);
+        label.appendChild(span);
+        pluginListEl.appendChild(label);
+      }
+      syncPluginSummary();
+    }
+
+    async function apiPost(path, body) {
+      const res = await fetch(path, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
+      return { ok: res.ok, status: res.status, data };
+    }
+
+    async function apiGet(path, params = {}) {
+      const u = new URL(path, window.location.origin);
+      for (const [k, v] of Object.entries(params)) {
+        u.searchParams.set(k, String(v));
+      }
+      const res = await fetch(u.toString());
+      const data = await res.json();
+      return { ok: res.ok, status: res.status, data };
+    }
+
+    async function createOrPatchNode(uri, state) {
+      const schema = {
+        type: "scene_node",
+        schema_uri: "api/schemas/scene_node.schema.json"
+      };
+      const created = await apiPost("/v1/qso/create", {
+        uri,
+        schema,
+        state,
+        actor: "scene-seed",
+        policy_version: "v1"
+      });
+      if (created.ok) {
+        return;
+      }
+      await apiPost("/v1/qso/patch", {
+        uri,
+        delta: state,
+        actor: "scene-seed",
+        policy_version: "v1"
+      });
+    }
+
+    async function seedWorld() {
+      await createOrPatchNode(ROOT_URI, {
+        kind: "scene_node",
+        id: "root",
+        name: "WorldRoot",
+        parent: null,
+        transform: { pos: [0, 0, 0], rot: [0, 0, 0, 1], scl: [1, 1, 1] },
+        bounds: { type: "aabb", min: [-1, -1, -1], max: [1, 1, 1] },
+        layer_mask: 1
+      });
+
+      await createOrPatchNode(FLOOR_URI, {
+        kind: "scene_node",
+        id: "floor",
+        name: "Floor",
+        parent: ROOT_URI,
+        transform: { pos: [0, -1, 0], rot: [0, 0, 0, 1], scl: [12, 0.2, 12] },
+        components: {
+          mesh: { uri: "qso://asset/mesh/floor" },
+          material: { uri: "qso://asset/material/floor" }
+        },
+        bounds: { type: "aabb", min: [-0.5, -0.5, -0.5], max: [0.5, 0.5, 0.5] },
+        layer_mask: 1
+      });
+
+      await createOrPatchNode(CUBE_URI, {
+        kind: "scene_node",
+        id: "cube",
+        name: "Cube",
+        parent: ROOT_URI,
+        transform: { pos: [0, 1.2, -2.8], rot: [0, 0, 0, 1], scl: [1, 1, 1] },
+        components: {
+          mesh: { uri: "qso://asset/mesh/cube" },
+          material: { uri: "qso://asset/material/cube" }
+        },
+        bounds: { type: "aabb", min: [-0.5, -0.5, -0.5], max: [0.5, 0.5, 0.5] },
+        layer_mask: 1
+      });
+
+      await createOrPatchNode(LIGHT_URI, {
+        kind: "scene_node",
+        id: "light_anchor",
+        name: "LightAnchor",
+        parent: ROOT_URI,
+        transform: { pos: [2, 3, -1], rot: [0, 0, 0, 1], scl: [0.3, 0.3, 0.3] },
+        components: {
+          mesh: { uri: "qso://asset/mesh/light_anchor" },
+          material: { uri: "qso://asset/material/light_anchor" }
+        },
+        bounds: { type: "aabb", min: [-0.5, -0.5, -0.5], max: [0.5, 0.5, 0.5] },
+        layer_mask: 1
+      });
+
+      await applyDemoPlugins();
+      log("seeded world");
+    }
+
+    async function joinAvatar() {
+      if (avatarUri) {
+        return;
+      }
+      avatarUri = `${WORLD_URI}/node/avatar_${Math.random().toString(16).slice(2, 8)}`;
+      avatarUriEl.textContent = avatarUri;
+      await createOrPatchNode(avatarUri, {
+        kind: "scene_node",
+        id: avatarUri.split("/").at(-1),
+        name: "Avatar",
+        parent: ROOT_URI,
+        transform: { pos: [0, 1.6, 0], rot: [0, 0, 0, 1], scl: [0.25, 0.25, 0.25] },
+        components: {
+          mesh: { uri: "qso://asset/mesh/avatar" },
+          material: { uri: "qso://asset/material/avatar" }
+        },
+        bounds: { type: "aabb", min: [-0.5, -0.5, -0.5], max: [0.5, 0.5, 0.5] },
+        layer_mask: 1
+      });
+      log("avatar joined");
+    }
+
+    function materialForInstance(instance) {
+      const uri = String(instance.material || "");
+      if (uri.includes("floor")) {
+        return new THREE.MeshStandardMaterial({ color: 0x2ec4b6, roughness: 0.8, metalness: 0.1 });
+      }
+      if (uri.includes("avatar")) {
+        return new THREE.MeshStandardMaterial({ color: 0xff9f1c, roughness: 0.45, metalness: 0.1 });
+      }
+      if (uri.includes("light")) {
+        return new THREE.MeshStandardMaterial({ color: 0xe71d36, emissive: 0x330711, roughness: 0.4 });
+      }
+      if (uri.includes("quantum_beam")) {
+        return new THREE.MeshStandardMaterial({
+          color: 0x7ef6ff,
+          emissive: 0x1d4f62,
+          roughness: 0.15,
+          metalness: 0.35
+        });
+      }
+      if (uri.includes("quantum_rainbow")) {
+        return new THREE.MeshPhysicalMaterial({
+          color: 0xffffff,
+          roughness: 0.2,
+          metalness: 0.4,
+          iridescence: 1.0,
+          iridescenceIOR: 1.33,
+          clearcoat: 1.0,
+          clearcoatRoughness: 0.06
+        });
+      }
+      if (uri.includes("satoshi_gold")) {
+        return new THREE.MeshPhysicalMaterial({
+          color: 0xf7c948,
+          roughness: 0.18,
+          metalness: 0.82,
+          clearcoat: 0.6,
+          clearcoatRoughness: 0.12
+        });
+      }
+      if (uri.includes("ledger_pulse")) {
+        return new THREE.MeshStandardMaterial({
+          color: 0x8de969,
+          emissive: 0x183b12,
+          roughness: 0.24,
+          metalness: 0.35
+        });
+      }
+      if (uri.includes("medical_blue")) {
+        return new THREE.MeshStandardMaterial({
+          color: 0x4da3ff,
+          emissive: 0x091a35,
+          roughness: 0.3,
+          metalness: 0.28
+        });
+      }
+      if (uri.includes("endpoint_panel")) {
+        return new THREE.MeshStandardMaterial({
+          color: 0x90a4b8,
+          roughness: 0.62,
+          metalness: 0.14
+        });
+      }
+      return new THREE.MeshStandardMaterial({ color: 0x7ea6ff, roughness: 0.45, metalness: 0.2 });
+    }
+
+    function geometryForInstance(instance) {
+      const uri = String(instance.mesh || "");
+      if (uri.includes("floor")) {
+        return new THREE.BoxGeometry(1, 1, 1);
+      }
+      if (uri.includes("sphere_quantum")) {
+        return new THREE.SphereGeometry(0.6, 34, 26);
+      }
+      if (uri.includes("beam")) {
+        return new THREE.CylinderGeometry(0.07, 0.07, 1.0, 20, 1, true);
+      }
+      if (uri.includes("avatar")) {
+        return new THREE.SphereGeometry(0.5, 18, 14);
+      }
+      if (uri.includes("satoshi_anchor")) {
+        return new THREE.OctahedronGeometry(0.62, 0);
+      }
+      if (uri.includes("ledger_ring")) {
+        return new THREE.TorusGeometry(0.6, 0.12, 22, 44);
+      }
+      if (uri.includes("data_anchor")) {
+        return new THREE.IcosahedronGeometry(0.58, 0);
+      }
+      if (uri.includes("query_panel")) {
+        return new THREE.BoxGeometry(1.2, 0.35, 0.1);
+      }
+      return new THREE.BoxGeometry(1, 1, 1);
+    }
+
+    function ensureObject(instance) {
+      let obj = objects.get(instance.uri);
+      if (!obj) {
+        obj = new THREE.Mesh(geometryForInstance(instance), materialForInstance(instance));
+        obj.matrixAutoUpdate = false;
+        obj.frustumCulled = false;
+        scene.add(obj);
+        objects.set(instance.uri, obj);
+      }
+      return obj;
+    }
+
+    function applyProjection(projection) {
+      const visible = Array.isArray(projection.visible) ? projection.visible : [];
+      const seen = new Set();
+
+      for (const instance of visible) {
+        const matrix = Array.isArray(instance.world_matrix) ? instance.world_matrix : null;
+        if (!matrix || matrix.length !== 16) {
+          continue;
+        }
+        const obj = ensureObject(instance);
+        obj.matrix.set(
+          matrix[0], matrix[1], matrix[2], matrix[3],
+          matrix[4], matrix[5], matrix[6], matrix[7],
+          matrix[8], matrix[9], matrix[10], matrix[11],
+          matrix[12], matrix[13], matrix[14], matrix[15]
+        );
+        obj.visible = true;
+        obj.matrixWorldNeedsUpdate = true;
+        seen.add(instance.uri);
+      }
+
+      for (const [uri, obj] of objects.entries()) {
+        if (!seen.has(uri)) {
+          obj.visible = false;
+        }
+      }
+
+      frameEl.textContent = String(projection.frame ?? 0);
+      visibleEl.textContent = String(visible.length);
+    }
+
+    async function pollProjection() {
+      const viewpoint = {
+        center: [camera.position.x, camera.position.y, camera.position.z],
+        radius: 80,
+        layer_mask: 1
+      };
+      const res = await apiGet("/v1/qso/scene/render_v1", {
+        world_uri: WORLD_URI,
+        viewpoint: JSON.stringify(viewpoint)
+      });
+      if (!res.ok) {
+        log(`projection error: ${res.data.error || res.status}`);
+        return;
+      }
+      applyProjection(res.data);
+    }
+
+    async function patchAvatarPose(nowMs) {
+      if (!avatarUri || patchInFlight) {
+        return;
+      }
+      if (nowMs - lastAvatarPatchAt < 80) {
+        return;
+      }
+      lastAvatarPatchAt = nowMs;
+      patchInFlight = true;
+
+      const p = camera.position;
+      const q = camera.quaternion;
+      const delta = {
+        transform: {
+          pos: [Number(p.x.toFixed(4)), Number(p.y.toFixed(4)), Number(p.z.toFixed(4))],
+          rot: [Number(q.x.toFixed(6)), Number(q.y.toFixed(6)), Number(q.z.toFixed(6)), Number(q.w.toFixed(6))],
+          scl: [0.25, 0.25, 0.25]
+        }
+      };
+      await apiPost("/v1/qso/patch", {
+        uri: avatarUri,
+        delta,
+        actor: "vr-client",
+        policy_version: "v1",
+        node_id: "webxr"
+      });
+      patchInFlight = false;
+    }
+
+    function normalizeAxis(axis) {
+      const x = Number(axis?.[0] || 0);
+      const y = Number(axis?.[1] || 0);
+      const z = Number(axis?.[2] || 0);
+      const len = Math.hypot(x, y, z);
+      if (len < 1e-9) {
+        return [0, 1, 0];
+      }
+      return [x / len, y / len, z / len];
+    }
+
+    function quatFromAxisAngle(axis, radians) {
+      const [ax, ay, az] = normalizeAxis(axis);
+      const half = radians * 0.5;
+      const s = Math.sin(half);
+      return [ax * s, ay * s, az * s, Math.cos(half)];
+    }
+
+    async function loadDemoPlugins() {
+      const res = await apiGet("/v1/demo/plugins", { world_uri: WORLD_URI });
+      if (!res.ok) {
+        log(`plugin manifest error: ${res.data.error || res.status}`);
+        return;
+      }
+      allPluginManifests = Array.isArray(res.data.plugins) ? res.data.plugins : [];
+
+      if (selectedPluginIds.size === 0) {
+        for (const plugin of allPluginManifests) {
+          selectedPluginIds.add(String(plugin.plugin_id || ""));
+        }
+      } else {
+        const allowed = new Set(allPluginManifests.map((p) => String(p.plugin_id || "")));
+        for (const pluginId of selectedPluginIdList()) {
+          if (!allowed.has(pluginId)) {
+            selectedPluginIds.delete(pluginId);
+          }
+        }
+      }
+
+      renderPluginSelector();
+      const selected = selectedPluginIdList();
+      const preview = await apiGet("/v1/demo/plugins", {
+        world_uri: WORLD_URI,
+        plugin_ids: selected.join(",")
+      });
+      if (preview.ok && Array.isArray(preview.data.animations)) {
+        pluginAnimations = preview.data.animations;
+      } else {
+        pluginAnimations = [];
+      }
+    }
+
+    async function applyDemoPlugins() {
+      const selected = selectedPluginIdList();
+      const res = await apiPost("/v1/demo/plugins/apply", {
+        world_uri: WORLD_URI,
+        plugin_ids: selected,
+        actor: "demo-plugin",
+        policy_version: "v1",
+        node_id: "webxr-demo"
+      });
+      if (!res.ok) {
+        log(`plugin apply error: ${res.data.error || res.status}`);
+        return;
+      }
+      if (Array.isArray(res.data.animations)) {
+        pluginAnimations = res.data.animations;
+      }
+      const plugins = Array.isArray(res.data.plugins) ? res.data.plugins : [];
+      pluginCountEl.textContent = String(plugins.length);
+      syncPluginSummary();
+    }
+
+    async function runNlmSearch() {
+      const term = String(nlmTermEl.value || "").trim();
+      if (!term) {
+        nlmResultEl.textContent = "NLM result: term required";
+        return;
+      }
+      const res = await apiPost("/v1/demo/plugins/nlm/search", {
+        term,
+        retmax: 3,
+        use_cache: true
+      });
+      if (!res.ok) {
+        nlmResultEl.textContent = `NLM result: ${res.data.error || res.status}`;
+        return;
+      }
+      const docs = Array.isArray(res.data.documents) ? res.data.documents : [];
+      const first = docs[0] || {};
+      const firstTitle = String(((first.content || {})["dc:title"] || [])[0] || "").trim();
+      const count = Number(res.data.count || docs.length || 0);
+      if (firstTitle) {
+        nlmResultEl.textContent = `NLM result: ${count} hits, top "${firstTitle}"`;
+      } else {
+        nlmResultEl.textContent = `NLM result: ${count} hits`;
+      }
+    }
+
+    async function patchPluginAnimations(nowMs) {
+      if (pluginPatchInFlight || pluginAnimations.length === 0) {
+        return;
+      }
+      if (nowMs - lastPluginPatchAt < 140) {
+        return;
+      }
+      lastPluginPatchAt = nowMs;
+      pluginPatchInFlight = true;
+      try {
+        for (const anim of pluginAnimations) {
+          if (String(anim.type || "") !== "spin") {
+            continue;
+          }
+          const uri = String(anim.uri || "");
+          if (!uri) {
+            continue;
+          }
+          const speed = Number(anim.radians_per_sec || 0.0);
+          const angle = (nowMs / 1000.0) * speed;
+          const rot = quatFromAxisAngle(anim.axis, angle);
+          await apiPost("/v1/qso/patch", {
+            uri,
+            delta: { transform: { rot } },
+            actor: "demo-plugin",
+            policy_version: "v1",
+            node_id: "webxr-demo"
+          });
+        }
+      } finally {
+        pluginPatchInFlight = false;
+      }
+    }
+
+    document.getElementById("seedBtn").addEventListener("click", () => {
+      seedWorld().catch((err) => log(`seed failed: ${err.message}`));
+    });
+
+    document.getElementById("joinBtn").addEventListener("click", () => {
+      joinAvatar().catch((err) => log(`join failed: ${err.message}`));
+    });
+
+    pluginReloadBtn.addEventListener("click", () => {
+      loadDemoPlugins()
+        .then(() => log("plugin manifest refreshed"))
+        .catch((err) => log(`plugin reload failed: ${err.message}`));
+    });
+
+    pluginApplyBtn.addEventListener("click", () => {
+      applyDemoPlugins()
+        .then(() => log("selected plugins applied"))
+        .catch((err) => log(`plugin apply failed: ${err.message}`));
+    });
+
+    nlmSearchBtn.addEventListener("click", () => {
+      runNlmSearch().catch((err) => {
+        nlmResultEl.textContent = `NLM result: ${err.message}`;
+      });
+    });
+
+    setInterval(() => {
+      pollProjection().catch((err) => log(`poll failed: ${err.message}`));
+    }, 130);
+
+    renderer.setAnimationLoop((t) => {
+      patchAvatarPose(t).catch((err) => log(`pose failed: ${err.message}`));
+      patchPluginAnimations(t).catch((err) => log(`plugin anim failed: ${err.message}`));
+      renderer.render(scene, camera);
+    });
+
+    loadDemoPlugins().catch((err) => log(`plugin load failed: ${err.message}`));
+    seedWorld().catch((err) => log(`initial seed failed: ${err.message}`));
+  </script>
+</body>
+</html>

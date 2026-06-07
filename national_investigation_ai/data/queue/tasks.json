@@ -1,0 +1,83 @@
+[
+  {
+    "task_id": "f81439f4-7e69-4a75-8654-0529f4c29e7a",
+    "task_type": "ingestion",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:47.092282+00:00",
+    "started_at": "2026-03-12T13:03:47.094530+00:00",
+    "finished_at": "2026-03-12T13:03:47.719257+00:00"
+  },
+  {
+    "task_id": "771fe7c4-30de-4c83-a4d4-a0e475eefd79",
+    "task_type": "reasoning",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:47.093100+00:00",
+    "started_at": "2026-03-12T13:03:47.720282+00:00",
+    "finished_at": "2026-03-12T13:03:48.280821+00:00"
+  },
+  {
+    "task_id": "dec87e5f-d119-4650-9379-db6b68929c42",
+    "task_type": "hypothesis",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:47.093481+00:00",
+    "started_at": "2026-03-12T13:03:48.281784+00:00",
+    "finished_at": "2026-03-12T13:03:48.667893+00:00"
+  },
+  {
+    "task_id": "7b1f465a-1b59-4748-ad50-dc9be1cd156f",
+    "task_type": "ingestion",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:49.743322+00:00",
+    "started_at": "2026-03-12T13:03:49.745402+00:00",
+    "finished_at": "2026-03-12T13:03:50.297085+00:00"
+  },
+  {
+    "task_id": "579772dd-1abf-4d9a-8f6b-51519913e812",
+    "task_type": "reasoning",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:49.744173+00:00",
+    "started_at": "2026-03-12T13:03:50.298100+00:00",
+    "finished_at": "2026-03-12T13:03:50.887926+00:00"
+  },
+  {
+    "task_id": "2cb69ced-2add-4b8d-8e2c-1c49435ecf90",
+    "task_type": "hypothesis",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:49.744550+00:00",
+    "started_at": "2026-03-12T13:03:50.889093+00:00",
+    "finished_at": "2026-03-12T13:03:51.297527+00:00"
+  },
+  {
+    "task_id": "e59732c9-1fbb-43cc-855b-80103d8fa123",
+    "task_type": "ingestion",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:52.372039+00:00",
+    "started_at": "2026-03-12T13:03:52.374133+00:00",
+    "finished_at": "2026-03-12T13:03:52.980185+00:00"
+  },
+  {
+    "task_id": "cb762bf2-fab6-4f13-9164-084c7e689e65",
+    "task_type": "reasoning",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:52.372882+00:00",
+    "started_at": "2026-03-12T13:03:52.981446+00:00",
+    "finished_at": "2026-03-12T13:03:53.686430+00:00"
+  },
+  {
+    "task_id": "ffea73bc-769f-4b1e-9b0f-370358818ced",
+    "task_type": "hypothesis",
+    "payload": {},
+    "status": "done",
+    "created_at": "2026-03-12T13:03:52.373195+00:00",
+    "started_at": "2026-03-12T13:03:53.687700+00:00",
+    "finished_at": "2026-03-12T13:03:54.053277+00:00"
+  }
+]

@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  vpn-gateway:
+    image: ghcr.io/qmcgaw/gluetun:latest
+    cap_add:
+      - NET_ADMIN
+    environment:
+      VPN_SERVICE_PROVIDER: custom
+      VPN_TYPE: openvpn
+    restart: unless-stopped
+
+  qso-node:
+    image: qso-fabric:latest
+    build:
+      context: ../../
+      dockerfile: infra/docker/Dockerfile.solis
+    depends_on:
+      - vpn-gateway
+    network_mode: "service:vpn-gateway"
+    environment:
+      QSO_TRANSPORT_STATE_PATH: /var/lib/qso/state/transport_state.json
+      QSO_NETWORK_AUDIT_PATH: /var/lib/qso/state/network_audit.jsonl
+      QSO_TRANSPORT_POLICY_VERSION: v1
+      QSO_TRANSPORT_MODE: vpn
+    volumes:
+      - qso_data:/var/lib/qso
+
+volumes:
+  qso_data:

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stellar_event.schema.json",
+  "title": "Solis Stellar Event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "event_id",
+    "timestamp",
+    "actor",
+    "object_uri",
+    "delta",
+    "signature",
+    "policy_version"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "event_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "actor": { "type": "string", "minLength": 1 },
+    "object_uri": { "type": "string", "minLength": 1 },
+    "delta": { "type": "object" },
+    "stellar_projection": { "type": "object" },
+    "relationship": { "type": "object" },
+    "signature": { "type": "string" },
+    "policy_version": { "type": "string" },
+    "merkle_root": { "type": "string" },
+    "anchor_epoch": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

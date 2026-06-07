@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "constellation.schema.json",
+  "title": "Solis Constellation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "constellation_id",
+    "domain",
+    "star_uris",
+    "contagion_index",
+    "cascade_threshold",
+    "collapse_count"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "constellation_id": { "type": "string", "minLength": 1 },
+    "domain": { "type": "string", "minLength": 1 },
+    "star_uris": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^qso://solis\\.star\\." },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "contagion_index": { "type": "number", "minimum": 0, "maximum": 1 },
+    "cascade_threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+    "collapse_count": { "type": "integer", "minimum": 0 },
+    "cascade_detected": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

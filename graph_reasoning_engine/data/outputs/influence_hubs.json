@@ -1,0 +1,128 @@
+[
+  {
+    "node": "405-112-17",
+    "pagerank": 0.18132921030472812,
+    "betweenness": 0.5514705882352942,
+    "eigenvector": 0.0,
+    "score": 0.7327997985400223
+  },
+  {
+    "node": "101 HARBOR ST, ORANGE, CA",
+    "pagerank": 0.08010872348846519,
+    "betweenness": 0.31985294117647056,
+    "eigenvector": 0.0,
+    "score": 0.39996166466493577
+  },
+  {
+    "node": "MESNER HOLDINGS LLC",
+    "pagerank": 0.11792650770449141,
+    "betweenness": 0.27205882352941174,
+    "eigenvector": 0.0,
+    "score": 0.38998533123390317
+  },
+  {
+    "node": "405-112-18",
+    "pagerank": 0.10639311065090025,
+    "betweenness": 0.2647058823529412,
+    "eigenvector": 0.0,
+    "score": 0.3710989930038414
+  },
+  {
+    "node": "MESSAR VENTURES LLC",
+    "pagerank": 0.08336557425567061,
+    "betweenness": 0.25735294117647056,
+    "eigenvector": 0.0,
+    "score": 0.34071851543214116
+  },
+  {
+    "node": "30-2024-01234567-CU-OR-CJC",
+    "pagerank": 0.05187040402442744,
+    "betweenness": 0.11764705882352941,
+    "eigenvector": 0.0,
+    "score": 0.16951746284795685
+  },
+  {
+    "node": "Mesner Holdings LLC",
+    "pagerank": 0.045687127855188234,
+    "betweenness": 0.07169117647058823,
+    "eigenvector": 0.0,
+    "score": 0.11737830432577646
+  },
+  {
+    "node": "JACOB T MESSER",
+    "pagerank": 0.045315487499345164,
+    "betweenness": 0.07169117647058823,
+    "eigenvector": 0.0,
+    "score": 0.1170066639699334
+  },
+  {
+    "node": "JACOB MESSER",
+    "pagerank": 0.04174556287028304,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.04174556287028304
+  },
+  {
+    "node": "SMITH TRUST",
+    "pagerank": 0.030377900964019943,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.030377900964019943
+  },
+  {
+    "node": "2024000012345",
+    "pagerank": 0.027600006634543064,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.027600006634543064
+  },
+  {
+    "node": "Smith Trust",
+    "pagerank": 0.027600006634543064,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.027600006634543064
+  },
+  {
+    "node": "Jacob Messer",
+    "pagerank": 0.027600006634543064,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.027600006634543064
+  },
+  {
+    "node": "2024000012399",
+    "pagerank": 0.027600006634543064,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.027600006634543064
+  },
+  {
+    "node": "Jacob T Messer",
+    "pagerank": 0.027600006634543064,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.027600006634543064
+  },
+  {
+    "node": "2024000012550",
+    "pagerank": 0.02642045455397851,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.02642045455397851
+  },
+  {
+    "node": "Messar Ventures LLC",
+    "pagerank": 0.02642045455397851,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.02642045455397851
+  },
+  {
+    "node": "J T MESSER",
+    "pagerank": 0.02503944810180819,
+    "betweenness": 0.0,
+    "eigenvector": 0.0,
+    "score": 0.02503944810180819
+  }
+]

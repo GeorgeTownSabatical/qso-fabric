@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: qso-egress-via-transport
+spec:
+  podSelector:
+    matchLabels:
+      app: qso-transport-sidecar
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: qso-transport-sidecar
+      ports:
+        - protocol: TCP
+          port: 9050
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: qnsf-core-isolation
+  namespace: qnsf
+spec:
+  podSelector:
+    matchLabels:
+      app: qnsf-core
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: qnsf
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: qnsf

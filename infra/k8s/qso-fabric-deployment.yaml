@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qso-fabric
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: qso-fabric
+  template:
+    metadata:
+      labels:
+        app: qso-fabric
+    spec:
+      containers:
+        - name: qso-fabric
+          image: qso-fabric:latest
+          args: ["--serve-http", "--host", "0.0.0.0", "--port", "8000"]
+          env:
+            - name: QSO_EVENT_STORE_PATH
+              value: /var/lib/qso/events/events.jsonl
+            - name: QSO_CHECKPOINT_STORE_PATH
+              value: /var/lib/qso/checkpoints/checkpoints.json
+            - name: QSO_SNAPSHOT_STORE_DIR
+              value: /var/lib/qso/snapshots
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: qso-data
+              mountPath: /var/lib/qso
+      volumes:
+        - name: qso-data
+          persistentVolumeClaim:
+            claimName: qso-fabric-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qso-fabric
+spec:
+  selector:
+    app: qso-fabric
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qso-fabric-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

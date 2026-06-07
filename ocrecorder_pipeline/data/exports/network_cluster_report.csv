@@ -1,0 +1,4 @@
+community_id,node_count,parcel_count,party_count,top_surnames,top_notaries,top_entities
+1,6,1,4,TRUST|SMITH|LLC|KIM|LEE,R LOPEZ|P REYES|T CHEN,party:OC HOLDINGS LLC|party:SMITH FAMILY TRUST
+2,6,1,4,TRUST|SMITH|LLC|KIM|LEE,R LOPEZ|P REYES|T CHEN,party:LEE FAMILY TRUST
+3,5,1,3,TRUST|SMITH|LLC|KIM|LEE,R LOPEZ|P REYES|T CHEN,party:PACIFIC BANK

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "token.schema.json",
+  "title": "Solis Token",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "token_id",
+    "chain_id",
+    "circulating_supply",
+    "mint_rate",
+    "burn_rate",
+    "velocity",
+    "holder_concentration"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+$" },
+    "token_id": { "type": "string", "minLength": 1 },
+    "chain_id": { "type": "string", "minLength": 1 },
+    "circulating_supply": { "type": "number", "minimum": 0 },
+    "mint_rate": { "type": "number" },
+    "burn_rate": { "type": "number" },
+    "velocity": { "type": "number", "minimum": 0 },
+    "holder_concentration": { "type": "number", "minimum": 0, "maximum": 1 }
+  },
+  "additionalProperties": false
+}

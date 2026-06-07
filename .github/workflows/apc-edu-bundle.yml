@@ -1,0 +1,99 @@
+name: apc-edu-bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Bundle depth
+        required: true
+        default: exhaustive
+        type: choice
+        options:
+          - quick
+          - standard
+          - exhaustive
+      domain:
+        description: Scientific domain label
+        required: true
+        default: physics
+        type: string
+      session_token:
+        description: Session token for sandbox derivation
+        required: true
+        default: apc-ci
+        type: string
+      owner:
+        description: Owner label embedded in bundle metadata
+        required: true
+        default: github-actions
+        type: string
+      baseline_models:
+        description: Comma-separated baseline model names
+        required: true
+        default: LambdaCDM+SM,Toy-EFT,Phase-Only Baseline
+        type: string
+
+jobs:
+  generate-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.[dev]'
+
+      - name: Generate APC bundle
+        run: |
+          mkdir -p .codex/state/ci
+          qso-edu-apc-bootstrap \
+            --session-token "${{ inputs.session_token }}" \
+            --mode "${{ inputs.mode }}" \
+            --domain "${{ inputs.domain }}" \
+            --owner "${{ inputs.owner }}" \
+            --baseline-models-csv "${{ inputs.baseline_models }}" \
+            --json-output .codex/state/ci/apc_bundle_result.json \
+            --publish-dir .codex/state/ci/apc_published_bundles
+
+      - name: Extract bundle metadata
+        id: metadata
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          result_path = Path(".codex/state/ci/apc_bundle_result.json")
+          payload = json.loads(result_path.read_text(encoding="utf-8"))
+          bundle_path = payload.get("published_path") or payload.get("run_path")
+          if not bundle_path:
+              raise SystemExit("bundle path missing from result payload")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"bundle_path={bundle_path}\n")
+              f.write(f"run_path={payload.get('run_path','')}\n")
+              f.write(f"sandbox_id={payload.get('sandbox_id','')}\n")
+              f.write(f"artifact_count={payload.get('artifact_count','')}\n")
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+              f.write("## APC EDU Bundle\n")
+              f.write(f"- mode: `{payload.get('mode')}`\n")
+              f.write(f"- sandbox_id: `{payload.get('sandbox_id')}`\n")
+              f.write(f"- run_path: `{payload.get('run_path')}`\n")
+              f.write(f"- artifact_count: `{payload.get('artifact_count')}`\n")
+              f.write(f"- speculative_status: `{payload.get('speculative_status')}`\n")
+          PY
+
+      - name: Upload APC bundle artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: apc-edu-bundle-${{ github.run_id }}
+          path: ${{ steps.metadata.outputs.bundle_path }}
+          retention-days: 14

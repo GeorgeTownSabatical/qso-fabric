@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qso-fabric.local/schemas/scene_node.schema.json",
+  "title": "QSO Scene Node",
+  "description": "Collaborative VR scene node carried as a QSO state object.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "id",
+    "transform"
+  ],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "const": "scene_node"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string"
+    },
+    "parent": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "children": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "transform": {
+      "type": "object",
+      "required": [
+        "pos",
+        "rot",
+        "scl"
+      ],
+      "properties": {
+        "pos": {
+          "$ref": "#/$defs/vec3"
+        },
+        "rot": {
+          "$ref": "#/$defs/quat"
+        },
+        "scl": {
+          "$ref": "#/$defs/vec3"
+        }
+      },
+      "additionalProperties": true
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "mesh": {
+          "$ref": "#/$defs/assetRef"
+        },
+        "material": {
+          "$ref": "#/$defs/assetRef"
+        }
+      },
+      "additionalProperties": true
+    },
+    "bounds": {
+      "type": "object",
+      "required": [
+        "type",
+        "min",
+        "max"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "aabb"
+          ]
+        },
+        "min": {
+          "$ref": "#/$defs/vec3"
+        },
+        "max": {
+          "$ref": "#/$defs/vec3"
+        }
+      },
+      "additionalProperties": false
+    },
+    "layer_mask": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "flags": {
+      "type": "object",
+      "properties": {
+        "dynamic": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "vec3": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false
+    },
+    "quat": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "items": false
+    },
+    "assetRef": {
+      "type": "object",
+      "required": [
+        "uri"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

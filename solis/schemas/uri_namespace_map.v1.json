@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0",
+  "map_version": "v1",
+  "published_at": "2026-02-25T00:00:00Z",
+  "entries": [
+    {
+      "domain": "identity_person",
+      "uri_prefix": "qso://identity.person.",
+      "owner": "identity",
+      "description": "Canonical person identity object"
+    },
+    {
+      "domain": "solis_star",
+      "uri_prefix": "qso://solis.star.",
+      "owner": "solis",
+      "description": "Primary Solis stellar state object"
+    },
+    {
+      "domain": "solis_constellation",
+      "uri_prefix": "qso://solis.constellation.",
+      "owner": "solis",
+      "description": "Constellation state and contagion metrics"
+    },
+    {
+      "domain": "solis_stellar_event",
+      "uri_prefix": "qso://solis.stellar_event.",
+      "owner": "solis",
+      "description": "Signed stellar mutation event stream"
+    },
+    {
+      "domain": "solis_anchor",
+      "uri_prefix": "qso://solis.anchor.",
+      "owner": "solis",
+      "description": "Merkle anchor events for replay integrity"
+    },
+    {
+      "domain": "solis_gate",
+      "uri_prefix": "qso://solis.gate.",
+      "owner": "solis",
+      "description": "Runtime gate decision events"
+    },
+    {
+      "domain": "solis_optimizer",
+      "uri_prefix": "qso://solis.optimizer.",
+      "owner": "solis",
+      "description": "Optimizer proposal and scoring artifacts"
+    },
+    {
+      "domain": "solis_signal",
+      "uri_prefix": "qso://solis.signal.",
+      "owner": "solis",
+      "description": "Meta-signal and risk projection events"
+    },
+    {
+      "domain": "solis_rbac",
+      "uri_prefix": "qso://solis.rbac.",
+      "owner": "solis",
+      "description": "RBAC allow/deny audit decisions"
+    },
+    {
+      "domain": "solis_policy",
+      "uri_prefix": "qso://solis.policy.",
+      "owner": "solis",
+      "description": "Governance policy publication and activation state"
+    },
+    {
+      "domain": "vr_world",
+      "uri_prefix": "qso://vr.world/",
+      "owner": "scene",
+      "description": "Scene/world container root"
+    },
+    {
+      "domain": "ai_model",
+      "uri_prefix": "qso://ai.model.",
+      "owner": "runtime",
+      "description": "Model state and runtime assets"
+    }
+  ],
+  "audit": {
+    "hash_algo": "sha256",
+    "canonical_hash": "6cbe9c0a15638a93b6da22904a2e96c68550cce0b79f8a3ecb92dbe5420cf7cb"
+  }
+}

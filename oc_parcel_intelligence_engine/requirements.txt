@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+networkx
+pandas
+numpy
+geopandas
+shapely
+python-dotenv
+rich
+tqdm
+matplotlib

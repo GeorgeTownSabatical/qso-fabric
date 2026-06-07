@@ -1,0 +1,194 @@
+[
+  {
+    "surname": "GARCIA",
+    "date_from": "1982-01-01",
+    "date_to": "1982-03-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "6e93dd879abacd37"
+  },
+  {
+    "surname": "GARCIA",
+    "date_from": "1982-04-01",
+    "date_to": "1982-06-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "b06ab883b5043295"
+  },
+  {
+    "surname": "GARCIA",
+    "date_from": "1982-07-01",
+    "date_to": "1982-09-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "f4c2d5280c6d21de"
+  },
+  {
+    "surname": "GARCIA",
+    "date_from": "1982-10-01",
+    "date_to": "1982-12-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "01935bd926f682d3"
+  },
+  {
+    "surname": "GARCIA",
+    "date_from": "1983-01-01",
+    "date_to": "1983-03-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "2a5447bb6e0beab4"
+  },
+  {
+    "surname": "GARCIA",
+    "date_from": "1983-04-01",
+    "date_to": "1983-06-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "1a7f5aa2d1f58339"
+  },
+  {
+    "surname": "GARCIA",
+    "date_from": "1983-07-01",
+    "date_to": "1983-09-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "46674d680c9a6f62"
+  },
+  {
+    "surname": "GARCIA",
+    "date_from": "1983-10-01",
+    "date_to": "1983-12-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "b592c179900b0e7c"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1982-01-01",
+    "date_to": "1982-03-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "60ae26c6f64c788b"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1982-04-01",
+    "date_to": "1982-06-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "38f6c45c99e41127"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1982-07-01",
+    "date_to": "1982-09-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "5ab62de2789a1c82"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1982-10-01",
+    "date_to": "1982-12-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "5d5a5a5b435c4f1d"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1983-01-01",
+    "date_to": "1983-03-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "9d1da0739ac41463"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1983-04-01",
+    "date_to": "1983-06-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "e96ed2231d09c21a"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1983-07-01",
+    "date_to": "1983-09-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "2f014aacd57d2217"
+  },
+  {
+    "surname": "NGUYEN",
+    "date_from": "1983-10-01",
+    "date_to": "1983-12-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "bbcad1d1f67cb057"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1982-01-01",
+    "date_to": "1982-03-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "78b8751c24d40d3a"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1982-04-01",
+    "date_to": "1982-06-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "fa6822a6759c034e"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1982-07-01",
+    "date_to": "1982-09-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "44a90599990de652"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1982-10-01",
+    "date_to": "1982-12-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "8037fc4646b2ff87"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1983-01-01",
+    "date_to": "1983-03-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "cf8b7535e6399433"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1983-04-01",
+    "date_to": "1983-06-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "9467c268eb76086a"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1983-07-01",
+    "date_to": "1983-09-30",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "183d2b8ce42d85a4"
+  },
+  {
+    "surname": "SMITH",
+    "date_from": "1983-10-01",
+    "date_to": "1983-12-31",
+    "doc_type": null,
+    "page": 1,
+    "slice_hash": "b95a2e2c1ec90d10"
+  }
+]

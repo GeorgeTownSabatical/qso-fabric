@@ -1,0 +1,44 @@
+[
+  {
+    "cluster_id": 1,
+    "size": 6,
+    "members": [
+      "2024000012345",
+      "2024000012399",
+      "405-112-17",
+      "Jacob Messer",
+      "Jacob T Messer",
+      "Smith Trust"
+    ]
+  },
+  {
+    "cluster_id": 2,
+    "size": 4,
+    "members": [
+      "101 HARBOR ST, ORANGE, CA",
+      "J T MESSER",
+      "JACOB MESSER",
+      "MESNER HOLDINGS LLC"
+    ]
+  },
+  {
+    "cluster_id": 3,
+    "size": 4,
+    "members": [
+      "2024000012550",
+      "405-112-18",
+      "Mesner Holdings LLC",
+      "Messar Ventures LLC"
+    ]
+  },
+  {
+    "cluster_id": 4,
+    "size": 4,
+    "members": [
+      "30-2024-01234567-CU-OR-CJC",
+      "JACOB T MESSER",
+      "MESSAR VENTURES LLC",
+      "SMITH TRUST"
+    ]
+  }
+]
