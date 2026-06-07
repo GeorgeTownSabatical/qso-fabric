@@ -11,6 +11,7 @@ from services.quantum.fabric.algebra import (
 )
 from services.quantum.fabric.fabric import QSOFabric
 from services.quantum.fabric.gluing import GluingEngine
+from services.quantum.fabric.observation import ObservationFrame, ObservationObject, ObservationScore, ObservationScoringWeights, score_observations
 from services.quantum.fabric.overlap import Overlap
 from services.quantum.fabric.patch import Patch
 from services.quantum.fabric.projection import FutureStateCandidate, FutureStateScoringWeights, ProjectionObject, score_future_state_candidates
@@ -26,6 +27,10 @@ __all__ = [
     "FutureStateCandidate",
     "FutureStateScoringWeights",
     "GluingEngine",
+    "ObservationFrame",
+    "ObservationObject",
+    "ObservationScore",
+    "ObservationScoringWeights",
     "Overlap",
     "Patch",
     "ProjectionObject",
@@ -48,6 +53,7 @@ __all__ = [
     "TrustVector",
     "score_coherent_recall",
     "score_future_state_candidates",
+    "score_observations",
     "score_reconciliation",
     "score_repair_candidates",
     "score_trust",
