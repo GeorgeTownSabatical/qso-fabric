@@ -48,6 +48,16 @@ from services.quantum.fabric.stability import (
     score_manifold_stability,
 )
 from services.quantum.fabric.state import CONTINUITY_METADATA_KEYS, QuantumStateObject
+from services.quantum.fabric.training import (
+    ModelCorrection,
+    ModelObservation,
+    TrainingExample,
+    TrainingExampleScore,
+    TrainingScoringWeights,
+    TrainingSignal,
+    TrainingTrace,
+    score_training_examples,
+)
 from services.quantum.fabric.trust import TrustEvidence, TrustPropagationRule, TrustScore, TrustScoringWeights, TrustVector, score_trust
 
 __all__ = [
@@ -66,6 +76,8 @@ __all__ = [
     "IntentSurface",
     "ManifoldStabilityScore",
     "MemoryTrace",
+    "ModelCorrection",
+    "ModelObservation",
     "ObservationFrame",
     "ObservationObject",
     "ObservationScore",
@@ -97,6 +109,11 @@ __all__ = [
     "TrustScore",
     "TrustScoringWeights",
     "TrustVector",
+    "TrainingExample",
+    "TrainingExampleScore",
+    "TrainingScoringWeights",
+    "TrainingSignal",
+    "TrainingTrace",
     "UncertaintyField",
     "project_cognitive_scene",
     "score_coherent_recall",
@@ -106,5 +123,6 @@ __all__ = [
     "score_observations",
     "score_reconciliation",
     "score_repair_candidates",
+    "score_training_examples",
     "score_trust",
 ]
