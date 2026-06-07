@@ -9,6 +9,13 @@ from services.quantum.fabric.algebra import (
     StateTransform,
     score_reconciliation,
 )
+from services.quantum.fabric.correlation import (
+    CorrelationCluster,
+    CorrelationMetric,
+    CorrelationObject,
+    CorrelationScoringWeights,
+    score_correlations,
+)
 from services.quantum.fabric.fabric import QSOFabric
 from services.quantum.fabric.gluing import GluingEngine
 from services.quantum.fabric.observation import ObservationFrame, ObservationObject, ObservationScore, ObservationScoringWeights, score_observations
@@ -24,6 +31,10 @@ from services.quantum.fabric.trust import TrustEvidence, TrustPropagationRule, T
 __all__ = [
     "CONTINUITY_METADATA_KEYS",
     "ContradictionObject",
+    "CorrelationCluster",
+    "CorrelationMetric",
+    "CorrelationObject",
+    "CorrelationScoringWeights",
     "FutureStateCandidate",
     "FutureStateScoringWeights",
     "GluingEngine",
@@ -52,6 +63,7 @@ __all__ = [
     "TrustScoringWeights",
     "TrustVector",
     "score_coherent_recall",
+    "score_correlations",
     "score_future_state_candidates",
     "score_observations",
     "score_reconciliation",
