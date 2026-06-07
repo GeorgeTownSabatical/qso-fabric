@@ -9,6 +9,7 @@ from services.quantum.fabric.recall import RecallScoringWeights, score_coherent_
 from services.quantum.fabric.repair import ContradictionObject, RepairOperator, RepairScoringWeights, score_repair_candidates
 from services.quantum.fabric.restriction import RestrictionMap
 from services.quantum.fabric.state import CONTINUITY_METADATA_KEYS, QuantumStateObject
+from services.quantum.fabric.trust import TrustEvidence, TrustPropagationRule, TrustScore, TrustScoringWeights, TrustVector, score_trust
 
 __all__ = [
     "CONTINUITY_METADATA_KEYS",
@@ -25,7 +26,13 @@ __all__ = [
     "RecallScoringWeights",
     "RepairScoringWeights",
     "RestrictionMap",
+    "TrustEvidence",
+    "TrustPropagationRule",
+    "TrustScore",
+    "TrustScoringWeights",
+    "TrustVector",
     "score_coherent_recall",
     "score_future_state_candidates",
     "score_repair_candidates",
+    "score_trust",
 ]
