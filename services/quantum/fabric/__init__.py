@@ -1,5 +1,14 @@
 """Computational local-to-global coherence primitives for QSO fabric."""
 
+from services.quantum.fabric.algebra import (
+    ReconciliationScoringWeights,
+    StateBranch,
+    StateMerge,
+    StateReconciliation,
+    StateSplit,
+    StateTransform,
+    score_reconciliation,
+)
 from services.quantum.fabric.fabric import QSOFabric
 from services.quantum.fabric.gluing import GluingEngine
 from services.quantum.fabric.overlap import Overlap
@@ -22,10 +31,16 @@ __all__ = [
     "ProjectionObject",
     "QSOFabric",
     "QuantumStateObject",
+    "ReconciliationScoringWeights",
     "RepairOperator",
     "RecallScoringWeights",
     "RepairScoringWeights",
     "RestrictionMap",
+    "StateBranch",
+    "StateMerge",
+    "StateReconciliation",
+    "StateSplit",
+    "StateTransform",
     "TrustEvidence",
     "TrustPropagationRule",
     "TrustScore",
@@ -33,6 +48,7 @@ __all__ = [
     "TrustVector",
     "score_coherent_recall",
     "score_future_state_candidates",
+    "score_reconciliation",
     "score_repair_candidates",
     "score_trust",
 ]
