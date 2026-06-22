@@ -1,0 +1,39 @@
+{
+  "title": "Investigative Triage Summary",
+  "description": "the fountain not on the map",
+  "status": "public_redacted_methodology",
+  "finding_status": "triage_leads_not_fraud_findings",
+  "privacy_boundary": "Names, case numbers, recorder document numbers, and vulnerable-person captions are withheld from the public page until source-document validation and appropriate review.",
+  "pipeline": {
+    "raw_top_pairs_scored": 289,
+    "negative_controls_generated": 867,
+    "lead_families": 272,
+    "pre_document_survivors": 26,
+    "promising_needs_corroboration": 121,
+    "weak_after_controls": 88,
+    "deprioritized_before_documents": 54
+  },
+  "first_five_pre_document_validation": {
+    "promote_to_document_pull": 4,
+    "needs_more_index_work": 1
+  },
+  "controls_applied": [
+    "negative controls",
+    "name evidence split",
+    "recorder document hub penalty",
+    "filing-day baseline penalty",
+    "address/APN readiness score",
+    "entity/person classification",
+    "token rarity scoring",
+    "lead family clustering",
+    "verification queue",
+    "survivability re-ranking"
+  ],
+  "qso_engine": {
+    "engine": "qso.quantum_lisp",
+    "global_coherence": 0.5601401283397813,
+    "obstruction_score": 0.5795682973768602,
+    "healthy": false,
+    "interpretation": "The controlled survivability packet is more coherent than the raw lead stack, but source-document validation remains the unresolved obstruction."
+  }
+}
