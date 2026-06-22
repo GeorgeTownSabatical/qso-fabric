@@ -23,11 +23,16 @@ Tool endpoints:
 - `qso.quantum_create(uri, payload, actor="quantum-author", policy_version="v1", node_id="local")`
 - `qso.quantum_execute(uri, actor="quantum-manager", policy_version="v1", node_id="local")`
 - `qso.quantum_replay(uri, strict=True)`
+- `qso.quantum_lisp_compile(source, metadata=None)`
+- `qso.quantum_lisp_analyze(uri, actor="quantum-lisp", policy_version="v1", node_id="local")`
+- `qso.quantum_lisp_replay(uri, strict=True)`
 - `qso.quantum_qjfp_handshake(node_identity, hardware_signature, policy_version, quantum_capabilities)`
 
 Quantum object modes:
 - circuit execution: set `object_kind="circuit_job"` or omit it and provide `backend`, `qubit_count`, `circuit_spec`, `measurement_schema`
 - fabric execution: set `object_kind="fabric"` and provide `fabric_payload` plus optional `coherence_threshold`
+- Quantum LISP reasoning: set `object_kind="quantum_lisp_program"`, `backend="quantum_lisp"`, and provide `source`
+- reasoning traces: `qso.quantum_lisp_analyze` patches the object to `object_kind="reasoning_trace"` with `compiled_ir` and `reasoning_report`
 - fabric-oriented URI families may use `qso://quantum.patch/*`, `qso://quantum.overlap/*`, and `qso://quantum.fabric/*`
 - `qso.identity_create(uri, immutable_core, actor="authority", policy_version="v1", node_id="local")`
 - `qso.identity_event(uri, event_type, payload, actor="authority", policy_version="v1", node_id="local")`

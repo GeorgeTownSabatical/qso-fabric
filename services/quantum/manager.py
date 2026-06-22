@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 from services.event_log.service import EventLogService
-from services.quantum.backends import CirqBackend, ITensorBackend, PhotonicBackend, QiskitBackend, QuantumBackend, RemoteGrpcBackend
+from services.quantum.backends import CirqBackend, ITensorBackend, PennyLaneBackend, PhotonicBackend, QiskitBackend, QuantumBackend, RemoteGrpcBackend
 from services.quantum.fabric.runtime import execute_fabric_payload
 from services.quantum.models import QuantumExecutionResult, QuantumJob
 from services.state_engine.service import StateEngineService
@@ -21,7 +21,7 @@ class QuantumManager:
         self.backends[backend.name] = backend
 
     def register_default_backends(self) -> None:
-        for backend in (QiskitBackend(), CirqBackend(), PhotonicBackend(), RemoteGrpcBackend(), ITensorBackend()):
+        for backend in (QiskitBackend(), CirqBackend(), PennyLaneBackend(), PhotonicBackend(), RemoteGrpcBackend(), ITensorBackend()):
             self.register_backend(backend)
 
     def execute(self, *, uri: str, actor: str = "quantum-manager", policy_version: str = "v1", node_id: str = "local") -> dict[str, Any]:

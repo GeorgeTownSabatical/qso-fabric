@@ -448,15 +448,18 @@ Compliance notes:
 Quantum-network scaffolding now exists for declarative, auditable QNO/QNSO workflows:
 - Schemas: `api/schemas/quantum_*.schema.json` and `api/schemas/quantum_network_object.schema.json`
 - Services: `services/quantum/*`
-- MCP methods: `qso.quantum_create`, `qso.quantum_execute`, `qso.quantum_replay`, `qso.quantum_qjfp_handshake`
+- MCP methods: `qso.quantum_create`, `qso.quantum_execute`, `qso.quantum_replay`, `qso.quantum_qjfp_handshake`, `qso.quantum_lisp_compile`, `qso.quantum_lisp_analyze`, `qso.quantum_lisp_replay`
 - Spec docs: `docs/quantum_network_object_spec.md`, `docs/quantum_network_object_full_blueprint.md`
 - Fabric kernel: `services/quantum/fabric/*` for patch-local states, restriction maps, overlap diagnostics, and gluing/coherence reports
 - Demo: `./.venv/bin/python tools/qso_quantum_fabric_demo.py`
 - Runtime demo: `./.venv/bin/python tools/qso_quantum_fabric_runtime_demo.py`
+- Quantum LISP demo: `./.venv/bin/python tools/qso_qlisp.py demo`
 
 Quantum object MVP modes:
 - `object_kind="circuit_job"`: run backend-style circuit execution via `qso.quantum_execute`
 - `object_kind="fabric"`: run local-to-global coherence/gluing analysis via the same `qso.quantum_execute` entry point
+- `object_kind="quantum_lisp_program"`: compile and analyze descriptive Quantum LISP reasoning programs with `qso.quantum_lisp_analyze`
+- `object_kind="reasoning_trace"`: persisted output of a Quantum LISP analysis, including compiled IR, fabric report, backend reports, ranked paths, uncertainty fields, repair proposals, and projections
 - fabric objects can use `qso://quantum.fabric/*` URIs and carry a serialized `fabric_payload`
 
 ITensor integration notes:

@@ -53,3 +53,12 @@ class QSOTools:
 
     def quantum_replay(self, uri: str, strict: bool = True) -> Dict[str, Any]:
         return self._tools.qso_quantum_replay(uri=uri, strict=strict)
+
+    def quantum_lisp_compile(self, source: str, metadata: Dict[str, Any] | None = None) -> Dict[str, Any]:
+        return self._tools.qso_quantum_lisp_compile(source=source, metadata=metadata or {})
+
+    def quantum_lisp_analyze(self, uri: str, actor: str = "agent", policy_version: str = "v1", node_id: str = "local") -> Dict[str, Any]:
+        return self._tools.qso_quantum_lisp_analyze(uri=uri, actor=actor, policy_version=policy_version, node_id=node_id)
+
+    def quantum_lisp_replay(self, uri: str, strict: bool = True) -> Dict[str, Any]:
+        return self._tools.qso_quantum_lisp_replay(uri=uri, strict=strict)

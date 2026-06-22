@@ -16,6 +16,7 @@ from services.identity_verifier.service import IdentityVerifierService
 from services.meta_learning.service import MetaLearningService
 from services.plugins.service import PluginService
 from services.quantum import QuantumManager, QuantumReplayEngine
+from services.quantum_lisp import QuantumLispReasoningManager
 from services.registry.service import RegistryService
 from services.snapshot_exporter.service import SnapshotExporterService
 from services.state_engine.service import StateEngineService
@@ -56,6 +57,11 @@ class QSOFabricRuntime:
         self.gdml = GDMLCoordinator(self.event_log, self.crypto, self.clock)
         self.global_meta = GlobalMetaService()
         self.quantum = QuantumManager(state_engine=self.state_engine, event_log=self.event_log)
+        self.quantum_lisp = QuantumLispReasoningManager(
+            state_engine=self.state_engine,
+            event_log=self.event_log,
+            backends=self.quantum.backends,
+        )
         self.quantum_replay = QuantumReplayEngine(self.event_log)
         self.state_engine.set_policy_resolver(self.gdml.policy_sync.current)
         self.identity_authority = IdentityAuthorityService(self.state_engine, self.gdml.policy_sync)

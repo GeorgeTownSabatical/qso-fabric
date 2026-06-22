@@ -616,6 +616,27 @@ class QSOMCPTools:
     def qso_quantum_replay(self, uri: str, strict: bool = True) -> Dict[str, Any]:
         return self.runtime.quantum_replay.replay(uri, strict=strict)
 
+    def qso_quantum_lisp_compile(self, source: str, metadata: Dict[str, Any] | None = None) -> Dict[str, Any]:
+        return self.runtime.quantum_lisp.compile(source, metadata=metadata or {})
+
+    def qso_quantum_lisp_analyze(
+        self,
+        uri: str,
+        *,
+        actor: str = "quantum-lisp",
+        policy_version: str = "v1",
+        node_id: str = "local",
+    ) -> Dict[str, Any]:
+        return self.runtime.quantum_lisp.analyze(
+            uri=uri,
+            actor=actor,
+            policy_version=policy_version,
+            node_id=node_id,
+        )
+
+    def qso_quantum_lisp_replay(self, uri: str, strict: bool = True) -> Dict[str, Any]:
+        return self.runtime.quantum_lisp.replay(uri=uri, strict=strict)
+
     def qso_quantum_qjfp_handshake(
         self,
         *,

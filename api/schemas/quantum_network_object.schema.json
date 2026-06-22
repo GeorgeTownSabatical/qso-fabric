@@ -8,7 +8,7 @@
     "uri": { "type": "string", "pattern": "^qso://quantum\\.(state|node|entanglement|network\\.channel|logical_layer|patch|overlap|fabric)/.+$" },
     "object_kind": {
       "type": "string",
-      "enum": ["circuit_job", "fabric"],
+      "enum": ["circuit_job", "fabric", "quantum_lisp_program", "reasoning_trace"],
       "default": "circuit_job"
     },
     "session_id": { "type": "string" },
@@ -17,7 +17,7 @@
     "policy_version": { "type": "string" },
     "backend": {
       "type": "string",
-      "enum": ["simulator", "ion_trap", "superconducting", "photonic", "neutral_atom", "remote_grpc", "qiskit", "cirq", "itensor", "fabric_gluing"]
+      "enum": ["simulator", "ion_trap", "superconducting", "photonic", "neutral_atom", "remote_grpc", "qiskit", "pennylane", "cirq", "itensor", "fabric_gluing", "quantum_lisp"]
     },
     "backend_constraints": {
       "type": "object",
@@ -51,6 +51,9 @@
       }
     },
     "fabric_payload": { "type": "object" },
+    "source": { "type": "string" },
+    "compiled_ir": { "type": "object" },
+    "reasoning_report": { "type": "object" },
     "coherence_threshold": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
     "measurement_schema": { "type": "object" },
     "classical_shadow": { "type": "object" },
