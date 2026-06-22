@@ -64,6 +64,22 @@ QSO-Fabric extends that pattern from "living wiki" to "executable continuity":
 The result is a knowledge system that can read, remember, explain, test, replay,
 and publish its own reasoning surface.
 
+Bootstrap a deterministic local wiki:
+
+```bash
+mkdir -p raw wiki
+cp README.md raw/qso-fabric.md
+qso-wiki-ingest --raw-dir raw --wiki-dir wiki
+```
+
+The ingest tool writes one Markdown page per supported source, a `manifest.json`
+with source hashes, and a `wiki/index.md` page with Obsidian-style links.
+
+Example ingest output:
+
+- [`reports/wiki_demo_latest/index.md`](reports/wiki_demo_latest/index.md)
+- [`reports/wiki_demo_latest/manifest.json`](reports/wiki_demo_latest/manifest.json)
+
 ## Quickstart
 
 ```bash

@@ -343,7 +343,7 @@
           <div class="grid">
             <div class="card">
               <h3>Remember</h3>
-              <p>Raw inputs become structured state with provenance and replayable event history.</p>
+              <p>Raw inputs become structured wiki pages with source hashes, manifests, and Obsidian-style links.</p>
             </div>
             <div class="card">
               <h3>Reason</h3>
@@ -353,6 +353,11 @@
               <h3>Measure</h3>
               <p>Benchmarks publish compile, analyze, replay, and end-to-end engine timing.</p>
             </div>
+          </div>
+          <div class="terminal" style="margin-top: 24px" aria-label="QSO wiki ingest command">
+            <span class="dim">$</span> mkdir -p raw wiki<br />
+            <span class="dim">$</span> cp README.md raw/qso-fabric.md<br />
+            <span class="dim">$</span> qso-wiki-ingest --raw-dir raw --wiki-dir wiki
           </div>
         </div>
       </section>
@@ -464,6 +469,10 @@
             <div class="card">
               <h3><a href="benchmarks.html">Quantum LISP Benchmarks</a></h3>
               <p>Latest compile, analyze, replay, and end-to-end timing report for the reasoning engine.</p>
+            </div>
+            <div class="card">
+              <h3><a href="wiki-demo.html">Living Wiki Demo</a></h3>
+              <p>Example deterministic ingest output generated from the README and API documentation.</p>
             </div>
           </div>
         </div>

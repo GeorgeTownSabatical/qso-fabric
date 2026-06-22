@@ -41,6 +41,7 @@ qso-xr-program = "tools.qso_xr_program:main"
 qso-xr-autopilot = "tools.qso_xr_autopilot:main"
 qso-qlisp = "tools.qso_qlisp:main"
 qso-qlisp-bench = "tools.qso_qlisp_benchmark:main"
+qso-wiki-ingest = "tools.qso_wiki_ingest:main"
 
 [project.optional-dependencies]
 dev = [

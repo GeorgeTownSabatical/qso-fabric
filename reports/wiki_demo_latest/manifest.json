@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-06-22T04:59:03.621118+00:00",
+  "manifest_hash": "aa7d481ef309c1fd63d5fc75c17d89e86e66421281319b3a79657e5167002765",
+  "page_count": 2,
+  "pages": [
+    {
+      "keywords": [
+        "qso",
+        "uri",
+        "actor",
+        "policy_version",
+        "node_id",
+        "local",
+        "none",
+        "true",
+        "authority",
+        "quantum",
+        "strict",
+        "object_kind"
+      ],
+      "linked_pages": [
+        "qso-fabric"
+      ],
+      "slug": "qso-api",
+      "source_hash": "a17c81d6ec0be348d909d3f0176ae7a2e541973446fc883180da1578cd85c009",
+      "source_path": "qso-api.md",
+      "title": "QSO API",
+      "wiki_path": "qso-api.md",
+      "word_count": 308
+    },
+    {
+      "keywords": [
+        "bash",
+        "state",
+        "qso",
+        "codex",
+        "json",
+        "path",
+        "quantum",
+        "tools",
+        "local",
+        "export",
+        "chat",
+        "run"
+      ],
+      "linked_pages": [
+        "qso-api"
+      ],
+      "slug": "qso-fabric",
+      "source_hash": "4e409161d2b8bd1c5521e2813f2edb121b74dcb30826ef8a14ca8e99011f97e0",
+      "source_path": "qso-fabric.md",
+      "title": "qso-fabric",
+      "wiki_path": "qso-fabric.md",
+      "word_count": 2027
+    }
+  ],
+  "raw_dir": "/private/tmp/qso_wiki_raw",
+  "wiki_dir": "/Users/ALISTAIRE/qso-fabric/reports/wiki_demo_latest"
+}
