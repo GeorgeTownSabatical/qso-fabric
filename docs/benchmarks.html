@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quantum LISP Benchmarks - QSO-Fabric</title>
+    <style>
+      :root {
+        --ink: #17201c;
+        --muted: #58615c;
+        --line: #d9dfdb;
+        --panel: #f7f9f6;
+        --accent: #255f96;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: #ffffff;
+        line-height: 1.55;
+      }
+
+      main {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 56px 24px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      h1 {
+        font-size: 48px;
+        line-height: 1;
+        margin: 0 0 16px;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        color: var(--muted);
+        max-width: 760px;
+        margin: 0 0 28px;
+        font-size: 18px;
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding: 18px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        margin-bottom: 24px;
+      }
+
+      .meta div {
+        min-width: 0;
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.95em;
+        overflow-wrap: anywhere;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--line);
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 10px;
+        text-align: right;
+      }
+
+      th:first-child,
+      td:first-child {
+        text-align: left;
+      }
+
+      th {
+        background: var(--panel);
+      }
+
+      .note {
+        color: var(--muted);
+        margin-top: 20px;
+      }
+
+      @media (max-width: 760px) {
+        .meta {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p><a href="./">Back to QSO-Fabric</a></p>
+      <h1>Quantum LISP Benchmarks</h1>
+      <p class="lead">
+        Latest local benchmark run for the QSO-Fabric Quantum LISP reasoning engine.
+        The run covers IR compilation, persisted analysis, trace replay, and the full
+        compile-analyze-replay path.
+      </p>
+
+      <div class="meta">
+        <div><strong>Generated</strong><br /><code>2026-06-22T04:53:51.369556+00:00</code></div>
+        <div><strong>Engine</strong><br /><code>qso.quantum_lisp</code></div>
+        <div><strong>Iterations</strong><br /><code>25</code></div>
+        <div><strong>Python</strong><br /><code>3.14.3</code></div>
+        <div><strong>Platform</strong><br /><code>macOS-26.3-x86_64-i386-64bit-Mach-O</code></div>
+        <div><strong>Backend Targets</strong><br /><code>cirq, itensor, pennylane, qiskit</code></div>
+        <div><strong>Source Hash</strong><br /><code>16995acdd89c12089812824529a3bdf61e4e8eccebe437ac606f0d76a42368e0</code></div>
+        <div><strong>IR Hash</strong><br /><code>7b69b3f41181d4ce1652442771f1003b7bd492c0c96818d093fc7b2aaa0d3d93</code></div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Benchmark</th>
+            <th>Iterations</th>
+            <th>Total ms</th>
+            <th>Mean ms</th>
+            <th>P50 ms</th>
+            <th>P95 ms</th>
+            <th>Min ms</th>
+            <th>Max ms</th>
+            <th>Ops/s</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>compile_ir</code></td>
+            <td>25</td>
+            <td>6.186</td>
+            <td>0.2474</td>
+            <td>0.2377</td>
+            <td>0.3409</td>
+            <td>0.1782</td>
+            <td>0.4166</td>
+            <td>4041.39</td>
+          </tr>
+          <tr>
+            <td><code>persisted_analyze</code></td>
+            <td>25</td>
+            <td>91.4509</td>
+            <td>3.658</td>
+            <td>3.4877</td>
+            <td>4.9121</td>
+            <td>2.9906</td>
+            <td>5.0928</td>
+            <td>273.37</td>
+          </tr>
+          <tr>
+            <td><code>replay_trace</code></td>
+            <td>25</td>
+            <td>14.8001</td>
+            <td>0.592</td>
+            <td>0.5479</td>
+            <td>0.8934</td>
+            <td>0.4113</td>
+            <td>0.9113</td>
+            <td>1689.18</td>
+          </tr>
+          <tr>
+            <td><code>compile_analyze_replay</code></td>
+            <td>25</td>
+            <td>91.9779</td>
+            <td>3.6791</td>
+            <td>3.6441</td>
+            <td>4.3018</td>
+            <td>3.0755</td>
+            <td>4.7608</td>
+            <td>271.8</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="note">
+        Benchmarks use the built-in Quantum LISP demo source and the local deterministic
+        backend fallbacks when native quantum libraries are unavailable. Machine-readable
+        source is committed at <code>reports/quantum_lisp_benchmark_latest.json</code>.
+      </p>
+    </main>
+  </body>
+</html>

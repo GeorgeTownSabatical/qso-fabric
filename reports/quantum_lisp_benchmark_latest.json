@@ -1,0 +1,61 @@
+{
+  "backend_targets": [
+    "cirq",
+    "itensor",
+    "pennylane",
+    "qiskit"
+  ],
+  "engine": "qso.quantum_lisp",
+  "generated_at": "2026-06-22T04:53:51.369556+00:00",
+  "ir_hash": "7b69b3f41181d4ce1652442771f1003b7bd492c0c96818d093fc7b2aaa0d3d93",
+  "iterations": 25,
+  "platform": "macOS-26.3-x86_64-i386-64bit-Mach-O",
+  "python": "3.14.3",
+  "results": [
+    {
+      "iterations": 25,
+      "max_ms": 0.4166,
+      "mean_ms": 0.2474,
+      "min_ms": 0.1782,
+      "name": "compile_ir",
+      "p50_ms": 0.2377,
+      "p95_ms": 0.3409,
+      "throughput_ops_s": 4041.39,
+      "total_ms": 6.186
+    },
+    {
+      "iterations": 25,
+      "max_ms": 5.0928,
+      "mean_ms": 3.658,
+      "min_ms": 2.9906,
+      "name": "persisted_analyze",
+      "p50_ms": 3.4877,
+      "p95_ms": 4.9121,
+      "throughput_ops_s": 273.37,
+      "total_ms": 91.4509
+    },
+    {
+      "iterations": 25,
+      "max_ms": 0.9113,
+      "mean_ms": 0.592,
+      "min_ms": 0.4113,
+      "name": "replay_trace",
+      "p50_ms": 0.5479,
+      "p95_ms": 0.8934,
+      "throughput_ops_s": 1689.18,
+      "total_ms": 14.8001
+    },
+    {
+      "iterations": 25,
+      "max_ms": 4.7608,
+      "mean_ms": 3.6791,
+      "min_ms": 3.0755,
+      "name": "compile_analyze_replay",
+      "p50_ms": 3.6441,
+      "p95_ms": 4.3018,
+      "throughput_ops_s": 271.8,
+      "total_ms": 91.9779
+    }
+  ],
+  "source_hash": "16995acdd89c12089812824529a3bdf61e4e8eccebe437ac606f0d76a42368e0"
+}

@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QSO-Fabric</title>
+    <meta
+      name="description"
+      content="QSO-Fabric is an event-sourced continuity substrate for auditable reasoning, Quantum LISP programs, MCP tools, QFF snapshots, and quantum backend diagnostics."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17201c;
+        --muted: #58615c;
+        --line: #d9dfdb;
+        --panel: #f7f9f6;
+        --panel-strong: #eef3ee;
+        --accent: #0f7a5f;
+        --accent-2: #255f96;
+        --accent-3: #8a4f17;
+        --code: #101614;
+        --paper: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        line-height: 1.55;
+      }
+
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.92);
+        position: sticky;
+        top: 0;
+        z-index: 5;
+      }
+
+      nav {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        font-size: 18px;
+        font-weight: 760;
+        letter-spacing: 0;
+      }
+
+      .navlinks {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        font-size: 14px;
+      }
+
+      .hero {
+        min-height: 74vh;
+        display: grid;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.74)),
+          repeating-linear-gradient(135deg, #eef5f1 0 2px, #ffffff 2px 20px);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+        gap: 48px;
+        align-items: center;
+        padding: 72px 0 52px;
+      }
+
+      h1 {
+        font-size: clamp(48px, 8vw, 96px);
+        line-height: 0.95;
+        margin: 0 0 24px;
+        letter-spacing: 0;
+      }
+
+      .lead {
+        font-size: 20px;
+        max-width: 760px;
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 0 16px;
+        border: 1px solid var(--ink);
+        border-radius: 6px;
+        color: var(--ink);
+        background: var(--paper);
+        font-weight: 680;
+      }
+
+      .button.primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+
+      .terminal {
+        background: var(--code);
+        color: #d9f5e9;
+        border-radius: 8px;
+        padding: 22px;
+        overflow: auto;
+        box-shadow: 0 24px 70px rgba(23, 32, 28, 0.18);
+        font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .terminal .dim {
+        color: #83a397;
+      }
+
+      section {
+        padding: 62px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      h2 {
+        font-size: 34px;
+        line-height: 1.1;
+        margin: 0 0 14px;
+        letter-spacing: 0;
+      }
+
+      .section-lead {
+        max-width: 760px;
+        color: var(--muted);
+        margin: 0 0 28px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+        background: var(--paper);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .band {
+        background: var(--panel);
+      }
+
+      .code-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 18px;
+      }
+
+      pre {
+        margin: 0;
+        background: var(--code);
+        color: #eefbf5;
+        border-radius: 8px;
+        padding: 18px;
+        overflow: auto;
+        font: 13px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .pill {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 13px;
+        background: var(--panel-strong);
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .step {
+        min-height: 74px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        background: var(--paper);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      footer {
+        padding: 34px 0;
+        color: var(--muted);
+      }
+
+      @media (max-width: 860px) {
+        .hero-grid,
+        .code-grid,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        .flow {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 14px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="shell">
+        <nav>
+          <div class="brand">QSO-Fabric</div>
+          <div class="navlinks">
+            <a href="#architecture">Architecture</a>
+            <a href="#quantum-lisp">Quantum LISP</a>
+            <a href="#runtime">Runtime</a>
+            <a href="#docs">Docs</a>
+            <a href="https://github.com/GeorgeTownSabatical/qso-fabric">GitHub</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="shell hero-grid">
+          <div>
+            <h1>QSO-Fabric</h1>
+            <p class="lead">
+              An event-sourced continuity substrate for auditable reasoning, Quantum LISP programs,
+              MCP tool execution, QFF snapshots, and quantum backend diagnostics.
+            </p>
+            <div class="actions">
+              <a class="button primary" href="https://github.com/GeorgeTownSabatical/qso-fabric">View Repository</a>
+              <a class="button" href="#quantum-lisp">Explore Quantum LISP</a>
+            </div>
+          </div>
+          <div class="terminal" aria-label="QSO-Fabric quickstart commands">
+            <span class="dim">$</span> git clone https://github.com/GeorgeTownSabatical/qso-fabric<br />
+            <span class="dim">$</span> cd qso-fabric<br />
+            <span class="dim">$</span> python3 -m venv .venv<br />
+            <span class="dim">$</span> . .venv/bin/activate<br />
+            <span class="dim">$</span> pip install -e '.[dev]'<br />
+            <span class="dim">$</span> ./.venv/bin/python tools/qso_qlisp.py demo<br />
+            <span class="dim">$</span> ./.venv/bin/python tools/qso_qlisp_benchmark.py --iterations 25
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture">
+        <div class="shell">
+          <h2>Continuity First</h2>
+          <p class="section-lead">
+            A Quantum State Object is not treated as a loose blob of data. It is a replayable,
+            identity-bearing process that can preserve coherence through evidence, contradiction,
+            repair, projection, trust, algebra, and time.
+          </p>
+          <div class="flow" aria-label="QSO calculus flow">
+            <div class="step">Observe</div>
+            <div class="step">Recall</div>
+            <div class="step">Contradict</div>
+            <div class="step">Repair</div>
+            <div class="step">Project</div>
+            <div class="step">Trust</div>
+            <div class="step">Algebra</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band">
+        <div class="shell">
+          <h2>Living Wiki, Executable State</h2>
+          <p class="section-lead">
+            A folder-based AI wiki is a strong second brain: sources go in, linked notes come
+            out, and future questions stop starting from zero. QSO-Fabric extends that into
+            executable continuity: sources become replayable events, contradictions become
+            scored signal, repairs stay explicit, and reasoning traces carry hashes, backend
+            diagnostics, and benchmarks.
+          </p>
+          <div class="grid">
+            <div class="card">
+              <h3>Remember</h3>
+              <p>Raw inputs become structured state with provenance and replayable event history.</p>
+            </div>
+            <div class="card">
+              <h3>Reason</h3>
+              <p>Quantum LISP programs compile into deterministic IR before analysis runs.</p>
+            </div>
+            <div class="card">
+              <h3>Measure</h3>
+              <p>Benchmarks publish compile, analyze, replay, and end-to-end engine timing.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="quantum-lisp">
+        <div class="shell">
+          <h2>Quantum LISP Reasoning Engine</h2>
+          <p class="section-lead">
+            Quantum LISP compiles symbolic reasoning programs into deterministic IR, projects the
+            program into QSO fabric patches and overlaps, runs backend diagnostics, and persists a
+            non-mutating reasoning trace.
+          </p>
+          <div class="code-grid">
+            <pre>(defintent demo.intent :priority 0.9 :confidence 0.8 "stabilize reasoning")
+(observe obs.memory :source qso://memory/demo :basis ("claim" "context"))
+(hypothesis hyp.bridge obs.memory)
+(entangle obs.memory hyp.bridge :kind dependency :weight 0.7)
+(project future.bridge :horizon 3 :using (qiskit pennylane cirq itensor))
+(reason :goal demo.intent :return ranked-paths)</pre>
+            <pre>{
+  "compiled_ir": "...",
+  "fabric_report": "...",
+  "backend_reports": ["qiskit", "pennylane", "cirq", "itensor"],
+  "reasoning_paths": "...",
+  "uncertainty_fields": "...",
+  "repair_proposals": "...",
+  "verification_hash": "..."
+}</pre>
+          </div>
+          <div class="pill-row">
+            <span class="pill">descriptive v1</span>
+            <span class="pill">no commit boundary</span>
+            <span class="pill">JSON-safe IR</span>
+            <span class="pill">deterministic hashes</span>
+            <span class="pill">backend fallbacks</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="runtime">
+        <div class="shell">
+          <h2>Runtime Surfaces</h2>
+          <p class="section-lead">
+            The repository is built for local agents, automation workflows, and public inspection.
+            Every major surface keeps the same bias: deterministic contracts first, optional native
+            engines second.
+          </p>
+          <div class="grid">
+            <div class="card">
+              <h3>MCP Tools</h3>
+              <p>Expose QSO create/read/patch, quantum execution, Quantum LISP analysis, transport, identity, and snapshot operations.</p>
+            </div>
+            <div class="card">
+              <h3>Quantum Backends</h3>
+              <p>Qiskit, PennyLane, Cirq, and ITensor adapters run native engines when installed and stable fallbacks otherwise.</p>
+            </div>
+            <div class="card">
+              <h3>QFF Snapshots</h3>
+              <p>Export and import replayable object state for portability, evidence bundles, and handoffs.</p>
+            </div>
+            <div class="card">
+              <h3>Solis Automation</h3>
+              <p>Property, APN, investigation, and graph workflows consume shared QSO state instead of creating parallel ledgers.</p>
+            </div>
+            <div class="card">
+              <h3>Identity State</h3>
+              <p>Identity events, credentials, policy publishing, and verification bundles sit on the same event-sourced substrate.</p>
+            </div>
+            <div class="card">
+              <h3>Visualization</h3>
+              <p>XR, scene projection, cognitive render data, and preview artifacts make state inspectable beyond logs.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="band" id="docs">
+        <div class="shell">
+          <h2>Documentation Map</h2>
+          <p class="section-lead">
+            Start with the API and quantum object specs, then follow into runtime architecture,
+            transport, snapshots, and submission-readiness surfaces.
+          </p>
+          <div class="grid">
+            <div class="card">
+              <h3><a href="qso_api.md">QSO API</a></h3>
+              <p>Tool endpoints, quantum modes, Quantum LISP methods, identity operations, and WebXR adapter notes.</p>
+            </div>
+            <div class="card">
+              <h3><a href="quantum_network_object_spec.md">Quantum Object Spec</a></h3>
+              <p>Declarative QNO/QNSO workflow, object shape, execution expectations, and backend contracts.</p>
+            </div>
+            <div class="card">
+              <h3><a href="architecture.md">Architecture</a></h3>
+              <p>High-level architecture notes for the runtime and its state surfaces.</p>
+            </div>
+            <div class="card">
+              <h3><a href="qff_spec.md">QFF Spec</a></h3>
+              <p>Snapshot packaging and interchange notes for QSO state artifacts.</p>
+            </div>
+            <div class="card">
+              <h3><a href="soc2_socket_controls.md">Socket Controls</a></h3>
+              <p>Security and operating notes for websocket transport and hardened sockets.</p>
+            </div>
+            <div class="card">
+              <h3><a href="submission_readiness.md">Submission Readiness</a></h3>
+              <p>Evidence bundle generation and controls for packaging the project for review.</p>
+            </div>
+            <div class="card">
+              <h3><a href="benchmarks.html">Quantum LISP Benchmarks</a></h3>
+              <p>Latest compile, analyze, replay, and end-to-end timing report for the reasoning engine.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        QSO-Fabric is public at
+        <a href="https://github.com/GeorgeTownSabatical/qso-fabric">github.com/GeorgeTownSabatical/qso-fabric</a>.
+      </div>
+    </footer>
+  </body>
+</html>

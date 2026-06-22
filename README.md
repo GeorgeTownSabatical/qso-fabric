@@ -1,11 +1,68 @@
 # qso-fabric
 
-QSO State Fabric scaffold with:
-- event-sourced QSO runtime
-- MCP tool surface
+QSO-Fabric is an event-sourced continuity substrate for auditable reasoning,
+quantum-inspired state analysis, MCP tool execution, QFF snapshots, identity
+state, transport controls, and public-facing automation surfaces.
+
+The core idea is simple: a Quantum State Object is not just a stored vector or
+record. It is a continuity-bearing object whose state can be observed, recalled,
+contradicted, repaired, trusted, projected, algebraically transformed, replayed,
+and verified through deterministic event history.
+
+This repository provides:
+
+- event-sourced QSO runtime with replayable state transitions
+- MCP tool surface for local and federated automation
 - QFF snapshot export/import
-- local + global meta-learning primitives
-- optional VR/visualization/automation scaffolds
+- deterministic quantum-network object execution
+- QSO-Fabric local-to-global gluing/coherence analysis
+- Quantum LISP reasoning programs compiled into auditable IR
+- Qiskit, PennyLane, Cirq, and ITensor backend adapters with deterministic fallbacks
+- identity, transport, snapshot, visualization, and meta-learning primitives
+- Solis property/APN automation and investigation-oriented graph workflows
+
+Public site:
+
+- GitHub repo: <https://github.com/GeorgeTownSabatical/qso-fabric>
+- GitHub Pages: <https://georgetownsabatical.github.io/qso-fabric/>
+
+## Architecture At A Glance
+
+QSO-Fabric is organized around five cooperating layers:
+
+1. State runtime: `services/state_engine`, `services/event_log`, and replay tools
+   maintain append-only object history.
+2. Quantum object layer: `services/quantum` executes circuit jobs, fabric gluing,
+   backend diagnostics, and replay.
+3. Quantum LISP layer: `services/quantum_lisp` compiles symbolic reasoning
+   programs into deterministic JSON-safe IR and descriptive analysis reports.
+4. Tool surfaces: `api/mcp_tools`, `mcp_server`, CLIs, and websocket helpers expose
+   the runtime to local agents and external automation.
+5. Domain workflows: Solis, investigation graph engines, APN pipelines, snapshots,
+   and visualization packages consume the shared substrate instead of defining
+   parallel state systems.
+
+The runtime is designed to be useful even when optional quantum libraries are not
+installed. Qiskit, PennyLane, Cirq, and ITensor paths all return stable result
+shapes with deterministic fallbacks, so automation can rely on the contract first
+and opportunistically use native engines when present.
+
+## Living Wiki, Executable State
+
+A folder-based AI wiki is already a powerful second brain: raw sources go in,
+linked notes come out, and future questions start from accumulated context
+instead of a blank chat.
+
+QSO-Fabric extends that pattern from "living wiki" to "executable continuity":
+
+- sources become replayable QSO events, not just static notes
+- contradictions are scored and retained as useful signal
+- repairs are explicit proposals until a commit boundary exists
+- reasoning traces carry compiled IR, backend diagnostics, and verification hashes
+- benchmarks make engine behavior measurable instead of merely impressive
+
+The result is a knowledge system that can read, remember, explain, test, replay,
+and publish its own reasoning surface.
 
 ## Quickstart
 
@@ -17,6 +74,83 @@ pip install -e '.[dev]'
 make test
 python main.py
 ```
+
+## Quantum LISP Reasoning Engine
+
+Quantum LISP is the symbolic reasoning layer for QSO-Fabric. It accepts small
+S-expression programs, validates that they stay inside the descriptive calculus,
+compiles them into auditable IR, projects them into QSO fabric patches/overlaps,
+runs selected backend diagnostics, and persists a `reasoning_trace`.
+
+Allowed v1 forms:
+
+- `defintent`
+- `observe`
+- `hypothesis`
+- `entangle`
+- `contradict`
+- `repair`
+- `project`
+- `trust`
+- `algebra`
+- `reason`
+
+Forbidden v1 forms:
+
+- `commit`
+- `measure-state`
+- `clone-state`
+- undeclared `postselect`
+
+Example program:
+
+```lisp
+(defintent demo.intent :priority 0.9 :confidence 0.8 "stabilize reasoning")
+(observe obs.memory :source qso://memory/demo :basis ("claim" "context"))
+(hypothesis hyp.bridge obs.memory)
+(entangle obs.memory hyp.bridge :kind dependency :weight 0.7)
+(project future.bridge :horizon 3 :using (qiskit pennylane cirq itensor))
+(reason :goal demo.intent :return ranked-paths)
+```
+
+Compile a program:
+
+```bash
+qso-qlisp compile path/to/program.qlisp
+```
+
+Analyze and persist a trace:
+
+```bash
+qso-qlisp analyze path/to/program.qlisp --uri qso://quantum.state/my_reasoning_trace
+```
+
+Run the built-in demo:
+
+```bash
+./.venv/bin/python tools/qso_qlisp.py demo
+```
+
+Run reproducible local benchmarks:
+
+```bash
+qso-qlisp-bench --iterations 25
+```
+
+The analysis output includes:
+
+- `compiled_ir`
+- `fabric_report`
+- `backend_reports`
+- `reasoning_paths`
+- `uncertainty_fields`
+- `repair_proposals`
+- `projection_candidates`
+- `verification_hash`
+
+Latest benchmark report:
+
+- [`reports/quantum_lisp_benchmark_latest.md`](reports/quantum_lisp_benchmark_latest.md)
 
 ## Development Automation
 
